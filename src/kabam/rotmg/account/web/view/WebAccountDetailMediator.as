@@ -1,7 +1,6 @@
 package kabam.rotmg.account.web.view
 {
    import kabam.rotmg.account.core.Account;
-   import kabam.rotmg.account.core.signals.SendConfirmEmailSignal;
    import kabam.rotmg.dialogs.control.CloseDialogsSignal;
    import kabam.rotmg.dialogs.control.OpenDialogSignal;
    import robotlegs.bender.bundles.mvcs.Mediator;
@@ -17,9 +16,6 @@ package kabam.rotmg.account.web.view
       public var account:Account;
       
       [Inject]
-      public var verify:SendConfirmEmailSignal;
-      
-      [Inject]
       public var openDialog:OpenDialogSignal;
       
       [Inject]
@@ -32,11 +28,10 @@ package kabam.rotmg.account.web.view
       
       override public function initialize() : void
       {
-         this.view.setUserInfo(this.account.getUserName(),this.account.isVerified());
+         this.view.setUserInfo(this.account.getUserName());
          this.view.change.add(this.onChange);
          this.view.logout.add(this.onLogout);
          this.view.cancel.add(this.onDone);
-         this.view.verify.add(this.onVerify);
       }
       
       override public function destroy() : void
@@ -44,7 +39,6 @@ package kabam.rotmg.account.web.view
          this.view.change.remove(this.onChange);
          this.view.logout.remove(this.onLogout);
          this.view.cancel.remove(this.onDone);
-         this.view.verify.remove(this.onVerify);
       }
       
       private function onChange() : void
@@ -61,11 +55,6 @@ package kabam.rotmg.account.web.view
       private function onDone() : void
       {
          this.closeDialog.dispatch();
-      }
-      
-      private function onVerify() : void
-      {
-         this.verify.dispatch();
       }
    }
 }

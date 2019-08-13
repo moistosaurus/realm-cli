@@ -14,8 +14,6 @@ package com.company.assembleegameclient.screens
    import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.game.view.CreditDisplay;
    import kabam.rotmg.news.view.NewsView;
-   import kabam.rotmg.packages.view.PackageButton;
-   import kabam.rotmg.promotions.view.BeginnersPackageButton;
    import kabam.rotmg.ui.view.components.ScreenBase;
    import org.osflash.signals.Signal;
    import org.osflash.signals.natives.NativeMappedSignal;
@@ -56,13 +54,9 @@ package com.company.assembleegameclient.screens
       
       private var scrollBar:Scrollbar;
       
-      private var packageButton:PackageButton;
-      
       public var close:Signal;
       
       public var showClasses:Signal;
-      
-      public var showBeginnersPackage:Signal;
       
       public var newCharacter:Signal;
       
@@ -70,14 +64,11 @@ package com.company.assembleegameclient.screens
       
       public var playGame:Signal;
       
-      public var beginnersPackageButton:BeginnersPackageButton;
-      
       public function CharacterSelectionAndNewsScreen()
       {
          this.playButton = new TitleMenuOption("play",36,true);
          this.backButton = new TitleMenuOption("main",22,false);
          this.classesButton = new TitleMenuOption("classes",22,false);
-         this.showBeginnersPackage = new Signal();
          this.newCharacter = new Signal();
          this.chooseName = new Signal();
          this.playGame = new Signal();
@@ -252,25 +243,6 @@ package com.company.assembleegameclient.screens
       private function onScrollBarChange(event:Event) : void
       {
          this.characterList.setPos(-this.scrollBar.pos() * (this.characterListHeight - 400));
-      }
-      
-      public function showBeginnersOfferButton() : void
-      {
-         this.beginnersPackageButton = new BeginnersPackageButton();
-         this.beginnersPackageButton.x = 14;
-         this.beginnersPackageButton.y = 40;
-         addChild(this.beginnersPackageButton);
-         this.removeIfAble(this.packageButton);
-      }
-      
-      public function showPackageButton() : void
-      {
-         this.packageButton = new PackageButton();
-         this.packageButton.init();
-         this.packageButton.x = 6;
-         this.packageButton.y = 40;
-         addChild(this.packageButton);
-         this.removeIfAble(this.beginnersPackageButton);
       }
       
       private function removeIfAble(object:DisplayObject) : void

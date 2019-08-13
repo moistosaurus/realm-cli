@@ -7,25 +7,20 @@ package kabam.rotmg.ui.view
    public class NotEnoughGoldDialog extends Dialog
    {
       
-      private static const TEXT:String = "You do not have enough Gold for this item. Would you like to buy Gold?";
+      private static const TEXT:String = "You do not have enough Gold for this item.";
       
       private static const TITLE:String = "Not Enough Gold";
       
       private static const CANCEL:String = "Cancel";
-      
-      private static const BUY_GOLD:String = "Buy Gold";
        
       
       public var cancel:Signal;
       
-      public var buyGold:Signal;
-      
       public function NotEnoughGoldDialog(message:String = "")
       {
          var text:String = message == ""?TEXT:message;
-         super(text,TITLE,CANCEL,BUY_GOLD);
+         super(text,TITLE,CANCEL, null);
          this.cancel = new NativeMappedSignal(this,BUTTON1_EVENT);
-         this.buyGold = new NativeMappedSignal(this,BUTTON2_EVENT);
       }
    }
 }

@@ -10,21 +10,15 @@ package kabam.rotmg.account.web.view
    
    public class WebAccountDetailDialog extends Frame
    {
-       
-      
       public var cancel:Signal;
       
       public var change:Signal;
       
       public var logout:Signal;
       
-      public var verify:Signal;
-      
       private var loginText:SimpleText;
       
       private var emailText:SimpleText;
-      
-      private var verifyEmail:ClickableText;
       
       private var changeText:ClickableText;
       
@@ -39,25 +33,13 @@ package kabam.rotmg.account.web.view
          this.cancel = new NativeMappedSignal(rightButton_,MouseEvent.CLICK);
          this.change = new Signal();
          this.logout = new Signal();
-         this.verify = new Signal();
       }
       
-      public function setUserInfo(email:String, isVerified:Boolean) : void
+      public function setUserInfo(email:String) : void
       {
          this.emailText.text = email;
-         if(!isVerified)
-         {
-            this.makeVerifyEmailText();
-         }
          this.makeChangeText();
          this.makeLogoutText();
-      }
-      
-      private function makeVerifyEmailText() : void
-      {
-         this.verifyEmail = new ClickableText(12,false,"Email not verified.  Click here to resend email.");
-         addNavigationText(this.verifyEmail);
-         this.verifyEmail.addEventListener(MouseEvent.CLICK,this.onVerifyEmail);
       }
       
       private function makeChangeText() : void
@@ -103,12 +85,6 @@ package kabam.rotmg.account.web.view
          this.emailText.y = h_ - 30;
          this.emailText.x = 17;
          addChild(this.emailText);
-      }
-      
-      private function onVerifyEmail(event:MouseEvent) : void
-      {
-         this.verify.dispatch();
-         this.verifyEmail.makeStatic("Sent...");
       }
    }
 }

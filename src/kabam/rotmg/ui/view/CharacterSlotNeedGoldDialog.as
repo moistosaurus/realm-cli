@@ -8,16 +8,11 @@ package kabam.rotmg.ui.view
    public class CharacterSlotNeedGoldDialog extends Sprite
    {
       
-      private static const TEXT:String = "Another character slot costs ${price} Gold.  Would you like to buy Gold?";
+      private static const TEXT:String = "Another character slot costs ${price} Gold. ";
       
       private static const TITLE:String = "Not Enough Gold";
       
       private static const CANCEL:String = "Cancel";
-      
-      private static const BUY_GOLD:String = "Buy Gold";
-       
-      
-      public const buyGold:Signal = new Signal();
       
       public const cancel:Signal = new Signal();
       
@@ -36,24 +31,18 @@ package kabam.rotmg.ui.view
          this.dialog && contains(this.dialog) && removeChild(this.dialog);
          this.makeDialog();
          this.dialog.addEventListener(Dialog.BUTTON1_EVENT,this.onCancel);
-         this.dialog.addEventListener(Dialog.BUTTON2_EVENT,this.onBuyGold);
       }
       
       private function makeDialog() : void
       {
          var text:String = TEXT.replace("${price}",this.price);
-         this.dialog = new Dialog(text,TITLE,CANCEL,BUY_GOLD);
+         this.dialog = new Dialog(text,TITLE,CANCEL,null);
          addChild(this.dialog);
       }
       
       public function onCancel(event:Event) : void
       {
          this.cancel.dispatch();
-      }
-      
-      public function onBuyGold(event:Event) : void
-      {
-         this.buyGold.dispatch();
       }
    }
 }

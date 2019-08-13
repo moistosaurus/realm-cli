@@ -933,13 +933,8 @@ package kabam.rotmg.messaging.impl
          {
             return;
          }
-         var converted:Boolean = false;
-         if(sObj.currency_ == Currency.GOLD)
-         {
-            converted = this.gs_.model.getConverted() || this.player.credits_ > 100 || sObj.price_ > this.player.credits_;
-         }
          trace("Indi: TODO I think this can be switched to a Boolean with no consequences");
-         this.outstandingBuy_ = new OutstandingBuy(sObj.soldObjectInternalName(),sObj.price_,sObj.currency_,converted);
+         this.outstandingBuy_ = new OutstandingBuy(sObj.soldObjectInternalName(),sObj.price_,sObj.currency_);
          var buyMesssage:Buy = this.messages.require(BUY) as Buy;
          buyMesssage.objectId_ = sellableObjectId;
          if(currencyType == Currency.FAME)
@@ -1072,16 +1067,10 @@ package kabam.rotmg.messaging.impl
          hello.gameId_ = this.gameId_;
          hello.guid_ = this.rsaEncrypt(account.getUserId());
          hello.password_ = this.rsaEncrypt(account.getPassword());
-         hello.secret_ = this.rsaEncrypt(account.getSecret());
          hello.keyTime_ = this.keyTime_;
          hello.key_.length = 0;
          this.key_ != null && hello.key_.writeBytes(this.key_);
          hello.mapJSON_ = this.mapJSON_ == null?"":this.mapJSON_;
-         hello.entrytag_ = account.getEntryTag();
-         hello.gameNet = account.gameNetwork();
-         hello.gameNetUserId = account.gameNetworkUserId();
-         hello.playPlatform = account.playPlatform();
-         hello.platformToken = account.getPlatformToken();
          this.serverConnection.sendMessage(hello);
       }
       
@@ -1758,7 +1747,7 @@ package kabam.rotmg.messaging.impl
          var colors:Vector.<uint> = null;
          var speechBalloonvo:AddSpeechBalloonVO = null;
          var textString:String = text.text_;
-         if(text.cleanText_.length > 0 && text.objectId_ != this.playerId_ && Parameters.data_.filterLanguage)
+         if(text.cleanText_.length > 0 && text.objectId_ != this.playerId_)
          {
             textString = text.cleanText_;
          }

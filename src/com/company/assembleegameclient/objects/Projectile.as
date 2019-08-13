@@ -380,43 +380,8 @@ package com.company.assembleegameclient.objects
       
       override public function draw(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
-         var outlineColor:uint = 0;
-         var glowColor:uint = 0;
-         if(!Parameters.drawProj_)
-         {
-            return;
-         }
          var texture:BitmapData = this.texture_;
-         if(Parameters.projColorType_ != 0)
-         {
-            switch(Parameters.projColorType_)
-            {
-               case 1:
-                  outlineColor = 16777100;
-                  glowColor = 16777215;
-                  break;
-               case 2:
-                  outlineColor = 16777100;
-                  glowColor = 16777100;
-                  break;
-               case 3:
-                  outlineColor = 16711680;
-                  glowColor = 16711680;
-                  break;
-               case 4:
-                  outlineColor = 255;
-                  glowColor = 255;
-                  break;
-               case 5:
-                  outlineColor = 16777215;
-                  glowColor = 16777215;
-                  break;
-               case 6:
-                  outlineColor = 0;
-                  glowColor = 0;
-            }
-            texture = TextureRedrawer.redraw(texture,120,true,outlineColor,glowColor);
-         }
+
          var r:Number = this.props_.rotation_ == 0?Number(0):Number(time / this.props_.rotation_);
          this.staticVector3D_.x = x_;
          this.staticVector3D_.y = y_;
@@ -432,10 +397,6 @@ package com.company.assembleegameclient.objects
       
       override public function drawShadow(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
-         if(!Parameters.drawProj_)
-         {
-            return;
-         }
          var s:Number = this.props_.shadowSize_ / 400;
          var w:Number = 30 * s;
          var h:Number = 15 * s;

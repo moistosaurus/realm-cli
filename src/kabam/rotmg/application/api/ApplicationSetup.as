@@ -8,13 +8,7 @@ package kabam.rotmg.application.api
       
       function getAppEngineUrl(param1:Boolean = false) : String;
       
-      function getAnalyticsCode() : String;
-      
       function useLocalTextures() : Boolean;
-      
-      function isToolingEnabled() : Boolean;
-      
-      function areDeveloperHotkeysEnabled() : Boolean;
       
       function isGameLoopMonitored() : Boolean;
       

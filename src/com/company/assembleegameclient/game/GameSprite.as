@@ -38,12 +38,6 @@ package com.company.assembleegameclient.game
    import kabam.rotmg.maploading.signals.ShowMapLoadingSignal;
    import kabam.rotmg.messaging.impl.GameServerConnection;
    import kabam.rotmg.messaging.impl.incoming.MapInfo;
-   import kabam.rotmg.packages.services.Packages;
-   import kabam.rotmg.packages.view.PackageButton;
-   import kabam.rotmg.promotions.model.BeginnersPackageModel;
-   import kabam.rotmg.promotions.signals.ShowBeginnersPackageSignal;
-   import kabam.rotmg.promotions.view.BeginnersPackageButton;
-   import kabam.rotmg.protip.signals.ShowProTipSignal;
    import kabam.rotmg.servers.api.Server;
    import kabam.rotmg.ui.UIUtils;
    import kabam.rotmg.ui.view.HUDView;
@@ -96,16 +90,8 @@ package com.company.assembleegameclient.game
       public var moveRecords_:MoveRecords;
       
       public var mapModel:MapModel;
-      
-      public var beginnersPackageModel:BeginnersPackageModel;
-      
+
       public var model:PlayerModel;
-      
-      public var showBeginnersPackage:ShowBeginnersPackageSignal;
-      
-      public var showPackage:Signal;
-      
-      public var packages:Packages;
       
       private var focus:GameObject;
       
@@ -117,15 +103,10 @@ package com.company.assembleegameclient.game
       
       private var displaysPosY:uint = 4;
       
-      private var currentPackage:DisplayObject;
-      
-      private var packageY:Number;
-      
       public function GameSprite(server:Server, gameId:int, createCharacter:Boolean, charId:int, keyTime:int, key:ByteArray, model:PlayerModel, mapJSON:String)
       {
          this.camera_ = new Camera();
          this.moveRecords_ = new MoveRecords();
-         this.showPackage = new Signal();
          super();
          this.model = model;
          this.map = new Map(this);
@@ -170,66 +151,23 @@ package com.company.assembleegameclient.game
       
       public function initialize() : void
       {
-         var showProTip:ShowProTipSignal = null;
          this.map.initialize();
          this.creditDisplay_ = new CreditDisplay(this);
          this.creditDisplay_.x = 594;
          this.creditDisplay_.y = 0;
          addChild(this.creditDisplay_);
          this.modelInitialized.dispatch();
+
          if(this.map.showDisplays_)
          {
             this.showSafeAreaDisplays();
          }
-         if(this.packages.shouldSpam() && this.map.name_ == Map.NEXUS)
-         {
-            if(this.beginnersPackageModel.isBeginnerAvailable())
-            {
-               this.showBeginnersPackage.dispatch();
-            }
-            else
-            {
-               this.showPackage.dispatch();
-            }
-            this.packages.numSpammed++;
-         }
-         this.isNexus_ = this.map.name_ == Map.NEXUS;
-         var aeClient:AppEngineClient = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
-         var account:Account = StaticInjectorContext.getInjector().getInstance(Account);
-         var params:Object = {
-            "game_net_user_id":account.gameNetworkUserId(),
-            "game_net":account.gameNetwork(),
-            "play_platform":account.playPlatform()
-         };
-         MoreObjectUtil.addToObject(params,account.getCredentials());
-         if(this.map.name_ != "Kitchen" && this.map.name_ != "Tutorial" && this.map.name_ != "Nexus Explanation" && Parameters.data_.watchForTutorialExit == true)
-         {
-            Parameters.data_.watchForTutorialExit = false;
-            this.callTracking("rotmg.Marketing.track(\"tutorialComplete\")");
-            params["fteStepCompleted"] = 9900;
-            aeClient.sendRequest("/log/logFteStep",params);
-         }
-         if(this.map.name_ == "Kitchen")
-         {
-            params["fteStepCompleted"] = 200;
-            aeClient.sendRequest("/log/logFteStep",params);
-         }
+
          if(this.map.name_ == "Tutorial")
          {
-            if(Parameters.data_.needsTutorial == true)
-            {
-               Parameters.data_.watchForTutorialExit = true;
-               this.callTracking("rotmg.Marketing.track(\"install\")");
-               params["fteStepCompleted"] = 100;
-               aeClient.sendRequest("/log/logFteStep",params);
-            }
             this.startTutorial();
          }
-         else if(this.map.name_ != "Kitchen" && this.map.name_ != "Nexus Explanation" && this.map.name_ != "Vault Explanation" && this.map.name_ != "Guild Explanation" && !this.map.showDisplays_ && Parameters.data_.showProtips)
-         {
-            showProTip = StaticInjectorContext.getInjector().getInstance(ShowProTipSignal);
-            showProTip && showProTip.dispatch();
-         }
+
          Parameters.save();
          this.hidePreloader();
       }
@@ -238,7 +176,6 @@ package com.company.assembleegameclient.game
       {
          this.showRankText();
          this.showGuildText();
-         this.setYAndPositionPackage();
          this.showGiftStatusDisplay();
       }
       
@@ -250,39 +187,7 @@ package com.company.assembleegameclient.game
          this.displaysPosY = this.displaysPosY + UIUtils.NOTIFICATION_SPACE;
          addChild(this.giftStatusDisplay);
       }
-      
-      private function setYAndPositionPackage() : void
-      {
-         this.packageY = this.displaysPosY + 2;
-         this.displaysPosY = this.displaysPosY + UIUtils.NOTIFICATION_SPACE;
-         this.positionPackage();
-      }
-      
-      private function positionPackage() : void
-      {
-         this.currentPackage.x = 6;
-         this.currentPackage.y = this.packageY;
-      }
-      
-      public function showBeginnersOfferButton() : void
-      {
-         this.currentPackage = new BeginnersPackageButton();
-         this.addAndPositionPackager();
-      }
-      
-      public function showPackageButton() : void
-      {
-         this.currentPackage = new PackageButton();
-         addChild(this.currentPackage);
-         this.positionPackage();
-      }
-      
-      private function addAndPositionPackager() : void
-      {
-         addChild(this.currentPackage);
-         this.positionPackage();
-      }
-      
+
       private function showGuildText() : void
       {
          this.guildText_ = new GuildText("",-1);

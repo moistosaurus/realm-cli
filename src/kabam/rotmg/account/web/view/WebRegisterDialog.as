@@ -15,10 +15,8 @@ import com.company.util.EmailValidator;
    
    public class WebRegisterDialog extends Frame
    {
-       
-      
       private const CHECK_BOX_TEXT:String = "Sign me up to receive special offers, updates,<br>and early access to Kabam games";
-      
+
       private const TOS_TEXT:String = "By clicking \'Register\', you are indicating that you have<br>read and agreed to the <font color=\"#7777EE\"><a href=\"" + Parameters.TERMS_OF_USE_URL + "\" target=\"_blank\">Terms of Use</a></font> and " + "<font color=\"#7777EE\"><a href=\"" + Parameters.PRIVACY_POLICY_URL + "\" target=\"_blank\">Privacy Policy</a></font>";
       
       private const SIGN_IN_TEXT:String = "Already registered? <font color=\"#7777EE\"><a href=\"event:flash.events.TextEvent\">here</a></font> to sign in!";
@@ -51,10 +49,6 @@ import com.company.util.EmailValidator;
       
       private var retypePasswordInput:LabeledField;
       
-      private var checkbox:CheckBoxField;
-      
-      private var ageVerificationInput:DateField;
-      
       private var signInText:SimpleText;
       
       private var tosText:SimpleText;
@@ -71,16 +65,13 @@ import com.company.util.EmailValidator;
          this.emailInput = new LabeledField("Email",false,275);
          this.passwordInput = new LabeledField("Password",true,275);
          this.retypePasswordInput = new LabeledField("Retype Password",true,275);
-         this.ageVerificationInput = new DateField();
-         this.ageVerificationInput.setTitle("Birthday");
-         this.checkbox = new CheckBoxField(this.CHECK_BOX_TEXT,false,"",12);
-         this.tosText = new SimpleText(12,11776947,0,0);
+         this.tosText = new SimpleText(12,11776947,false,0,0,true);
          this.tosText.setBold(true);
          this.tosText.multiline = true;
          this.tosText.htmlText = this.TOS_TEXT;
          this.tosText.updateMetrics();
          this.tosText.filters = [new DropShadowFilter(0,0,0)];
-         this.signInText = new SimpleText(12,11776947,0,0);
+         this.signInText = new SimpleText(12,11776947,false,0,0,true);
          this.signInText.setBold(true);
          this.signInText.htmlText = this.SIGN_IN_TEXT;
          this.signInText.updateMetrics();
@@ -89,9 +80,7 @@ import com.company.util.EmailValidator;
          addLabeledField(this.emailInput);
          addLabeledField(this.passwordInput);
          addLabeledField(this.retypePasswordInput);
-         addComponent(this.ageVerificationInput,17);
          addSpace(8);
-         addCheckBox(this.checkbox);
          addComponent(this.tosText,14);
          addSpace(8);
          addComponent(this.signInText,14);
@@ -127,34 +116,9 @@ import com.company.util.EmailValidator;
          isValid = this.isEmailValid() && isValid;
          isValid = this.isPasswordValid() && isValid;
          isValid = this.isPasswordVerified() && isValid;
-         isValid = this.isAgeVerified() && isValid;
-         isValid = this.isAgeValid() && isValid;
          return isValid;
       }
-      
-      private function isAgeVerified() : Boolean
-      {
-         var playerAge:uint = DateFieldValidator.getPlayerAge(this.ageVerificationInput);
-         var isValid:Boolean = playerAge >= 13;
-         this.ageVerificationInput.setErrorHighlight(!isValid);
-         if(!isValid)
-         {
-            this.errors.push(this.INELIGIBLE_AGE);
-         }
-         return isValid;
-      }
-      
-      private function isAgeValid() : Boolean
-      {
-         var isValid:Boolean = this.ageVerificationInput.isValidDate();
-         this.ageVerificationInput.setErrorHighlight(!isValid);
-         if(!isValid)
-         {
-            this.errors.push(this.INVALID_BIRTHDATE);
-         }
-         return isValid;
-      }
-      
+
       private function isEmailValid() : Boolean
       {
          var isValid:Boolean = EmailValidator.isValidEmail(this.emailInput.text());
@@ -224,7 +188,6 @@ import com.company.util.EmailValidator;
          var data:AccountData = new AccountData();
          data.username = this.emailInput.text();
          data.password = this.passwordInput.text();
-         data.signedUpKabamEmail = !!this.checkbox.isChecked()?int(1):int(0);
          this.register.dispatch(data);
       }
    }

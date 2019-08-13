@@ -100,7 +100,7 @@ package kabam.rotmg.core.commands
       
       private function showNotEnoughGoldDialog() : void
       {
-         this.openDialog.dispatch(new NotEnoughGoldDialog("This character class costs " + String(this.cost) + " Gold. \n Would you like to buy Gold?"));
+         this.openDialog.dispatch(new NotEnoughGoldDialog("This character class costs " + String(this.cost) + " Gold."));
          this.updateNewCharacterScreen.dispatch();
       }
       

@@ -46,7 +46,6 @@ package kabam.rotmg.account.web.services
       {
          var xml:XML = new XML(response);
          this.account.updateUser(this.data.username,this.data.password);
-         this.account.verify(xml.hasOwnProperty("VerifiedEmail"));
       }
    }
 }

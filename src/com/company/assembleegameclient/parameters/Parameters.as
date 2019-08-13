@@ -17,8 +17,6 @@ package com.company.assembleegameclient.parameters
       
       public static const PORT:int = 2050;
       
-      public static const ALLOW_SCREENSHOT_MODE:Boolean = false;
-      
       public static const FELLOW_GUILD_COLOR:uint = 10944349;
       
       public static const NAME_CHOSEN_COLOR:uint = 16572160;
@@ -44,18 +42,6 @@ package com.company.assembleegameclient.parameters
       public static const GUILD_CREATION_PRICE:int = 1000;
       
       public static var data_:Object = null;
-      
-      public static var blendType_:int = 1;
-      
-      public static var projColorType_:int = 0;
-      
-      public static var drawProj_:Boolean = true;
-      
-      public static var screenShotMode_:Boolean = false;
-      
-      public static var screenShotSlimMode_:Boolean = false;
-      
-      public static var sendLogin_:Boolean = true;
       
       public static const TUTORIAL_GAMEID:int = -1;
       
@@ -93,7 +79,7 @@ package com.company.assembleegameclient.parameters
       {
          try
          {
-            savedOptions_ = SharedObject.getLocal("vAssembleeGameClientOptions","/");
+            savedOptions_ = SharedObject.getLocal("VAssembleeGameClientOptions","/");
             data_ = savedOptions_.data;
          }
          catch(error:Error)
@@ -193,64 +179,20 @@ package com.company.assembleegameclient.parameters
          setDefault("playPewPew",true);
          setDefault("centerOnPlayer",true);
          setDefault("preferredServer",null);
-         setDefault("needsTutorial",true);
-         setDefault("needsRandomRealm",true);
          setDefault("cameraAngle",7 * Math.PI / 4);
          setDefault("defaultCameraAngle",7 * Math.PI / 4);
          setDefault("showQuestPortraits",true);
          setDefault("fullscreenMode",false);
-         setDefault("showProtips",true);
-         setDefault("protipIndex",0);
-         setDefault("joinDate",MoreDateUtil.getDayStringInPT());
-         setDefault("lastDailyAnalytics",null);
          setDefault("allowRotation",false);
          setDefault("charIdUseMap",{});
          setDefault("drawShadows",true);
          setDefault("textBubbles",true);
          setDefault("showTradePopup",true);
          setDefault("paymentMethod",null);
-         setDefault("filterLanguage",true);
          setDefault("showGuildInvitePopup",true);
-         setDefault("showBeginnersOffer",false);
-         setDefault("beginnersOfferTimeLeft",0);
-         setDefault("beginnersOfferShowNow",false);
-         setDefault("beginnersOfferShowNowTime",0);
-         setDefault("watchForTutorialExit",false);
          setDefault("contextualClick",true);
-         setDefault("clickForGold",false);
          setDefault("contextualPotionBuy",true);
          setDefault("inventorySwap",true);
-         if(!data_.hasOwnProperty("needsSurvey"))
-         {
-            data_.needsSurvey = data_.needsTutorial;
-            switch(int(Math.random() * 5))
-            {
-               case 0:
-                  data_.surveyDate = 0;
-                  data_.playTimeLeftTillSurvey = 5 * 60;
-                  data_.surveyGroup = "5MinPlaytime";
-                  break;
-               case 1:
-                  data_.surveyDate = 0;
-                  data_.playTimeLeftTillSurvey = 10 * 60;
-                  data_.surveyGroup = "10MinPlaytime";
-                  break;
-               case 2:
-                  data_.surveyDate = 0;
-                  data_.playTimeLeftTillSurvey = 30 * 60;
-                  data_.surveyGroup = "30MinPlaytime";
-                  break;
-               case 3:
-                  data_.surveyDate = new Date().time + 1000 * 60 * 60 * 24 * 7;
-                  data_.playTimeLeftTillSurvey = 2 * 60;
-                  data_.surveyGroup = "1WeekRealtime";
-                  break;
-               case 4:
-                  data_.surveyDate = new Date().time + 1000 * 60 * 60 * 24 * 14;
-                  data_.playTimeLeftTillSurvey = 2 * 60;
-                  data_.surveyGroup = "2WeekRealtime";
-            }
-         }
       }
    }
 }

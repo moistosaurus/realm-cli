@@ -88,8 +88,6 @@ package com.company.assembleegameclient.game
       
       private var layers:Layers;
       
-      private var areFKeysAvailable:Boolean;
-      
       public function MapUserInput(gs:GameSprite)
       {
          super();
@@ -108,7 +106,6 @@ package com.company.assembleegameclient.game
          this.tabStripModel = injector.getInstance(TabStripModel);
          this.layers = injector.getInstance(Layers);
          var setup:ApplicationSetup = injector.getInstance(ApplicationSetup);
-         this.areFKeysAvailable = setup.areDeveloperHotkeysEnabled();
       }
       
       public function clearInput() : void
@@ -401,66 +398,6 @@ package com.company.assembleegameclient.game
                   stage.displayState = Boolean(Parameters.data_.fullscreenMode)?"fullScreenInteractive":StageDisplayState.NORMAL;
                }
                break;
-            case Parameters.data_.testOne:
-               break;
-            case Parameters.data_.testTwo:
-         }
-         if(Parameters.ALLOW_SCREENSHOT_MODE)
-         {
-            switch(event.keyCode)
-            {
-               case KeyCodes.F2:
-                  this.toggleScreenShotMode();
-                  break;
-               case KeyCodes.F3:
-                  Parameters.screenShotSlimMode_ = !Parameters.screenShotSlimMode_;
-                  break;
-               case KeyCodes.F4:
-                  this.gs_.map.mapOverlay_.visible = !this.gs_.map.mapOverlay_.visible;
-                  this.gs_.map.partyOverlay_.visible = !this.gs_.map.partyOverlay_.visible;
-            }
-         }
-         if(this.areFKeysAvailable)
-         {
-            switch(event.keyCode)
-            {
-               case KeyCodes.F6:
-                  TextureRedrawer.clearCache();
-                  Parameters.projColorType_ = (Parameters.projColorType_ + 1) % 7;
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.ERROR_CHAT_NAME,"Projectile Color Type: " + Parameters.projColorType_));
-                  break;
-               case KeyCodes.F7:
-                  for each(square in this.gs_.map.squares_)
-                  {
-                     if(square != null)
-                     {
-                        square.faces_.length = 0;
-                     }
-                  }
-                  Parameters.blendType_ = (Parameters.blendType_ + 1) % 2;
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.CLIENT_CHAT_NAME,"Blend type: " + Parameters.blendType_));
-                  break;
-               case KeyCodes.F8:
-                  Parameters.data_.surveyDate = 0;
-                  Parameters.data_.needsSurvey = true;
-                  Parameters.data_.playTimeLeftTillSurvey = 5;
-                  Parameters.data_.surveyGroup = "testing";
-                  break;
-               case KeyCodes.F9:
-                  Parameters.drawProj_ = !Parameters.drawProj_;
-                  break;
-               case KeyCodes.F12:
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.SERVER_CHAT_NAME,"Server Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.CLIENT_CHAT_NAME,"Client Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.HELP_CHAT_NAME,"Help Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO(Parameters.ERROR_CHAT_NAME,"Error Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO("#Enemy Name","Enemy Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO("@Admin","Admin Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO("Player","Player Chat"));
-                  this.addTextLine.dispatch(new AddTextLineVO("Player","Tell from another Player",-1,0,"Crunchy"));
-                  this.addTextLine.dispatch(new AddTextLineVO("Crunchy","Tell to another Player",-1,0,"Player"));
-                  this.addTextLine.dispatch(new AddTextLineVO("Crunchy","Guild Chat",-1,0,Parameters.GUILD_CHAT_NAME));
-            }
          }
          this.setPlayerMovement();
       }
@@ -536,21 +473,6 @@ package com.company.assembleegameclient.game
             this.gs_.gsc_.enableJitterWatcher();
             this.gs_.gsc_.jitterWatcher_.y = stats_.height;
             this.gs_.addChild(this.gs_.gsc_.jitterWatcher_);
-         }
-      }
-      
-      private function toggleScreenShotMode() : void
-      {
-         Parameters.screenShotMode_ = !Parameters.screenShotMode_;
-         if(Parameters.screenShotMode_)
-         {
-            this.gs_.hudView.visible = false;
-            this.setTextBoxVisibility.dispatch(false);
-         }
-         else
-         {
-            this.gs_.hudView.visible = true;
-            this.setTextBoxVisibility.dispatch(true);
          }
       }
    }

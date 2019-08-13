@@ -50,7 +50,6 @@ package kabam.rotmg.account.core.services
          this.logger.info("GetUserDataTask start");
          this.requestData = this.makeRequestData();
          this.sendRequest();
-         Parameters.sendLogin_ = false;
       }
       
       private function sendRequest() : void
@@ -74,10 +73,6 @@ package kabam.rotmg.account.core.services
       public function makeRequestData() : Object
       {
          var params:Object = {};
-         params.game_net_user_id = this.account.gameNetworkUserId();
-         params.game_net = this.account.gameNetwork();
-         params.play_platform = this.account.playPlatform();
-         params.do_login = Parameters.sendLogin_;
          MoreObjectUtil.addToObject(params,this.account.getCredentials());
          return params;
       }

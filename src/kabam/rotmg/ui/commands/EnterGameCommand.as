@@ -9,7 +9,6 @@ package kabam.rotmg.ui.commands
    import kabam.rotmg.game.signals.PlayGameSignal;
    import kabam.rotmg.servers.api.ServerModel;
    import kabam.rotmg.ui.noservers.NoServersDialogFactory;
-   import kabam.rotmg.ui.view.AgeVerificationDialog;
    
    public class EnterGameCommand
    {
@@ -49,10 +48,6 @@ package kabam.rotmg.ui.commands
          {
             this.launchGame();
          }
-         else if(!this.model.getIsAgeVerified())
-         {
-            this.showAgeVerificationDialog();
-         }
          else if(!this.servers.isServerAvailable())
          {
             this.showNoServersDialog();
@@ -81,11 +76,6 @@ package kabam.rotmg.ui.commands
          data.keyTime = -1;
          data.isNewGame = true;
          return data;
-      }
-      
-      private function showAgeVerificationDialog() : void
-      {
-         this.openDialog.dispatch(new AgeVerificationDialog());
       }
       
       private function showNoServersDialog() : void

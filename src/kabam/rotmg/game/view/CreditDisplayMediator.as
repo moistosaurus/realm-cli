@@ -1,6 +1,5 @@
 package kabam.rotmg.game.view
 {
-   import kabam.rotmg.account.core.signals.OpenMoneyWindowSignal;
    import kabam.rotmg.core.model.PlayerModel;
    import robotlegs.bender.bundles.mvcs.Mediator;
    
@@ -14,9 +13,6 @@ package kabam.rotmg.game.view
       [Inject]
       public var model:PlayerModel;
       
-      [Inject]
-      public var openMoneyWindow:OpenMoneyWindowSignal;
-      
       public function CreditDisplayMediator()
       {
          super();
@@ -26,7 +22,6 @@ package kabam.rotmg.game.view
       {
          this.model.creditsChanged.add(this.onCreditsChanged);
          this.model.fameChanged.add(this.onFameChanged);
-         this.view.openAccountDialog.add(this.onOpenAccountDialog);
          this.view.draw(this.model.getCredits(),this.model.getFame());
       }
       
@@ -34,7 +29,6 @@ package kabam.rotmg.game.view
       {
          this.model.creditsChanged.remove(this.onCreditsChanged);
          this.model.fameChanged.remove(this.onFameChanged);
-         this.view.openAccountDialog.remove(this.onOpenAccountDialog);
       }
       
       private function onCreditsChanged(credits:int) : void
@@ -45,11 +39,6 @@ package kabam.rotmg.game.view
       private function onFameChanged(fame:int) : void
       {
          this.view.draw(this.model.getCredits(),fame);
-      }
-      
-      private function onOpenAccountDialog() : void
-      {
-         this.openMoneyWindow.dispatch();
       }
    }
 }

@@ -3,7 +3,6 @@ package kabam.rotmg.core.view
    import flash.display.DisplayObject;
    import flash.display.DisplayObjectContainer;
    import flash.display.Sprite;
-   import kabam.lib.console.view.ConsoleView;
    import kabam.rotmg.dialogs.view.DialogsView;
    import kabam.rotmg.tooltips.view.TooltipsView;
    
@@ -34,11 +33,6 @@ package kabam.rotmg.core.view
          addChild(this.tooltips = new TooltipsView());
          addChild(this.dialogs = new DialogsView());
          addChild(this.api = new Sprite());
-      }
-      
-      public function addConsole() : void
-      {
-         this.console = this.console || addChild(this.console = new ConsoleView());
       }
    }
 }

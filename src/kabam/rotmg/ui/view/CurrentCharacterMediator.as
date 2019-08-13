@@ -9,10 +9,6 @@ package kabam.rotmg.ui.view
    import kabam.rotmg.core.signals.SetScreenSignal;
    import kabam.rotmg.game.model.GameInitData;
    import kabam.rotmg.game.signals.PlayGameSignal;
-   import kabam.rotmg.packages.control.BeginnersPackageAvailableSignal;
-   import kabam.rotmg.packages.control.InitPackagesSignal;
-   import kabam.rotmg.packages.control.PackageAvailableSignal;
-   import kabam.rotmg.promotions.model.BeginnersPackageModel;
    import kabam.rotmg.ui.signals.ChooseNameSignal;
    import kabam.rotmg.ui.signals.NameChangedSignal;
    import robotlegs.bender.bundles.mvcs.Mediator;
@@ -39,18 +35,6 @@ package kabam.rotmg.ui.view
       [Inject]
       public var nameChanged:NameChangedSignal;
       
-      [Inject]
-      public var initPackages:InitPackagesSignal;
-      
-      [Inject]
-      public var beginnersPackageAvailable:BeginnersPackageAvailableSignal;
-      
-      [Inject]
-      public var packageAvailable:PackageAvailableSignal;
-      
-      [Inject]
-      public var beginnerModel:BeginnersPackageModel;
-      
       public function CurrentCharacterMediator()
       {
          super();
@@ -65,25 +49,11 @@ package kabam.rotmg.ui.view
          this.view.playGame.add(this.onPlayGame);
          this.view.initialize(this.playerModel);
          this.nameChanged.add(this.onNameChanged);
-         this.beginnersPackageAvailable.add(this.onBeginner);
-         this.packageAvailable.add(this.onPackage);
-         this.initPackages.dispatch();
       }
-      
-      private function onPackage() : void
-      {
-         this.view.showPackageButton();
-      }
-      
-      private function onBeginner() : void
-      {
-         this.view.showBeginnersOfferButton();
-      }
-      
+
       override public function destroy() : void
       {
          this.nameChanged.remove(this.onNameChanged);
-         this.beginnersPackageAvailable.remove(this.onBeginner);
          this.view.close.remove(this.onClose);
          this.view.newCharacter.remove(this.onNewCharacter);
          this.view.chooseName.remove(this.onChooseName);

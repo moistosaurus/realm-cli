@@ -83,10 +83,6 @@ package com.company.assembleegameclient.util
       {
          var sig:ByteArray = null;
          var newBitmapData:BitmapData = null;
-         if(Parameters.blendType_ == 0)
-         {
-            return null;
-         }
          if(square.tileType_ == 253)
          {
             sig = getCompositeSig(square);
@@ -103,7 +99,7 @@ package com.company.assembleegameclient.util
          {
             return null;
          }
-         var dict:Object = cache_[Parameters.blendType_];
+         var dict:Object = cache_[1];
          if(dict.hasOwnProperty(sig))
          {
             return dict[sig];

@@ -10,15 +10,12 @@ package kabam.rotmg.messaging.impl
       
       private var currency_:int;
       
-      private var converted_:Boolean;
-      
-      function OutstandingBuy(id:String, price:int, currency:int, converted:Boolean)
+      function OutstandingBuy(id:String, price:int, currency:int)
       {
          super();
          this.id_ = id;
          this.price_ = price;
          this.currency_ = currency;
-         this.converted_ = converted;
       }
    }
 }

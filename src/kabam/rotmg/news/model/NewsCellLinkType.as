@@ -5,14 +5,8 @@ package kabam.rotmg.news.model
       
       public static const OPENS_LINK:NewsCellLinkType = new NewsCellLinkType(1);
       
-      public static const OPENS_PACKAGE:NewsCellLinkType = new NewsCellLinkType(2);
-      
-      public static const OPENS_SKIN:NewsCellLinkType = new NewsCellLinkType(3);
-      
       private static const types:Object = {
-         1:OPENS_LINK,
-         2:OPENS_PACKAGE,
-         3:OPENS_SKIN
+         1:OPENS_LINK
       };
        
       

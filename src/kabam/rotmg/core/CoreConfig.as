@@ -6,7 +6,6 @@ package kabam.rotmg.core
    import kabam.lib.tasks.TaskMonitor;
    import kabam.rotmg.account.core.signals.CharListDataSignal;
    import kabam.rotmg.application.api.ApplicationSetup;
-   import kabam.rotmg.core.commands.ConfigurePaymentsWindowCommand;
    import kabam.rotmg.core.commands.InvalidateDataCommand;
    import kabam.rotmg.core.commands.PurchaseCharacterCommand;
    import kabam.rotmg.core.commands.SetScreenWithValidDataCommand;
@@ -98,7 +97,6 @@ package kabam.rotmg.core
          this.commandMap.map(InvalidateDataSignal).toCommand(InvalidateDataCommand);
          this.commandMap.map(SetScreenWithValidDataSignal).toCommand(SetScreenWithValidDataCommand);
          this.commandMap.map(PurchaseCharacterSignal).toCommand(PurchaseCharacterCommand);
-         this.commandMap.map(AppInitDataReceivedSignal).toCommand(ConfigurePaymentsWindowCommand);
          this.commandMap.map(CharListDataSignal).toCommand(UpdatePlayerModelCommand);
       }
       
@@ -132,10 +130,6 @@ package kabam.rotmg.core
       {
          this.mediatorMap.mediate(this.contextView);
          this.layers = new Layers();
-         if(this.setup.isToolingEnabled())
-         {
-            this.layers.addConsole();
-         }
          this.injector.map(Layers).toValue(this.layers);
          this.contextView.addChild(this.layers);
       }

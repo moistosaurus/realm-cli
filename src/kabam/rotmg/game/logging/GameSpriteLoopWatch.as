@@ -1,12 +1,8 @@
 package kabam.rotmg.game.logging
 {
-   import kabam.lib.console.model.Watch;
-   
-   public class GameSpriteLoopWatch extends Watch
+
+public class GameSpriteLoopWatch
    {
-      
-      private static const WATCH_PATTERN:String = "[{NAME}] [0x33FF33:{/x {MEAN}ms (min {MIN}ms, max {MAX}ms)]";
-      
       private static const COUNT:int = 10;
        
       
@@ -24,9 +20,8 @@ package kabam.rotmg.game.logging
       
       public var min:int;
       
-      public function GameSpriteLoopWatch(name:String)
+      public function GameSpriteLoopWatch()
       {
-         super(name);
          this.times = new Vector.<int>(COUNT,true);
          this.index = 0;
          this.rollingTotal = 0;
@@ -62,7 +57,6 @@ package kabam.rotmg.game.logging
          {
             this.min = time;
          }
-         data = WATCH_PATTERN.replace("{NAME}",name).replace("{MEAN}",this.mean).replace("{MIN}",this.min).replace("{MAX}",this.max);
       }
    }
 }

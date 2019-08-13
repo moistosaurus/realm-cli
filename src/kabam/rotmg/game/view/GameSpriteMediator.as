@@ -15,14 +15,6 @@ package kabam.rotmg.game.view
    import kabam.rotmg.game.signals.GameClosedSignal;
    import kabam.rotmg.game.signals.PlayGameSignal;
    import kabam.rotmg.game.signals.SetWorldInteractionSignal;
-   import kabam.rotmg.packages.control.BeginnersPackageAvailableSignal;
-   import kabam.rotmg.packages.control.InitPackagesSignal;
-   import kabam.rotmg.packages.control.OpenPackageSignal;
-   import kabam.rotmg.packages.control.PackageAvailableSignal;
-   import kabam.rotmg.packages.model.PackageModel;
-   import kabam.rotmg.packages.services.Packages;
-   import kabam.rotmg.promotions.model.BeginnersPackageModel;
-   import kabam.rotmg.promotions.signals.ShowBeginnersPackageSignal;
    import kabam.rotmg.ui.signals.HUDModelInitialized;
    import kabam.rotmg.ui.signals.HUDSetupStarted;
    import kabam.rotmg.ui.signals.UpdateHUDSignal;
@@ -60,9 +52,6 @@ package kabam.rotmg.game.view
       public var mapModel:MapModel;
       
       [Inject]
-      public var beginnersPackageModel:BeginnersPackageModel;
-      
-      [Inject]
       public var closeDialogs:CloseDialogsSignal;
       
       [Inject]
@@ -80,24 +69,6 @@ package kabam.rotmg.game.view
       [Inject]
       public var hudModelInitialized:HUDModelInitialized;
       
-      [Inject]
-      public var beginnersPackageAvailable:BeginnersPackageAvailableSignal;
-      
-      [Inject]
-      public var packageAvailable:PackageAvailableSignal;
-      
-      [Inject]
-      public var initPackages:InitPackagesSignal;
-      
-      [Inject]
-      public var showBeginnersPackage:ShowBeginnersPackageSignal;
-      
-      [Inject]
-      public var packages:Packages;
-      
-      [Inject]
-      public var openPackageSignal:OpenPackageSignal;
-      
       public function GameSpriteMediator()
       {
          super();
@@ -105,7 +76,6 @@ package kabam.rotmg.game.view
       
       override public function initialize() : void
       {
-         this.view.packages = this.packages;
          this.setWorldInteraction.add(this.onSetWorldInteraction);
          addViewListener(ReconnectEvent.RECONNECT,this.onReconnect);
          this.view.modelInitialized.add(this.onGameSpriteModelInitialized);
@@ -115,32 +85,17 @@ package kabam.rotmg.game.view
          this.view.monitor.add(this.onMonitor);
          this.view.closed.add(this.onClosed);
          this.view.mapModel = this.mapModel;
-         this.view.beginnersPackageModel = this.beginnersPackageModel;
          this.view.connect();
-         this.view.showBeginnersPackage = this.showBeginnersPackage;
-         this.view.showPackage.add(this.onShowPackage);
       }
-      
-      private function onShowPackage() : void
-      {
-         var model:PackageModel = this.packages.getPriorityPackage();
-         if(model)
-         {
-            this.openPackageSignal.dispatch(model.packageID);
-         }
-      }
-      
+
       override public function destroy() : void
       {
-         this.view.showPackage.remove(this.onShowPackage);
          this.setWorldInteraction.remove(this.onSetWorldInteraction);
          removeViewListener(ReconnectEvent.RECONNECT,this.onReconnect);
          this.view.modelInitialized.remove(this.onGameSpriteModelInitialized);
          this.view.drawCharacterWindow.remove(this.onStatusPanelDraw);
          this.hudModelInitialized.remove(this.onHUDModelInitialized);
          this.disconnect.remove(this.onDisconnect);
-         this.beginnersPackageAvailable.remove(this.onBeginner);
-         this.packageAvailable.remove(this.onPackage);
          this.view.closed.remove(this.onClosed);
          this.view.monitor.remove(this.onMonitor);
          this.view.disconnect();
@@ -186,19 +141,6 @@ package kabam.rotmg.game.view
       private function onGameSpriteModelInitialized() : void
       {
          this.hudSetupStarted.dispatch(this.view);
-         this.beginnersPackageAvailable.add(this.onBeginner);
-         this.packageAvailable.add(this.onPackage);
-         this.initPackages.dispatch();
-      }
-      
-      private function onBeginner() : void
-      {
-         this.view.showBeginnersOfferButton();
-      }
-      
-      private function onPackage() : void
-      {
-         this.view.showPackageButton();
       }
       
       private function onStatusPanelDraw(player:Player) : void

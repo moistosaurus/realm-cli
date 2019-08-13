@@ -991,7 +991,7 @@ package com.company.assembleegameclient.objects
          graphicsData.push(this.bitmapFill_);
          graphicsData.push(this.path_);
          graphicsData.push(GraphicsUtil.END_FILL);
-         if(!this.isPaused() && this.condition_ && !Parameters.screenShotMode_)
+         if(!this.isPaused() && this.condition_)
          {
             this.drawConditionIcons(graphicsData,camera,time);
          }

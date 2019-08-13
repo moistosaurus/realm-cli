@@ -86,8 +86,6 @@ package com.company.assembleegameclient.tutorial
          g.beginFill(0,0.1);
          g.drawRect(0,0,800,600);
          g.endFill();
-         Parameters.data_.needsTutorial = false;
-         Parameters.save();
          addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
          addEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
       }

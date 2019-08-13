@@ -751,10 +751,7 @@ package com.company.assembleegameclient.objects
          super.draw(graphicsData,camera,time);
          if(this != map_.player_)
          {
-            if(!Parameters.screenShotMode_)
-            {
-               drawName(graphicsData,camera);
-            }
+            drawName(graphicsData,camera);
          }
          else if(this.breath_ >= 0)
          {

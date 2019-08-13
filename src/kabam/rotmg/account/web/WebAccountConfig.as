@@ -5,10 +5,7 @@ package kabam.rotmg.account.web
    import kabam.rotmg.account.core.services.ChangePasswordTask;
    import kabam.rotmg.account.core.services.LoadAccountTask;
    import kabam.rotmg.account.core.services.LoginTask;
-   import kabam.rotmg.account.core.services.MakePaymentTask;
-   import kabam.rotmg.account.core.services.PurchaseGoldTask;
    import kabam.rotmg.account.core.services.RegisterAccountTask;
-   import kabam.rotmg.account.core.services.SendConfirmEmailAddressTask;
    import kabam.rotmg.account.core.services.SendPasswordReminderTask;
    import kabam.rotmg.account.core.signals.CharListDataSignal;
    import kabam.rotmg.account.core.signals.LoginSignal;
@@ -22,16 +19,11 @@ package kabam.rotmg.account.web
    import kabam.rotmg.account.web.commands.WebOpenAccountInfoCommand;
    import kabam.rotmg.account.web.commands.WebRegisterAccountCommand;
    import kabam.rotmg.account.web.commands.WebSendPasswordReminderCommand;
-   import kabam.rotmg.account.web.commands.WebSetPaymentDataCommand;
-   import kabam.rotmg.account.web.model.WebMoneyConfig;
    import kabam.rotmg.account.web.services.WebChangePasswordTask;
    import kabam.rotmg.account.web.services.WebLoadAccountTask;
    import kabam.rotmg.account.web.services.WebLoginTask;
-   import kabam.rotmg.account.web.services.WebMakePaymentTask;
-   import kabam.rotmg.account.web.services.WebPurchaseGoldTask;
    import kabam.rotmg.account.web.services.WebRegisterAccountTask;
    import kabam.rotmg.account.web.services.WebSendPasswordReminderTask;
-   import kabam.rotmg.account.web.services.WebSendVerificationEmailTask;
    import kabam.rotmg.account.web.signals.WebChangePasswordSignal;
    import kabam.rotmg.account.web.view.WebAccountDetailDialog;
    import kabam.rotmg.account.web.view.WebAccountDetailMediator;
@@ -79,7 +71,6 @@ package kabam.rotmg.account.web
       protected function mapModel() : void
       {
          this.injector.map(Account).toSingleton(WebAccount);
-         this.injector.map(MoneyConfig).toSingleton(WebMoneyConfig);
       }
       
       protected function mapCommands() : void
@@ -90,7 +81,6 @@ package kabam.rotmg.account.web
          this.commandMap.map(WebChangePasswordSignal).toCommand(WebChangePasswordCommand);
          this.commandMap.map(SendPasswordReminderSignal).toCommand(WebSendPasswordReminderCommand);
          this.commandMap.map(RegisterSignal).toCommand(WebRegisterAccountCommand);
-         this.commandMap.map(CharListDataSignal).toCommand(WebSetPaymentDataCommand);
       }
       
       protected function mapMediators() : void
@@ -108,11 +98,8 @@ package kabam.rotmg.account.web
          this.injector.map(ChangePasswordTask).toType(WebChangePasswordTask);
          this.injector.map(LoadAccountTask).toType(WebLoadAccountTask);
          this.injector.map(LoginTask).toType(WebLoginTask);
-         this.injector.map(MakePaymentTask).toType(WebMakePaymentTask);
-         this.injector.map(PurchaseGoldTask).toType(WebPurchaseGoldTask);
          this.injector.map(RegisterAccountTask).toType(WebRegisterAccountTask);
          this.injector.map(SendPasswordReminderTask).toType(WebSendPasswordReminderTask);
-         this.injector.map(SendConfirmEmailAddressTask).toType(WebSendVerificationEmailTask);
       }
    }
 }

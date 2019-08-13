@@ -243,7 +243,6 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new KeyMapper("toggleCentering","Toggle Centering of Player","This key will toggle the position between centered and " + "offset"));
          this.addOption(new KeyMapper("interact","Interact/Buy","This key will allow you to enter a portal or buy an item"));
          this.addOption(new ChoiceOption("contextualClick",new <String>["On","Off"],[true,false],"Contextual Click","Toggle the contextual click functionality",null));
-         this.addOption(new ChoiceOption("clickForGold",new <String>["On","Off"],[true,false],"Double Click for Gold","Double clicking on gold/fame while in a Realm will open the payments screen",null));
          this.addOption(new ChoiceOption("contextualPotionBuy",new <String>["On","Off"],[true,false],"Contextual Potion Buy","Toggle the contextual potion buying functionality",null));
       }
       
@@ -293,7 +292,6 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new KeyMapper("chatCommand","Start Chat Command","This key will bring up the chat with a \'/\' prepended to " + "allow for commands such as /who, /ignore, etc."));
          this.addOption(new KeyMapper("tell","Begin Tell","This key will bring up a tell (private message) in the chat" + " input box"));
          this.addOption(new KeyMapper("guildChat","Begin Guild Chat","This key will bring up a guild chat in the chat" + " input box"));
-         this.addOption(new ChoiceOption("filterLanguage",new <String>["On","Off"],[true,false],"Filter Offensive Language","This toggles whether offensive language filtering will be attempted",null));
          this.addOption(new KeyMapper("scrollChatUp","Scroll Chat Up","This key will scroll up to older messages in the chat " + "buffer"));
          this.addOption(new KeyMapper("scrollChatDown","Scroll Chat Down","This key will scroll down to newer messages in the chat " + "buffer"));
       }
@@ -303,7 +301,6 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new ChoiceOption("defaultCameraAngle",new <String>["45°","0°"],[7 * Math.PI / 4,0],"Default Camera Angle","This toggles the default camera angle",this.onDefaultCameraAngleChange));
          this.addOption(new ChoiceOption("centerOnPlayer",new <String>["On","Off"],[true,false],"Center On Player","This toggles whether the player is centered or offset",null));
          this.addOption(new ChoiceOption("showQuestPortraits",new <String>["On","Off"],[true,false],"Show Quest Portraits","This toggles whether quest portraits are displayed",this.onShowQuestPortraitsChange));
-         this.addOption(new ChoiceOption("showProtips",new <String>["On","Off"],[true,false],"Show Tips","This toggles whether a tip is displayed when you join a " + "new game",null));
          this.addOption(new ChoiceOption("drawShadows",new <String>["On","Off"],[true,false],"Draw Shadows","This toggles whether to draw shadows",null));
          this.addOption(new ChoiceOption("textBubbles",new <String>["On","Off"],[true,false],"Draw Text Bubbles","This toggles whether to draw text bubbles",null));
          this.addOption(new ChoiceOption("showTradePopup",new <String>["On","Off"],[true,false],"Show Trade Request Panel","This toggles whether to show trade requests in the " + "lower-right panel or just in chat.",null));

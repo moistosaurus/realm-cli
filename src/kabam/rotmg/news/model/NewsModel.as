@@ -48,7 +48,7 @@ package kabam.rotmg.news.model
          var newsObject:NewsCellVO = null;
          for each(newsObject in incoming)
          {
-            if(this.isNewsTimely(newsObject) && this.isValidForPlatform(newsObject))
+            if(this.isNewsTimely(newsObject))
             {
                this.prioritize(newsObject);
             }
@@ -74,12 +74,6 @@ package kabam.rotmg.news.model
       {
          var now:Number = new Date().getTime();
          return newsObject.startDate < now && now < newsObject.endDate;
-      }
-      
-      private function isValidForPlatform(newsObject:NewsCellVO) : Boolean
-      {
-         var network:String = this.account.gameNetwork();
-         return newsObject.networks.indexOf(network) != -1;
       }
    }
 }

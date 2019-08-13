@@ -51,14 +51,7 @@ package kabam.rotmg.death.control
          this.logger.info("Handle Normal Death");
          this.disconnect.dispatch();
          this.fameVO = new SimpleFameVO(this.death.accountId_,this.death.charId_);
-         this.updateParameters();
          this.gotoFameView();
-      }
-      
-      private function updateParameters() : void
-      {
-         Parameters.data_.needsRandomRealm = false;
-         Parameters.save();
       }
       
       private function gotoFameView() : void

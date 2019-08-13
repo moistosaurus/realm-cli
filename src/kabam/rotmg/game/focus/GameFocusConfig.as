@@ -1,8 +1,6 @@
 package kabam.rotmg.game.focus
 {
    import com.company.assembleegameclient.game.GameSprite;
-   import kabam.rotmg.game.focus.control.AddGameFocusConsoleActionCommand;
-   import kabam.rotmg.game.focus.control.AddGameFocusConsoleActionSignal;
    import kabam.rotmg.game.focus.control.SetGameFocusSignal;
    import kabam.rotmg.game.focus.view.GameFocusMediator;
    import org.osflash.signals.Signal;
@@ -36,14 +34,7 @@ package kabam.rotmg.game.focus
       public function configure() : void
       {
          this.injector.map(SetGameFocusSignal).asSingleton();
-         this.commandMap.map(AddGameFocusConsoleActionSignal).toCommand(AddGameFocusConsoleActionCommand);
          this.mediatorMap.map(GameSprite).toMediator(GameFocusMediator);
-         this.context.lifecycle.afterInitializing(this.init);
-      }
-      
-      private function init() : void
-      {
-         Signal(this.injector.getInstance(AddGameFocusConsoleActionSignal)).dispatch();
       }
    }
 }

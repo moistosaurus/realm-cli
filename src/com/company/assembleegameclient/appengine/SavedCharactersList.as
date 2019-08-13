@@ -4,7 +4,6 @@ package com.company.assembleegameclient.appengine
    import flash.events.Event;
    import kabam.rotmg.account.core.Account;
    import kabam.rotmg.core.StaticInjectorContext;
-   import kabam.rotmg.promotions.model.BeginnersPackageModel;
    import kabam.rotmg.servers.api.LatLong;
    import org.swiftsuspenders.Injector;
    
@@ -56,8 +55,6 @@ package com.company.assembleegameclient.appengine
       
       public var nameChosen_:Boolean;
       
-      public var converted_:Boolean;
-      
       public var isAdmin_:Boolean;
       
       public var news_:Vector.<SavedNewsItem>;
@@ -67,8 +64,6 @@ package com.company.assembleegameclient.appengine
       public var hasPlayerDied:Boolean = false;
       
       public var classAvailability:Object;
-      
-      public var isAgeVerified:Boolean;
       
       private var account:Account;
       
@@ -84,7 +79,6 @@ package com.company.assembleegameclient.appengine
          this.charsXML_ = new XML(this.origData_);
          var accountXML:XML = XML(this.charsXML_.Account);
          this.parseUserData(accountXML);
-         this.parseBeginnersPackageData(accountXML);
          this.parseGuildData(accountXML);
          this.parseCharacterData();
          this.parseCharacterStatsData();
@@ -124,35 +118,14 @@ package com.company.assembleegameclient.appengine
          this.accountId_ = accountXML.AccountId;
          this.name_ = accountXML.Name;
          this.nameChosen_ = accountXML.hasOwnProperty("NameChosen");
-         this.converted_ = accountXML.hasOwnProperty("Converted");
          this.isAdmin_ = accountXML.hasOwnProperty("Admin");
          this.totalFame_ = int(accountXML.Stats.TotalFame);
          this.fame_ = int(accountXML.Stats.Fame);
          this.credits_ = int(accountXML.Credits);
          this.nextCharSlotPrice_ = int(accountXML.NextCharSlotPrice);
-         this.isAgeVerified = this.accountId_ != 0 && accountXML.IsAgeVerified == 1;
          this.hasPlayerDied = !accountXML.hasOwnProperty("isFirstDeath");
       }
-      
-      private function parseBeginnersPackageData(accountXML:XML) : void
-      {
-         var time:Number = NaN;
-         var beginnerModel:BeginnersPackageModel = null;
-         if(accountXML.hasOwnProperty("BeginnerPackageTimeLeft"))
-         {
-            time = accountXML.BeginnerPackageTimeLeft;
-            beginnerModel = this.getBeginnerModel();
-            beginnerModel.setBeginnersOfferSecondsLeft(time);
-         }
-      }
-      
-      private function getBeginnerModel() : BeginnersPackageModel
-      {
-         var injector:Injector = StaticInjectorContext.getInjector();
-         var beginnerModel:BeginnersPackageModel = injector.getInstance(BeginnersPackageModel);
-         return beginnerModel;
-      }
-      
+
       private function parseGuildData(accountXML:XML) : void
       {
          var guildXML:XML = null;

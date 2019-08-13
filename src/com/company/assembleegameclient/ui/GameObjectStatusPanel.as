@@ -141,8 +141,6 @@ package com.company.assembleegameclient.ui
       private function onNexusClick(event:MouseEvent) : void
       {
          this.gs_.gsc_.escape();
-         Parameters.data_.needsRandomRealm = false;
-         Parameters.save();
       }
       
       private function onOptionsClick(event:MouseEvent) : void

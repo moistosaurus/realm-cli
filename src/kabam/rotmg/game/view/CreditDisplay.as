@@ -33,11 +33,8 @@ package kabam.rotmg.game.view
       
       private var gs:GameSprite;
       
-      public var openAccountDialog:Signal;
-      
       public function CreditDisplay(gs:GameSprite = null)
       {
-         this.openAccountDialog = new Signal();
          super();
          this.gs = gs;
          this.creditsText_ = new SimpleText(FONT_SIZE,16777215,false,0,0);
@@ -53,19 +50,10 @@ package kabam.rotmg.game.view
          this.fameIcon_ = new Bitmap(FameUtil.getFameIcon());
          addChild(this.fameIcon_);
          this.draw(0,0);
-         mouseEnabled = true;
-         doubleClickEnabled = true;
-         addEventListener(MouseEvent.DOUBLE_CLICK,this.onDoubleClick,false,0,true);
+         mouseEnabled = false;
+         doubleClickEnabled = false;
       }
-      
-      private function onDoubleClick(e:MouseEvent) : void
-      {
-         if(!this.gs || this.gs.evalIsNotInCombatMapArea() || Parameters.data_.clickForGold == true)
-         {
-            this.openAccountDialog.dispatch();
-         }
-      }
-      
+
       public function draw(credits:int, fame:int) : void
       {
          if(credits == this.credits_ && fame == this.fame_)

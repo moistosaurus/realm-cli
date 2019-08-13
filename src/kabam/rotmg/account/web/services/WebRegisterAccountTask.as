@@ -40,8 +40,6 @@ package kabam.rotmg.account.web.services
          obj.guid = this.account.getUserId();
          obj.newGUID = this.data.username;
          obj.newPassword = this.data.password;
-         obj.entrytag = this.account.getEntryTag();
-         obj.isAgeVerified = 1;
          return obj;
       }
       
@@ -53,7 +51,6 @@ package kabam.rotmg.account.web.services
       
       private function onRegisterDone() : void
       {
-         this.model.setIsAgeVerified(true);
          this.account.updateUser(this.data.username,this.data.password);
       }
    }

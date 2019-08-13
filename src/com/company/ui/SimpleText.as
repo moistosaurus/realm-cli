@@ -25,7 +25,7 @@ import flash.text.TextLineMetrics;
       public var actualWidth_:int;
       public var actualHeight_:int;
       
-      public function SimpleText(textSize:int, color:uint, settable:Boolean = false, widthParam:int = 0, heightParam:int = 0)
+      public function SimpleText(textSize:int, color:uint, settable:Boolean = false, widthParam:int = 0, heightParam:int = 0, isLink:Boolean = false)
       {
          if (!_FontRegistered)
          {
@@ -68,6 +68,11 @@ import flash.text.TextLineMetrics;
          {
             selectable = false;
             mouseEnabled = false;
+         }
+
+         if (isLink)
+         {
+            mouseEnabled = true;
          }
       }
       
@@ -149,7 +154,7 @@ import flash.text.TextLineMetrics;
          height = this.inputHeight_ == 0 ? (textHeight + 4) : (this.inputHeight_);
       }
 
-      override public function set x(newValue:Number) : void
+      /*override public function set x(newValue:Number) : void
       {
          super.x = newValue;
       }
@@ -157,6 +162,6 @@ import flash.text.TextLineMetrics;
       override public function set y(newValue:Number) : void
       {
          super.y = newValue;
-      }
+      }*/
    }
 }

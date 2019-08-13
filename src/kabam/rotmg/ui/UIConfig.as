@@ -62,8 +62,6 @@ package kabam.rotmg.ui
    import kabam.rotmg.ui.signals.UpdateHUDSignal;
    import kabam.rotmg.ui.signals.UpdatePotionInventorySignal;
    import kabam.rotmg.ui.view.AccountScreenMediator;
-   import kabam.rotmg.ui.view.AgeVerificationDialog;
-   import kabam.rotmg.ui.view.AgeVerificationMediator;
    import kabam.rotmg.ui.view.CharacterDetailsMediator;
    import kabam.rotmg.ui.view.CharacterDetailsView;
    import kabam.rotmg.ui.view.CharacterRectListMediator;
@@ -160,7 +158,6 @@ package kabam.rotmg.ui
          this.mediatorMap.map(ChooseNameFrame).toMediator(ChooseNameFrameMediator);
          this.mediatorMap.map(NewChooseNameFrame).toMediator(NewChooseNameFrameMediator);
          this.mediatorMap.map(PlayerGroupMenu).toMediator(PlayerGroupMenuMediator);
-         this.mediatorMap.map(AgeVerificationDialog).toMediator(AgeVerificationMediator);
          this.mediatorMap.map(StatMetersView).toMediator(StatMetersMediator);
          this.mediatorMap.map(HUDView).toMediator(HUDMediator);
          this.mediatorMap.map(PotionSlotView).toMediator(PotionSlotMediator);

@@ -43,10 +43,6 @@ package kabam.rotmg.core.service
       public function makeRequestPacket() : Object
       {
          var params:Object = {};
-         params.game_net_user_id = this.account.gameNetworkUserId();
-         params.game_net = this.account.gameNetwork();
-         params.play_platform = this.account.playPlatform();
-         params.do_login = Parameters.sendLogin_;
          params.classType = this.classType;
          MoreObjectUtil.addToObject(params,this.account.getCredentials());
          return params;

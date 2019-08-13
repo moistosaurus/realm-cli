@@ -7,7 +7,6 @@ package
    import flash.display.StageScaleMode;
    import flash.events.Event;
    import flash.system.Capabilities;
-   import kabam.lib.console.ConsoleExtension;
    import kabam.lib.net.NetConfig;
    import kabam.rotmg.account.AccountConfig;
    import kabam.rotmg.appengine.AppEngineConfig;
@@ -28,9 +27,6 @@ package
    import kabam.rotmg.maploading.MapLoadingConfig;
    import kabam.rotmg.minimap.MiniMapConfig;
    import kabam.rotmg.news.NewsConfig;
-   import kabam.rotmg.packages.PackageConfig;
-   import kabam.rotmg.promotions.PromotionsConfig;
-   import kabam.rotmg.protip.ProTipConfig;
    import kabam.rotmg.servers.ServersConfig;
    import kabam.rotmg.startup.StartupConfig;
    import kabam.rotmg.startup.control.StartupSignal;
@@ -90,7 +86,6 @@ package
          this.context
                  .extend(MVCSBundle)
                  .extend(SignalCommandMapExtension)
-                 .extend(ConsoleExtension)
                  .configure(BuildConfig)
                  .configure(StartupConfig)
                  .configure(NetConfig)
@@ -111,11 +106,8 @@ package
                  .configure(NewsConfig)
                  .configure(FameConfig)
                  .configure(TooltipsConfig)
-                 .configure(PromotionsConfig)
-                 .configure(ProTipConfig)
                  .configure(MapLoadingConfig)
                  .configure(ClassesConfig)
-                 //.configure(PackageConfig)
                  .configure(HUDConfig)
                  .configure(this);
          this.context.logLevel = LogLevel.DEBUG;

@@ -1,14 +1,7 @@
 package kabam.rotmg.game.logging
 {
-   import kabam.lib.console.signals.ConsoleWatchSignal;
-   
    public class RollingMeanLoopMonitor implements LoopMonitor
    {
-       
-      
-      [Inject]
-      public var watch:ConsoleWatchSignal;
-      
       private var watchMap:Object;
       
       public function RollingMeanLoopMonitor()
@@ -19,9 +12,8 @@ package kabam.rotmg.game.logging
       
       public function recordTime(name:String, deltaTime:int) : void
       {
-         var data:GameSpriteLoopWatch = this.watchMap[name] = this.watchMap[name] || new GameSpriteLoopWatch(name);
+         var data:GameSpriteLoopWatch = this.watchMap[name] = this.watchMap[name] || new GameSpriteLoopWatch();
          data.logTime(deltaTime);
-         this.watch.dispatch(data);
       }
    }
 }

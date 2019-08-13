@@ -1,9 +1,12 @@
 package kabam.rotmg.game.view
 {
-   import kabam.rotmg.account.core.Account;
-   import kabam.rotmg.account.core.signals.OpenMoneyWindowSignal;
+import com.company.assembleegameclient.ui.dialogs.Dialog;
+import com.company.assembleegameclient.ui.dialogs.ErrorDialog;
+
+import kabam.rotmg.account.core.Account;
    import kabam.rotmg.account.core.view.RegisterPromptDialog;
-   import kabam.rotmg.dialogs.control.OpenDialogSignal;
+import kabam.rotmg.dialogs.control.CloseDialogsSignal;
+import kabam.rotmg.dialogs.control.OpenDialogSignal;
    import robotlegs.bender.bundles.mvcs.Mediator;
    
    public class MoneyChangerPanelMediator extends Mediator
@@ -15,12 +18,6 @@ package kabam.rotmg.game.view
       
       [Inject]
       public var view:MoneyChangerPanel;
-      
-      [Inject]
-      public var openDialog:OpenDialogSignal;
-      
-      [Inject]
-      public var openMoneyWindow:OpenMoneyWindowSignal;
       
       public function MoneyChangerPanelMediator()
       {
@@ -39,14 +36,6 @@ package kabam.rotmg.game.view
       
       private function onTriggered() : void
       {
-         if(this.account.isRegistered())
-         {
-            this.openMoneyWindow.dispatch();
-         }
-         else
-         {
-            this.openDialog.dispatch(new RegisterPromptDialog("In order to buy Gold you must be a registered user."));
-         }
       }
    }
 }

@@ -1,7 +1,6 @@
 package kabam.rotmg.news
 {
    import kabam.rotmg.news.controller.NewsDataUpdatedSignal;
-   import kabam.rotmg.news.controller.OpenSkinSignal;
    import kabam.rotmg.news.model.NewsModel;
    import kabam.rotmg.news.services.GetAppEngineNewsTask;
    import kabam.rotmg.news.services.GetNewsTask;
@@ -42,7 +41,6 @@ package kabam.rotmg.news
       
       public function configure() : void
       {
-         this.injector.map(OpenSkinSignal).asSingleton();
          this.injector.map(NewsDataUpdatedSignal).asSingleton();
          this.injector.map(NewsModel).asSingleton();
          this.injector.map(GetNewsTask).toType(GetAppEngineNewsTask);

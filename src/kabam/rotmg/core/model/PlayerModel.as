@@ -5,7 +5,6 @@ package kabam.rotmg.core.model
    import com.company.assembleegameclient.appengine.SavedNewsItem;
    import com.company.assembleegameclient.parameters.Parameters;
    import kabam.rotmg.account.core.Account;
-   import kabam.rotmg.account.kongregate.KongregateAccount;
    import kabam.rotmg.game.signals.FamePriceMultiplierUpdatedSignal;
    import kabam.rotmg.servers.api.LatLong;
    import org.osflash.signals.Signal;
@@ -23,8 +22,6 @@ package kabam.rotmg.core.model
       public var isInvalidated:Boolean;
       
       public var currentCharId:int;
-      
-      private var isAgeVerified:Boolean;
       
       private var famePriceMultiplier:Number = 1;
       
@@ -61,22 +58,12 @@ package kabam.rotmg.core.model
       {
          this.charList.hasPlayerDied = value;
       }
-      
-      public function getIsAgeVerified() : Boolean
-      {
-         return this.isAgeVerified || this.account is KongregateAccount || this.charList.isAgeVerified;
-      }
-      
-      public function setIsAgeVerified(value:Boolean) : void
-      {
-         this.isAgeVerified = true;
-      }
-      
+
       public function isNewPlayer() : Boolean
       {
-         return Parameters.data_.needsTutorial && this.charList.nextCharId_ == 1;
+         return this.charList.nextCharId_ == 1;
       }
-      
+
       public function getMaxCharacters() : int
       {
          return this.charList.maxNumChars_;
@@ -223,11 +210,6 @@ package kabam.rotmg.core.model
       public function getName() : String
       {
          return this.charList.name_;
-      }
-      
-      public function getConverted() : Boolean
-      {
-         return this.charList.converted_;
       }
       
       public function setName(value:String) : void

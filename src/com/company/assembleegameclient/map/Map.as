@@ -478,7 +478,7 @@ package com.company.assembleegameclient.map
          {
             this.hurtOverlay_.visible = false;
          }
-         if(this.player_ != null && !Parameters.screenShotMode_)
+         if(this.player_ != null)
          {
             this.gradientOverlay_.visible = true;
             this.gradientOverlay_.x = screenRect.right - 10;

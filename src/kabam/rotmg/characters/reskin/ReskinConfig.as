@@ -1,8 +1,6 @@
 package kabam.rotmg.characters.reskin
 {
    import kabam.lib.net.api.MessageMap;
-   import kabam.rotmg.characters.reskin.control.AddReskinConsoleActionCommand;
-   import kabam.rotmg.characters.reskin.control.AddReskinConsoleActionSignal;
    import kabam.rotmg.characters.reskin.control.OpenReskinDialogCommand;
    import kabam.rotmg.characters.reskin.control.OpenReskinDialogSignal;
    import kabam.rotmg.characters.reskin.control.ReskinCharacterCommand;
@@ -48,16 +46,9 @@ package kabam.rotmg.characters.reskin
       {
          this.mediatorMap.map(ReskinCharacterView).toMediator(ReskinCharacterMediator);
          this.mediatorMap.map(ReskinPanel).toMediator(ReskinPanelMediator);
-         this.commandMap.map(AddReskinConsoleActionSignal).toCommand(AddReskinConsoleActionCommand);
          this.commandMap.map(OpenReskinDialogSignal).toCommand(OpenReskinDialogCommand);
          this.commandMap.map(ReskinCharacterSignal).toCommand(ReskinCharacterCommand);
          this.messageMap.map(GameServerConnection.RESKIN).toMessage(Reskin).toHandler(ReskinHandler);
-         this.context.lifecycle.afterInitializing(this.onInit);
-      }
-      
-      private function onInit() : void
-      {
-         this.injector.getInstance(AddReskinConsoleActionSignal).dispatch();
       }
    }
 }

@@ -1,7 +1,6 @@
 package kabam.rotmg.characters.reskin.control
 {
    import flash.display.DisplayObject;
-   import kabam.lib.console.signals.HideConsoleSignal;
    import kabam.rotmg.characters.reskin.view.ReskinCharacterView;
    import kabam.rotmg.classes.model.CharacterSkins;
    import kabam.rotmg.classes.model.ClassesModel;
@@ -11,13 +10,8 @@ package kabam.rotmg.characters.reskin.control
    
    public class OpenReskinDialogCommand
    {
-       
-      
       [Inject]
       public var openDialog:OpenDialogSignal;
-      
-      [Inject]
-      public var hideConsole:HideConsoleSignal;
       
       [Inject]
       public var player:PlayerModel;
@@ -35,7 +29,6 @@ package kabam.rotmg.characters.reskin.control
       
       public function execute() : void
       {
-         this.hideConsole.dispatch();
          this.openDialog.dispatch(this.makeView());
       }
       

@@ -17,10 +17,6 @@ package com.company.assembleegameclient.map
       private static const CENTER_SCREEN_RECT:Rectangle = new Rectangle(-300,-325,600,600);
       
       private static const OFFSET_SCREEN_RECT:Rectangle = new Rectangle(-300,-450,600,600);
-      
-      private static const SCREENSHOT_SCREEN_RECT:Rectangle = new Rectangle(-400,-325,800,600);
-      
-      private static const SLIM_SCREENSHOT_SCREEN_RECT:Rectangle = new Rectangle(-400,-275,800,500);
        
       
       public var x_:Number;
@@ -94,17 +90,6 @@ package com.company.assembleegameclient.map
       public function configureCamera(object:GameObject, isHallucinating:Boolean) : void
       {
          var screenRect:Rectangle = Boolean(Parameters.data_.centerOnPlayer)?CENTER_SCREEN_RECT:OFFSET_SCREEN_RECT;
-         if(Parameters.screenShotMode_)
-         {
-            if(!Parameters.screenShotSlimMode_)
-            {
-               screenRect = SCREENSHOT_SCREEN_RECT;
-            }
-            else
-            {
-               screenRect = SLIM_SCREENSHOT_SCREEN_RECT;
-            }
-         }
          var cameraAngle:Number = Parameters.data_.cameraAngle;
          this.configure(object.x_,object.y_,12,cameraAngle,screenRect,false);
          this.isHallucinating_ = isHallucinating;

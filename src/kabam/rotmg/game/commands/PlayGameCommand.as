@@ -65,18 +65,7 @@ package kabam.rotmg.game.commands
       private function getInitialGameId() : int
       {
          var gameId:int = 0;
-         if(Parameters.data_.needsTutorial)
-         {
-            gameId = Parameters.TUTORIAL_GAMEID;
-         }
-         else if(Parameters.data_.needsRandomRealm)
-         {
-            gameId = Parameters.RANDOM_REALM_GAMEID;
-         }
-         else
-         {
-            gameId = Parameters.NEXUS_GAMEID;
-         }
+         gameId = Parameters.NEXUS_GAMEID;
          return gameId;
       }
    }

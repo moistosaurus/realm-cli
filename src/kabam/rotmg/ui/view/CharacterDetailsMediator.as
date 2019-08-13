@@ -54,8 +54,6 @@ package kabam.rotmg.ui.view
       private function onGotoNexus() : void
       {
          this.hudModel.gameSprite.gsc_.escape();
-         Parameters.data_.needsRandomRealm = false;
-         Parameters.save();
       }
       
       private function onGotoOptions() : void

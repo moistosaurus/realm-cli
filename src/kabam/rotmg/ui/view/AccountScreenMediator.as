@@ -4,13 +4,6 @@ package kabam.rotmg.ui.view
    import com.company.assembleegameclient.ui.tooltip.ToolTip;
    import kabam.rotmg.account.core.Account;
    import kabam.rotmg.account.core.view.AccountInfoView;
-   import kabam.rotmg.account.kabam.KabamAccount;
-   import kabam.rotmg.account.kabam.view.KabamAccountInfoView;
-   import kabam.rotmg.account.kongregate.KongregateAccount;
-   import kabam.rotmg.account.kongregate.view.KongregateAccountInfoView;
-   import kabam.rotmg.account.steam.SteamAccount;
-   import kabam.rotmg.account.steam.view.SteamAccountInfoView;
-   import kabam.rotmg.account.web.WebAccount;
    import kabam.rotmg.account.web.view.WebAccountInfoView;
    import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.core.signals.HideTooltipsSignal;
@@ -51,21 +44,7 @@ package kabam.rotmg.ui.view
       
       private function getInfoView() : AccountInfoView
       {
-         var view:AccountInfoView = null;
-         switch(this.account.gameNetwork())
-         {
-            case WebAccount.NETWORK_NAME:
-               view = new WebAccountInfoView();
-               break;
-            case KabamAccount.NETWORK_NAME:
-               view = new KabamAccountInfoView();
-               break;
-            case KongregateAccount.NETWORK_NAME:
-               view = new KongregateAccountInfoView();
-               break;
-            case SteamAccount.NETWORK_NAME:
-               view = new SteamAccountInfoView();
-         }
+         var view:AccountInfoView = new WebAccountInfoView();
          return view;
       }
       
