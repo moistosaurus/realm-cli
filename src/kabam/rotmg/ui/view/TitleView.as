@@ -63,7 +63,8 @@ package kabam.rotmg.ui.view
       {
          this.darkenFactory = new DarkenFactory();
          super();
-         addChild(new MapBackground());
+         //addChild(new MapBackground());
+         addChild(new TitleView_TitleScreenBackground());
          addChild(this.darkenFactory.create());
          addChild(new TitleScreenGraphic());
          addChild(new ScreenGraphic());
