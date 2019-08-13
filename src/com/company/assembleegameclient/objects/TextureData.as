@@ -1,6 +1,5 @@
 package com.company.assembleegameclient.objects
 {
-   import com.company.assembleegameclient.appengine.RemoteTexture;
    import com.company.assembleegameclient.objects.particles.EffectProperties;
    import com.company.assembleegameclient.util.AnimatedChar;
    import com.company.assembleegameclient.util.AnimatedChars;
@@ -13,10 +12,6 @@ package com.company.assembleegameclient.objects
    
    public class TextureData
    {
-       
-      
-      private var isUsingLocalTextures:Boolean;
-      
       public var texture_:BitmapData = null;
       
       public var mask_:BitmapData = null;
@@ -27,15 +22,12 @@ package com.company.assembleegameclient.objects
       
       public var altTextures_:Dictionary = null;
       
-      public var remoteTextureDir_:int;
-      
       public var effectProps_:EffectProperties = null;
       
       public function TextureData(objectXML:XML)
       {
          var altTexture:XML = null;
          super();
-         this.isUsingLocalTextures = this.getWhetherToUseLocalTextures();
          if(objectXML.hasOwnProperty("Texture"))
          {
             this.parse(XML(objectXML.Texture));
@@ -43,10 +35,6 @@ package com.company.assembleegameclient.objects
          else if(objectXML.hasOwnProperty("AnimatedTexture"))
          {
             this.parse(XML(objectXML.AnimatedTexture));
-         }
-         else if(objectXML.hasOwnProperty("RemoteTexture"))
-         {
-            this.parse(XML(objectXML.RemoteTexture));
          }
          else if(objectXML.hasOwnProperty("RandomTexture"))
          {
@@ -68,12 +56,6 @@ package com.company.assembleegameclient.objects
          {
             this.parse(XML(objectXML.Effect));
          }
-      }
-      
-      private function getWhetherToUseLocalTextures() : Boolean
-      {
-         var setup:ApplicationSetup = StaticInjectorContext.getInjector().getInstance(ApplicationSetup);
-         return setup.useLocalTextures();
       }
       
       public function getTexture(id:int = 0) : BitmapData
@@ -98,7 +80,6 @@ package com.company.assembleegameclient.objects
       private function parse(xml:XML) : void
       {
          var image:MaskedImage = null;
-         var remoteTexture:RemoteTexture = null;
          var childXML:XML = null;
          switch(xml.name().toString())
          {
@@ -117,15 +98,6 @@ package com.company.assembleegameclient.objects
                this.texture_ = image.image_;
                this.mask_ = image.mask_;
                break;
-            case "RemoteTexture":
-               this.texture_ = AssetLibrary.getImageFromSet("lofiObj3",255);
-               if(this.isUsingLocalTextures)
-               {
-                  remoteTexture = new RemoteTexture(xml.Id,xml.Instance,this.onRemoteTexture);
-                  remoteTexture.run();
-               }
-               this.remoteTextureDir_ = Boolean(xml.hasOwnProperty("Right"))?int(AnimatedChar.RIGHT):int(AnimatedChar.DOWN);
-               break;
             case "RandomTexture":
                this.randomTextureData_ = new Vector.<TextureData>();
                for each(childXML in xml.children())
@@ -139,20 +111,6 @@ package com.company.assembleegameclient.objects
                   this.altTextures_ = new Dictionary();
                }
                this.altTextures_[int(xml.@id)] = new TextureData(xml);
-         }
-      }
-      
-      private function onRemoteTexture(texture:BitmapData) : void
-      {
-         if(texture.width > 16)
-         {
-            AnimatedChars.add("remoteTexture",texture,null,texture.width / 7,texture.height,texture.width,texture.height,this.remoteTextureDir_);
-            this.animatedChar_ = AnimatedChars.getAnimatedChar("remoteTexture",0);
-            this.texture_ = this.animatedChar_.imageFromAngle(0,AnimatedChar.STAND,0).image_;
-         }
-         else
-         {
-            this.texture_ = texture;
          }
       }
    }

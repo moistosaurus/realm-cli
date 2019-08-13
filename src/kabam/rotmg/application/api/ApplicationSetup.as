@@ -8,8 +8,6 @@ package kabam.rotmg.application.api
       
       function getAppEngineUrl(param1:Boolean = false) : String;
       
-      function useLocalTextures() : Boolean;
-      
       function isGameLoopMonitored() : Boolean;
       
       function useProductionDialogs() : Boolean;
