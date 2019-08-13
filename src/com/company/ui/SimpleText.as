@@ -6,12 +6,17 @@ import flash.text.Font;
 import flash.text.TextField;
 import flash.text.TextFieldType;
 import flash.text.TextFormat;
+import flash.text.TextFormatAlign;
 import flash.text.TextLineMetrics;
 
    public class SimpleText extends TextField
    {
+      private static const GUTTER:int = 16;
+
       public static const _MyriadPro:Class = MyriadPro;
-      public static const _MyriadPro_Bold:Class = MyriadPro_Bold;
+      public static const _MyriadProBold:Class = MyriadProBold;
+      public static const _MyriadProCFF:Class = MyriadProCFF;
+      public static const _MyriadProBoldCFF:Class = MyriadProBoldCFF;
       public static var _Font:Font;
       public static var _FontRegistered:Boolean = false;
       
@@ -25,7 +30,9 @@ import flash.text.TextLineMetrics;
          if (!_FontRegistered)
          {
             Font.registerFont(_MyriadPro);
-            Font.registerFont(_MyriadPro_Bold);
+            Font.registerFont(_MyriadProBold);
+            Font.registerFont(_MyriadProCFF);
+            Font.registerFont(_MyriadProBoldCFF);
             _Font = new _MyriadPro();
             _FontRegistered = true;
          }
@@ -135,11 +142,21 @@ import flash.text.TextLineMetrics;
          height = this.inputHeight_ == 0 ? this.actualHeight_ :this.inputHeight_;
          return this;
       }
-      
+
       public function useTextDimensions() : void
       {
          width = this.inputWidth_ == 0 ? (textWidth + 4) : (this.inputWidth_);
          height = this.inputHeight_ == 0 ? (textHeight + 4) : (this.inputHeight_);
+      }
+
+      override public function set x(newValue:Number) : void
+      {
+         super.x = newValue;
+      }
+
+      override public function set y(newValue:Number) : void
+      {
+         super.y = newValue;
       }
    }
 }

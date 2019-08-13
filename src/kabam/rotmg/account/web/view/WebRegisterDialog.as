@@ -61,7 +61,7 @@ import com.company.util.EmailValidator;
       
       public function WebRegisterDialog()
       {
-         super(this.REGISTER_IMPERATIVE,"Cancel","Register");
+         super(this.REGISTER_IMPERATIVE,"Cancel","Register", 326);
          this.makeUIElements();
          this.makeSignals();
       }
