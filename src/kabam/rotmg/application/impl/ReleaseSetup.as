@@ -3,46 +3,29 @@ package kabam.rotmg.application.impl
    import com.company.assembleegameclient.parameters.Parameters;
    import kabam.rotmg.application.api.ApplicationSetup;
    
-   public class ProductionSetup implements ApplicationSetup
+   public class ReleaseSetup implements ApplicationSetup
    {
-      private const SERVER:String = "realmofthemadgod.appspot.com";
+      private const SERVER:String = "127.0.0.1";
 
       private const UNENCRYPTED:String = "http://" + SERVER;
 
-      private const ENCRYPTED:String = "https://" + SERVER;
-      
-      private const ANALYTICS:String = "UA-11236645-4";
+      private const ENCRYPTED:String = "http://" + SERVER;
       
       private const BUILD_LABEL:String = "RotMG #{VERSION}.{MINOR}";
       
-      public function ProductionSetup()
+      public function ReleaseSetup()
       {
          super();
       }
       
       public function getAppEngineUrl(forceUnencrypted:Boolean = false) : String
       {
-         return !!forceUnencrypted?this.UNENCRYPTED:this.ENCRYPTED;
+         return forceUnencrypted ? this.UNENCRYPTED : this.ENCRYPTED;
       }
-      
-      public function getAnalyticsCode() : String
-      {
-         return this.ANALYTICS;
-      }
-      
+
       public function getBuildLabel() : String
       {
          return this.BUILD_LABEL.replace("{VERSION}",Parameters.BUILD_VERSION).replace("{MINOR}",Parameters.MINOR_VERSION);
-      }
-      
-      public function useLocalTextures() : Boolean
-      {
-         return false;
-      }
-      
-      public function isToolingEnabled() : Boolean
-      {
-         return false;
       }
       
       public function isGameLoopMonitored() : Boolean
@@ -58,11 +41,6 @@ package kabam.rotmg.application.impl
       public function areErrorsReported() : Boolean
       {
          return true;
-      }
-      
-      public function areDeveloperHotkeysEnabled() : Boolean
-      {
-         return false;
       }
    }
 }

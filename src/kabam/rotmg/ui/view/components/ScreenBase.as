@@ -5,8 +5,6 @@ package kabam.rotmg.ui.view.components
    
    public class ScreenBase extends Sprite
    {
-       
-      
       private var map:MapBackground;
       
       private var soundIcon:SoundIcon;

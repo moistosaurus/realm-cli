@@ -9,7 +9,6 @@ package kabam.rotmg.core
    import kabam.rotmg.core.commands.InvalidateDataCommand;
    import kabam.rotmg.core.commands.PurchaseCharacterCommand;
    import kabam.rotmg.core.commands.SetScreenWithValidDataCommand;
-   import kabam.rotmg.core.commands.SetupDomainSecurityCommand;
    import kabam.rotmg.core.commands.UpdatePlayerModelCommand;
    import kabam.rotmg.core.model.MapModel;
    import kabam.rotmg.core.model.PlayerModel;
@@ -17,7 +16,6 @@ package kabam.rotmg.core
    import kabam.rotmg.core.service.PurchaseCharacterClassTask;
    import kabam.rotmg.core.service.PurchaseCharacterErrorTask;
    import kabam.rotmg.core.service.RequestAppInitTask;
-   import kabam.rotmg.core.signals.AppInitDataReceivedSignal;
    import kabam.rotmg.core.signals.BuyCharacterPendingSignal;
    import kabam.rotmg.core.signals.GotoPreviousScreenSignal;
    import kabam.rotmg.core.signals.HideTooltipsSignal;
@@ -27,7 +25,6 @@ package kabam.rotmg.core
    import kabam.rotmg.core.signals.SetLoadingMessageSignal;
    import kabam.rotmg.core.signals.SetScreenSignal;
    import kabam.rotmg.core.signals.SetScreenWithValidDataSignal;
-   import kabam.rotmg.core.signals.SetupDomainSecuritySignal;
    import kabam.rotmg.core.signals.ShowTooltipSignal;
    import kabam.rotmg.core.signals.UpdateNewCharacterScreenSignal;
    import kabam.rotmg.core.view.Layers;
@@ -79,7 +76,6 @@ package kabam.rotmg.core
          this.configureServices();
          this.configureSignals();
          this.configureViews();
-         this.startup.addSignal(SetupDomainSecuritySignal);
          this.startup.addTask(RequestAppInitTask);
          this.context.lifecycle.afterInitializing(this.init);
       }
@@ -93,7 +89,6 @@ package kabam.rotmg.core
       
       private function configureCommands() : void
       {
-         this.commandMap.map(SetupDomainSecuritySignal).toCommand(SetupDomainSecurityCommand);
          this.commandMap.map(InvalidateDataSignal).toCommand(InvalidateDataCommand);
          this.commandMap.map(SetScreenWithValidDataSignal).toCommand(SetScreenWithValidDataCommand);
          this.commandMap.map(PurchaseCharacterSignal).toCommand(PurchaseCharacterCommand);

@@ -12,7 +12,6 @@ package
    import kabam.rotmg.appengine.AppEngineConfig;
    import kabam.rotmg.application.ApplicationConfig;
    import kabam.rotmg.assets.AssetsConfig;
-   import kabam.rotmg.build.BuildConfig;
    import kabam.rotmg.characters.CharactersConfig;
    import kabam.rotmg.classes.ClassesConfig;
    import kabam.rotmg.core.CoreConfig;
@@ -86,7 +85,6 @@ package
          this.context
                  .extend(MVCSBundle)
                  .extend(SignalCommandMapExtension)
-                 .configure(BuildConfig)
                  .configure(StartupConfig)
                  .configure(NetConfig)
                  .configure(AssetsConfig)

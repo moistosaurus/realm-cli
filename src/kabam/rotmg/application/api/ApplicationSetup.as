@@ -2,8 +2,6 @@ package kabam.rotmg.application.api
 {
    public interface ApplicationSetup
    {
-       
-      
       function getBuildLabel() : String;
       
       function getAppEngineUrl(param1:Boolean = false) : String;
