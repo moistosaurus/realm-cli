@@ -87,7 +87,37 @@ package
       {
          this.context = new StaticInjectorContext();
          this.context.injector.map(LoaderInfo).toValue(root.stage.root.loaderInfo);
-         this.context.extend(MVCSBundle).extend(SignalCommandMapExtension).extend(ConsoleExtension).configure(BuildConfig).configure(StartupConfig).configure(NetConfig).configure(AssetsConfig).configure(DialogsConfig).configure(ApplicationConfig).configure(AppEngineConfig).configure(AccountConfig).configure(ErrorConfig).configure(CoreConfig).configure(DeathConfig).configure(CharactersConfig).configure(ServersConfig).configure(GameConfig).configure(UIConfig).configure(MiniMapConfig).configure(LegendsConfig).configure(NewsConfig).configure(FameConfig).configure(TooltipsConfig).configure(PromotionsConfig).configure(ProTipConfig).configure(MapLoadingConfig).configure(ClassesConfig).configure(PackageConfig).configure(HUDConfig).configure(this);
+         this.context
+                 .extend(MVCSBundle)
+                 .extend(SignalCommandMapExtension)
+                 .extend(ConsoleExtension)
+                 .configure(BuildConfig)
+                 .configure(StartupConfig)
+                 .configure(NetConfig)
+                 .configure(AssetsConfig)
+                 .configure(DialogsConfig)
+                 .configure(ApplicationConfig)
+                 .configure(AppEngineConfig)
+                 .configure(AccountConfig)
+                 .configure(ErrorConfig)
+                 .configure(CoreConfig)
+                 .configure(DeathConfig)
+                 .configure(CharactersConfig)
+                 .configure(ServersConfig)
+                 .configure(GameConfig)
+                 .configure(UIConfig)
+                 .configure(MiniMapConfig)
+                 .configure(LegendsConfig)
+                 .configure(NewsConfig)
+                 .configure(FameConfig)
+                 .configure(TooltipsConfig)
+                 .configure(PromotionsConfig)
+                 .configure(ProTipConfig)
+                 .configure(MapLoadingConfig)
+                 .configure(ClassesConfig)
+                 //.configure(PackageConfig)
+                 .configure(HUDConfig)
+                 .configure(this);
          this.context.logLevel = LogLevel.DEBUG;
       }
       

@@ -34,22 +34,18 @@ package com.company.assembleegameclient.ui.tooltip
       
       private var targetObj:DisplayObject;
       
-      private var backgroundFill_:GraphicsSolidFill;
+      private var backgroundFill_:GraphicsSolidFill= new GraphicsSolidFill(0,1);
       
-      private var outlineFill_:GraphicsSolidFill;
+      private var outlineFill_:GraphicsSolidFill= new GraphicsSolidFill(16777215,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,outlineFill_);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_,backgroundFill_,path_,GraphicsUtil.END_FILL,GraphicsUtil.END_STROKE];
       
       public function ToolTip(background:uint, backgroundAlpha:Number, outline:uint, outlineAlpha:Number, followMouse:Boolean = true)
       {
-         this.backgroundFill_ = new GraphicsSolidFill(0,1);
-         this.outlineFill_ = new GraphicsSolidFill(16777215,1);
-         this.lineStyle_ = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.outlineFill_);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.background_ = background;
          this.backgroundAlpha_ = backgroundAlpha;

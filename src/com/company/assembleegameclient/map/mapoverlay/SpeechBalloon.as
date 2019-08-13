@@ -33,13 +33,13 @@ package com.company.assembleegameclient.map.mapoverlay
       
       public var text_:TextField;
       
-      private var backgroundFill_:GraphicsSolidFill;
+      private var backgroundFill_:GraphicsSolidFill = new GraphicsSolidFill(0,1);
       
-      private var outlineFill_:GraphicsSolidFill;
+      private var outlineFill_:GraphicsSolidFill= new GraphicsSolidFill(16777215,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke= new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,outlineFill_);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_,backgroundFill_,path_,GraphicsUtil.END_FILL,GraphicsUtil.END_STROKE];
       
@@ -48,10 +48,6 @@ package com.company.assembleegameclient.map.mapoverlay
       public function SpeechBalloon(go:GameObject, text:String, background:uint, backgroundAlpha:Number, outline:uint, outlineAlpha:Number, textColor:uint, lifetime:int, bold:Boolean, hideable:Boolean)
       {
          this.offset_ = new Point();
-         this.backgroundFill_ = new GraphicsSolidFill(0,1);
-         this.outlineFill_ = new GraphicsSolidFill(16777215,1);
-         this.lineStyle_ = new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.outlineFill_);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          mouseEnabled = false;
          mouseChildren = false;

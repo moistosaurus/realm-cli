@@ -16,19 +16,16 @@ package com.company.assembleegameclient.ui
       
       public var w_:int;
       
-      private var enabledFill_:GraphicsSolidFill;
+      private var enabledFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var disabledFill_:GraphicsSolidFill;
+      private var disabledFill_:GraphicsSolidFill = new GraphicsSolidFill(8355711,1);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[enabledFill_,path_,GraphicsUtil.END_FILL];
       
       public function TextButton(size:int, text:String, bWidth:int = 0)
       {
-         this.enabledFill_ = new GraphicsSolidFill(16777215,1);
-         this.disabledFill_ = new GraphicsSolidFill(8355711,1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.text_ = new SimpleText(size,3552822,false,0,0);
          this.text_.setBold(true);

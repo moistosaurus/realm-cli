@@ -32,19 +32,16 @@ package com.company.assembleegameclient.tutorial
       
       private var startTime_:int;
       
-      private var fill_:GraphicsSolidFill;
+      private var fill_:GraphicsSolidFill= new GraphicsSolidFill(3552822,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,new GraphicsSolidFill(16777215));
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath= new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_,fill_,path_,GraphicsUtil.END_FILL,GraphicsUtil.END_STROKE];
       
       public function TutorialMessage(tutorial:Tutorial, message:String, nextButton:Boolean, rect:Rectangle)
       {
-         this.fill_ = new GraphicsSolidFill(3552822,1);
-         this.lineStyle_ = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,new GraphicsSolidFill(16777215));
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.tutorial_ = tutorial;
          this.rect_ = rect.clone();

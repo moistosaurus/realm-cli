@@ -21,18 +21,15 @@ package com.company.assembleegameclient.background
       
       private var islands_:Vector.<Island>;
       
-      protected var graphicsData_:Vector.<IGraphicsData>;
+      protected var graphicsData_:Vector.<IGraphicsData> = new Vector.<IGraphicsData>();
       
-      private var bitmapFill_:GraphicsBitmapFill;
+      private var bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill(null,new Matrix(),true,false);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
       
       public function NexusBackground()
       {
          this.islands_ = new Vector.<Island>();
-         this.graphicsData_ = new Vector.<IGraphicsData>();
-         this.bitmapFill_ = new GraphicsBitmapFill(null,new Matrix(),true,false);
-         this.path_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
          super();
          this.water_ = new BitmapData(1024,1024,false,0);
          this.water_.perlinNoise(1024,1024,8,Math.random(),true,true,BitmapDataChannel.BLUE,false,null);
@@ -90,14 +87,12 @@ class Island
    
    public var bitmapData_:BitmapData;
    
-   private var bitmapFill_:GraphicsBitmapFill;
+   private var bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill(null,new Matrix(),true,false);
    
-   private var path_:GraphicsPath;
+   private var path_:GraphicsPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
    
    function Island(x:Number, y:Number, startTime:int)
    {
-      this.bitmapFill_ = new GraphicsBitmapFill(null,new Matrix(),true,false);
-      this.path_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
       super();
       this.center_ = new Point(x,y);
       this.startTime_ = startTime;

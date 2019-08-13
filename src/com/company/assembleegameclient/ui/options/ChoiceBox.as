@@ -34,25 +34,20 @@ package com.company.assembleegameclient.ui.options
       
       private var over_:Boolean = false;
       
-      private var internalFill_:GraphicsSolidFill;
+      private var internalFill_:GraphicsSolidFill = new GraphicsSolidFill(3355443,1);
       
-      private var overLineFill_:GraphicsSolidFill;
+      private var overLineFill_:GraphicsSolidFill = new GraphicsSolidFill(11776947,1);
       
-      private var normalLineFill_:GraphicsSolidFill;
+      private var normalLineFill_:GraphicsSolidFill = new GraphicsSolidFill(4473924,1);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,normalLineFill_);
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[internalFill_,lineStyle_,path_,GraphicsUtil.END_STROKE,GraphicsUtil.END_FILL];
       
       public function ChoiceBox(labels:Vector.<String>, values:Array, value:Object)
       {
-         this.internalFill_ = new GraphicsSolidFill(3355443,1);
-         this.overLineFill_ = new GraphicsSolidFill(11776947,1);
-         this.normalLineFill_ = new GraphicsSolidFill(4473924,1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-         this.lineStyle_ = new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.normalLineFill_);
          super();
          this.labels_ = labels;
          this.values_ = values;

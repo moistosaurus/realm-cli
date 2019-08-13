@@ -43,32 +43,26 @@ package com.company.assembleegameclient.ui
       
       private var lastResetTime_:int;
       
-      private var enabledFill_:GraphicsSolidFill;
+      private var enabledFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var disabledFill_:GraphicsSolidFill;
+      private var disabledFill_:GraphicsSolidFill = new GraphicsSolidFill(8355711,1);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[enabledFill_,path_,GraphicsUtil.END_FILL];
       
-      private var barFill_:GraphicsSolidFill;
+      private var barFill_:GraphicsSolidFill = new GraphicsSolidFill(12566463,1);
       
       private const barGraphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[barFill_,path_,GraphicsUtil.END_FILL];
       
-      private var outlineFill_:GraphicsSolidFill;
+      private var outlineFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,outlineFill_);
       
       private const outlineGraphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_,path_,GraphicsUtil.END_STROKE];
       
       public function TradeButton(size:int, bWidth:int = 0)
       {
-         this.enabledFill_ = new GraphicsSolidFill(16777215,1);
-         this.disabledFill_ = new GraphicsSolidFill(8355711,1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-         this.barFill_ = new GraphicsSolidFill(12566463,1);
-         this.outlineFill_ = new GraphicsSolidFill(16777215,1);
-         this.lineStyle_ = new GraphicsStroke(2,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.outlineFill_);
          super();
          this.lastResetTime_ = getTimer();
          this.text_ = new SimpleText(size,3552822,false,0,0);

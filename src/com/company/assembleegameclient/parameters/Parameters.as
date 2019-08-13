@@ -93,7 +93,7 @@ package com.company.assembleegameclient.parameters
       {
          try
          {
-            savedOptions_ = SharedObject.getLocal("AssembleeGameClientOptions","/");
+            savedOptions_ = SharedObject.getLocal("vAssembleeGameClientOptions","/");
             data_ = savedOptions_.data;
          }
          catch(error:Error)

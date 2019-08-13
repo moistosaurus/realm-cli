@@ -35,7 +35,7 @@ package kabam.rotmg.build.impl
       
       public function getEnvironmentString() : String
       {
-         return "10.151.0.229".toLowerCase();
+         return "127.0.0.1".toLowerCase();
       }
       
       public function getEnvironment() : BuildEnvironment
@@ -52,7 +52,7 @@ package kabam.rotmg.build.impl
       
       private function setEnvironmentValue(value:String) : void
       {
-         this.environment = !!this.conditionsRequireTesting(value)?BuildEnvironment.TESTING:this.environments.getEnvironment(value);
+         this.environment = this.conditionsRequireTesting(value) ? BuildEnvironment.TESTING : this.environments.getEnvironment(value);
       }
       
       private function conditionsRequireTesting(value:String) : Boolean
@@ -62,7 +62,7 @@ package kabam.rotmg.build.impl
       
       private function isMarkedAsProductionRelease() : Boolean
       {
-         return !!this.isDesktopPlayer()?Boolean(this.isSteamProductionDeployment()):Boolean(this.isHostedOnProductionServers());
+         return this.isDesktopPlayer() ? Boolean(this.isSteamProductionDeployment()) : Boolean(this.isHostedOnProductionServers());
       }
       
       private function isDesktopPlayer() : Boolean

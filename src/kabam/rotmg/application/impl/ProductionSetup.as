@@ -5,12 +5,10 @@ package kabam.rotmg.application.impl
    
    public class ProductionSetup implements ApplicationSetup
    {
-       
-      
       private const SERVER:String = "realmofthemadgod.appspot.com";
-      
+
       private const UNENCRYPTED:String = "http://" + SERVER;
-      
+
       private const ENCRYPTED:String = "https://" + SERVER;
       
       private const ANALYTICS:String = "UA-11236645-4";

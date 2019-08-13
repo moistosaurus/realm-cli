@@ -1,28 +1,35 @@
 package com.company.ui
 {
-import com.company.ui.fonts.BaseSimpleText_MyriadPro;
 
 import flash.events.Event;
 import flash.text.Font;
 import flash.text.TextField;
-   import flash.text.TextFieldType;
-   import flash.text.TextFormat;
-   import flash.text.TextLineMetrics;
-   
+import flash.text.TextFieldType;
+import flash.text.TextFormat;
+import flash.text.TextLineMetrics;
+
    public class SimpleText extends TextField
    {
-      public static const MyriadPro:Class = BaseSimpleText_MyriadPro;
+      public static const _MyriadPro:Class = MyriadPro;
+      public static const _MyriadPro_Bold:Class = MyriadPro_Bold;
+      public static var _Font:Font;
+      public static var _FontRegistered:Boolean = false;
       
       public var inputWidth_:int;
-      
       public var inputHeight_:int;
-      
       public var actualWidth_:int;
-      
       public var actualHeight_:int;
       
       public function SimpleText(textSize:int, color:uint, settable:Boolean = false, widthParam:int = 0, heightParam:int = 0)
       {
+         if (!_FontRegistered)
+         {
+            Font.registerFont(_MyriadPro);
+            Font.registerFont(_MyriadPro_Bold);
+            _Font = new _MyriadPro();
+            _FontRegistered = true;
+         }
+
          super();
          this.inputWidth_ = widthParam;
          if(this.inputWidth_ != 0)
@@ -34,13 +41,12 @@ import flash.text.TextField;
          {
             height = heightParam;
          }
-         Font.registerFont(MyriadPro);
-         var font:Font = new MyriadPro();
-         var format:TextFormat = this.defaultTextFormat;
-         format.font = font.fontName;
+         var format:TextFormat = defaultTextFormat;
+         format.font = _Font.fontName;
          format.bold = false;
          format.size = textSize;
          format.color = color;
+         embedFonts = true;
          defaultTextFormat = format;
          if(settable)
          {
@@ -125,15 +131,15 @@ import flash.text.TextField;
             }
             this.actualHeight_ = this.actualHeight_ + textHeight;
          }
-         width = this.inputWidth_ == 0?Number(this.actualWidth_):Number(this.inputWidth_);
-         height = this.inputHeight_ == 0?Number(this.actualHeight_):Number(this.inputHeight_);
+         width = this.inputWidth_ == 0 ? this.actualWidth_ : this.inputWidth_;
+         height = this.inputHeight_ == 0 ? this.actualHeight_ :this.inputHeight_;
          return this;
       }
       
       public function useTextDimensions() : void
       {
-         width = this.inputWidth_ == 0?Number(textWidth + 4):Number(this.inputWidth_);
-         height = this.inputHeight_ == 0?Number(textHeight + 4):Number(this.inputHeight_);
+         width = this.inputWidth_ == 0 ? (textWidth + 4) : (this.inputWidth_);
+         height = this.inputHeight_ == 0 ? (textHeight + 4) : (this.inputHeight_);
       }
    }
 }

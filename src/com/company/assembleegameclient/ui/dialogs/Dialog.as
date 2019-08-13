@@ -40,13 +40,13 @@ package com.company.assembleegameclient.ui.dialogs
       
       public var button2_:TextButton = null;
       
-      private var outlineFill_:GraphicsSolidFill;
+      private var outlineFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,outlineFill_);
       
-      private var backgroundFill_:GraphicsSolidFill;
+      private var backgroundFill_:GraphicsSolidFill= new GraphicsSolidFill(3552822,1);
       
-      protected var path_:GraphicsPath;
+      protected var path_:GraphicsPath= new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       protected const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_,backgroundFill_,path_,GraphicsUtil.END_FILL,GraphicsUtil.END_STROKE];
       
@@ -57,10 +57,6 @@ package com.company.assembleegameclient.ui.dialogs
       public function Dialog(text:String, title:String, button1:String, button2:String)
       {
          this.box_ = new Sprite();
-         this.outlineFill_ = new GraphicsSolidFill(16777215,1);
-         this.lineStyle_ = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.outlineFill_);
-         this.backgroundFill_ = new GraphicsSolidFill(3552822,1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.initText(text);
          this.initTitleText(title);

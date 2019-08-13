@@ -34,17 +34,17 @@ package com.company.assembleegameclient.account.ui
       
       public var h_:int = 100;
       
-      private var titleFill_:GraphicsSolidFill;
+      private var titleFill_:GraphicsSolidFill= new GraphicsSolidFill(5066061,1);
       
-      private var backgroundFill_:GraphicsSolidFill;
+      private var backgroundFill_:GraphicsSolidFill = new GraphicsSolidFill(3552822,1);
       
-      private var outlineFill_:GraphicsSolidFill;
+      private var outlineFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var lineStyle_:GraphicsStroke;
+      private var lineStyle_:GraphicsStroke = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,outlineFill_);
       
-      private var path1_:GraphicsPath;
+      private var path1_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
-      private var path2_:GraphicsPath;
+      private var path2_:GraphicsPath= new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[backgroundFill_,path2_,GraphicsUtil.END_FILL,titleFill_,path1_,GraphicsUtil.END_FILL,lineStyle_,path2_,GraphicsUtil.END_STROKE];
       
@@ -52,12 +52,6 @@ package com.company.assembleegameclient.account.ui
       {
          this.textInputFields_ = new Vector.<TextInputField>();
          this.navigationLinks_ = new Vector.<ClickableText>();
-         this.titleFill_ = new GraphicsSolidFill(5066061,1);
-         this.backgroundFill_ = new GraphicsSolidFill(3552822,1);
-         this.outlineFill_ = new GraphicsSolidFill(16777215,1);
-         this.lineStyle_ = new GraphicsStroke(1,false,LineScaleMode.NORMAL,CapsStyle.NONE,JointStyle.ROUND,3,this.outlineFill_);
-         this.path1_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-         this.path2_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.w_ = w;
          this.titleText_ = new SimpleText(12,11776947,false,0,0);

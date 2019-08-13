@@ -25,11 +25,11 @@ package com.company.assembleegameclient.ui.panels.itemgrids.itemtiles
       public static const BORDER:int = 4;
        
       
-      private var fill_:GraphicsSolidFill;
+      private var fill_:GraphicsSolidFill = new GraphicsSolidFill(getBackgroundColor(),1);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
-      private var graphicsData_:Vector.<IGraphicsData>;
+      private var graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[fill_,path_,GraphicsUtil.END_FILL];
       
       private var restrictedUseIndicator:Shape;
       
@@ -41,9 +41,6 @@ package com.company.assembleegameclient.ui.panels.itemgrids.itemtiles
       
       public function ItemTile(id:int, parentGrid:ItemGrid)
       {
-         this.fill_ = new GraphicsSolidFill(this.getBackgroundColor(),1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-         this.graphicsData_ = new <IGraphicsData>[this.fill_,this.path_,GraphicsUtil.END_FILL];
          super();
          this.tileId = id;
          this.ownerGrid = parentGrid;

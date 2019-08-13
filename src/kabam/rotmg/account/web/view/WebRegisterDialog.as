@@ -3,8 +3,8 @@ package kabam.rotmg.account.web.view
    import com.company.assembleegameclient.account.ui.CheckBoxField;
    import com.company.assembleegameclient.account.ui.Frame;
    import com.company.assembleegameclient.parameters.Parameters;
-   import com.company.ui.SimpleLinkText;
-   import com.company.util.EmailValidator;
+import com.company.ui.SimpleText;
+import com.company.util.EmailValidator;
    import flash.events.MouseEvent;
    import flash.events.TextEvent;
    import flash.filters.DropShadowFilter;
@@ -55,9 +55,9 @@ package kabam.rotmg.account.web.view
       
       private var ageVerificationInput:DateField;
       
-      private var signInText:SimpleLinkText;
+      private var signInText:SimpleText;
       
-      private var tosText:SimpleLinkText;
+      private var tosText:SimpleText;
       
       public function WebRegisterDialog()
       {
@@ -74,13 +74,13 @@ package kabam.rotmg.account.web.view
          this.ageVerificationInput = new DateField();
          this.ageVerificationInput.setTitle("Birthday");
          this.checkbox = new CheckBoxField(this.CHECK_BOX_TEXT,false,"",12);
-         this.tosText = new SimpleLinkText(12,11776947,0,0,"Myriad Pro");
+         this.tosText = new SimpleText(12,11776947,0,0);
          this.tosText.setBold(true);
          this.tosText.multiline = true;
          this.tosText.htmlText = this.TOS_TEXT;
          this.tosText.updateMetrics();
          this.tosText.filters = [new DropShadowFilter(0,0,0)];
-         this.signInText = new SimpleLinkText(12,11776947,0,0,"Myriad Pro");
+         this.signInText = new SimpleText(12,11776947,0,0);
          this.signInText.setBold(true);
          this.signInText.htmlText = this.SIGN_IN_TEXT;
          this.signInText.updateMetrics();

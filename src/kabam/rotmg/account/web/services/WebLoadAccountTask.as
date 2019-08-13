@@ -45,7 +45,7 @@ package kabam.rotmg.account.web.services
          this.data = new AccountData();
          try
          {
-            rotmg = SharedObject.getLocal("RotMG","/");
+            rotmg = SharedObject.getLocal("vRotMG","/");
             rotmg.data["GUID"] && (this.data.username = rotmg.data["GUID"]);
             rotmg.data["Password"] && (this.data.password = rotmg.data["Password"]);
          }

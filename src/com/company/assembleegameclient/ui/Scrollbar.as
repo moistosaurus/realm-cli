@@ -38,16 +38,14 @@ package com.company.assembleegameclient.ui
       
       private var change_:Number;
       
-      private var backgroundFill_:GraphicsSolidFill;
+      private var backgroundFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath= new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
       
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[backgroundFill_,path_,GraphicsUtil.END_FILL];
       
       public function Scrollbar(widthParam:int, heightParam:int, speed:Number = 1.0)
       {
-         this.backgroundFill_ = new GraphicsSolidFill(16777215,1);
-         this.path_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
          super();
          this.background_ = new Sprite();
          this.background_.addEventListener(MouseEvent.MOUSE_DOWN,this.onBackgroundDown);

@@ -37,16 +37,14 @@ package com.company.assembleegameclient.engine3d
       
       private var textureMatrix_:TextureMatrix = null;
       
-      public var bitmapFill_:GraphicsBitmapFill;
+      public var bitmapFill_:GraphicsBitmapFill= new GraphicsBitmapFill(null,null,false,false);
       
-      private var path_:GraphicsPath;
+      private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),null);
       
       public function Face3D(texture:BitmapData, vin:Vector.<Number>, uvt:Vector.<Number>, backfaceCull:Boolean = false, shading:Boolean = false)
       {
          var normal:Vector3D = null;
          this.vout_ = new Vector.<Number>();
-         this.bitmapFill_ = new GraphicsBitmapFill(null,null,false,false);
-         this.path_ = new GraphicsPath(new Vector.<int>(),null);
          super();
          this.origTexture_ = texture;
          this.vin_ = vin;

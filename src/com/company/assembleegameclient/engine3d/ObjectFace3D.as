@@ -33,7 +33,7 @@ package com.company.assembleegameclient.engine3d
       
       private var path_:GraphicsPath;
       
-      private var solidFill_:GraphicsSolidFill;
+      private var solidFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
       public const bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill();
       
@@ -43,7 +43,6 @@ package com.company.assembleegameclient.engine3d
       
       public function ObjectFace3D(obj:Object3D, indices:Vector.<int>, useTexture:Boolean = true)
       {
-         this.solidFill_ = new GraphicsSolidFill(16777215,1);
          this.tToS_ = new Matrix();
          this.tempMatrix_ = new Matrix();
          super();
