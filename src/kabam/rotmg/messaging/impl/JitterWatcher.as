@@ -79,7 +79,7 @@ package kabam.rotmg.messaging.impl
          {
             variance = variance + (t - mean) * (t - mean);
          }
-         return Math.sqrt(variance / len);
+         return int(Math.sqrt(variance / len) * 10) / 10;
       }
    }
 }

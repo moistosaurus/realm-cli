@@ -21,23 +21,15 @@ package kabam.lib.net.impl
       public var socket:Socket;
       
       public const connected:Signal = new Signal();
-      
       public const closed:Signal = new Signal();
-      
       public const error:Signal = new Signal(String);
-      
       private const unsentPlaceholder:Message = new Message(0);
-      
       private const data:ByteArray = new ByteArray();
       
       private var head:Message;
-      
       private var tail:Message;
-      
       private var messageLen:int = -1;
-      
       private var outgoingCipher:ICipher;
-      
       private var incomingCipher:ICipher;
       
       public function SocketServer()
@@ -109,7 +101,8 @@ package kabam.lib.net.impl
          var first:Message = this.head.next;
          for(var message:Message = first; message; message = message.next)
          {
-            this.data.clear();
+            this.data.position = 0;
+            this.data.length = 0;
             message.writeToOutput(this.data);
             this.data.position = 0;
             if(this.outgoingCipher != null)
@@ -157,7 +150,6 @@ package kabam.lib.net.impl
       {
          var messageId:uint = 0;
          var message:Message = null;
-         var data:ByteArray = null;
          var errorMessage:String = null;
          while(true)
          {
@@ -189,7 +181,8 @@ package kabam.lib.net.impl
             }
             messageId = this.socket.readUnsignedByte();
             message = this.messages.require(messageId);
-            data = new ByteArray();
+            data.position = 0;
+            data.length = 0;
             if(this.messageLen - 5 > 0)
             {
                this.socket.readBytes(data,0,this.messageLen - 5);

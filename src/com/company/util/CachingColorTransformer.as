@@ -10,6 +10,7 @@ package com.company.util
    {
       
       private static var bds_:Dictionary = new Dictionary();
+      private static var alphas_:Dictionary = new Dictionary();
        
       
       public function CachingColorTransformer()
@@ -61,10 +62,13 @@ package com.company.util
          return newBitmapData;
       }
       
-      public static function alphaBitmapData(bitmapData:BitmapData, alpha:Number) : BitmapData
+      public static function alphaBitmapData(bitmapData:BitmapData, alpha:int) : BitmapData
       {
-         var alphaInt:int = int(alpha * 100);
-         var ct:ColorTransform = new ColorTransform(1,1,1,alphaInt / 100);
+         var ct:ColorTransform = alphas_[alpha];
+         if (ct == null) {
+            ct = new ColorTransform(1, 1, 1, alpha / 100);
+            alphas_[alpha] = ct;
+         }
          return transformBitmapData(bitmapData,ct);
       }
       
@@ -80,6 +84,7 @@ package com.company.util
             }
          }
          bds_ = new Dictionary();
+         alphas_ = new Dictionary();
       }
    }
 }

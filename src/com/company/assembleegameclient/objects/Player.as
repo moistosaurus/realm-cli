@@ -845,7 +845,7 @@ import com.company.ui.SimpleText;
          var filteredTexture:BitmapData = texturingCache_[texture];
          if(filteredTexture == null)
          {
-            filteredTexture = GlowRedrawer.outlineGlow(texture,this.legendaryRank_ == -1?uint(0):uint(16711680));
+            filteredTexture = GlowRedrawer.outlineGlow(texture,this.legendaryRank_ == -1 ? 0: 16711680);
             texturingCache_[texture] = filteredTexture;
          }
          if(isPaused() || isStasis())
@@ -854,7 +854,7 @@ import com.company.ui.SimpleText;
          }
          else if(isInvisible())
          {
-            filteredTexture = CachingColorTransformer.alphaBitmapData(filteredTexture,0.4);
+            filteredTexture = CachingColorTransformer.alphaBitmapData(filteredTexture,40);
          }
          return filteredTexture;
       }
@@ -1050,7 +1050,7 @@ import com.company.ui.SimpleText;
       
       public function nextAvailableInventorySlot() : int
       {
-         var len:int = !!this.hasBackpack_?int(equipment_.length):int(equipment_.length - GeneralConstants.NUM_INVENTORY_SLOTS);
+         var len:int = this.hasBackpack_ ? int(equipment_.length) : int(equipment_.length - GeneralConstants.NUM_INVENTORY_SLOTS);
          for(var i:uint = 4; i < len; i++)
          {
             if(equipment_[i] <= 0)

@@ -11,7 +11,7 @@ package com.company.assembleegameclient.ui
    public class ElementFormats
    {
       
-      private static var FONT_DESCRIPTION:String = "MyriadProCFF,_sans";
+      private static var FONT_DESCRIPTION:String = "MyriadProBoldCFF,_sans";
        
       
       public var normalFormat_:ElementFormat = null;
