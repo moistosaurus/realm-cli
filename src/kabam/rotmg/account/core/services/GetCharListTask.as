@@ -72,8 +72,7 @@ package kabam.rotmg.account.core.services
       
       public function makeRequestData() : Object
       {
-         var params:Object = {};
-         MoreObjectUtil.addToObject(params,this.account.getCredentials());
+         var params:Object = this.account.getCredentials();
          return params;
       }
       

@@ -13,7 +13,7 @@ package com.company.assembleegameclient.mapeditor
       
       public function EditTilePropertiesFrame(oldName:String)
       {
-         super("Tile properties","Cancel","Save",null);
+         super("Tile properties","Cancel","Save",288);
          this.objectName_ = new TextInputField("Object Name",false,"");
          if(oldName != null)
          {

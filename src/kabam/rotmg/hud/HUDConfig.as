@@ -1,6 +1,5 @@
 package kabam.rotmg.hud
 {
-   import kabam.rotmg.game.signals.FamePriceMultiplierUpdatedSignal;
    import org.swiftsuspenders.Injector;
    import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
    import robotlegs.bender.extensions.signalCommandMap.api.ISignalCommandMap;
@@ -26,7 +25,6 @@ package kabam.rotmg.hud
       
       public function configure() : void
       {
-         this.injector.map(FamePriceMultiplierUpdatedSignal).asSingleton();
       }
    }
 }

@@ -6,7 +6,6 @@ package kabam.rotmg.game.view
    import kabam.rotmg.account.core.view.RegisterPromptDialog;
    import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.dialogs.control.OpenDialogSignal;
-   import kabam.rotmg.game.signals.FamePriceMultiplierUpdatedSignal;
    import robotlegs.bender.bundles.mvcs.Mediator;
    
    public class SellableObjectPanelMediator extends Mediator
@@ -27,9 +26,6 @@ package kabam.rotmg.game.view
       [Inject]
       public var playerModel:PlayerModel;
       
-      [Inject]
-      public var famePriceMultiplierUpdated:FamePriceMultiplierUpdatedSignal;
-      
       public function SellableObjectPanelMediator()
       {
          super();
@@ -38,15 +34,8 @@ package kabam.rotmg.game.view
       override public function initialize() : void
       {
          this.view.buyItem.add(this.onBuyItem);
-         this.famePriceMultiplierUpdated.add(this.onFamePriceMultiplierChanged);
-         this.view.setFamePriceMultiplier(this.playerModel.getFamePriceMultiplier());
       }
-      
-      private function onFamePriceMultiplierChanged() : void
-      {
-         this.view.setFamePriceMultiplier(this.playerModel.getFamePriceMultiplier());
-      }
-      
+
       override public function destroy() : void
       {
          this.view.buyItem.remove(this.onBuyItem);

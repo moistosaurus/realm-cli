@@ -4,10 +4,6 @@ package kabam.rotmg.messaging.impl.outgoing
    
    public class CancelTrade extends OutgoingMessage
    {
-       
-      
-      public var objectId_:int;
-      
       public function CancelTrade(id:uint, callback:Function)
       {
          super(id,callback);

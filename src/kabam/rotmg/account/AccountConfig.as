@@ -3,11 +3,11 @@ package kabam.rotmg.account
    import flash.display.DisplayObjectContainer;
    import flash.display.LoaderInfo;
    import kabam.rotmg.account.core.BuyCharacterSlotCommand;
-   import kabam.rotmg.account.core.control.IsAccountRegisteredGuard;
+import kabam.rotmg.account.core.control.IsAccountRegisteredGuard;
    import kabam.rotmg.account.core.model.OfferModel;
-   import kabam.rotmg.account.core.services.GetCharListTask;
-   import kabam.rotmg.account.core.signals.UpdateAccountInfoSignal;
-   import kabam.rotmg.account.web.WebAccountConfig;
+import kabam.rotmg.account.core.services.GetCharListTask;
+import kabam.rotmg.account.core.signals.UpdateAccountInfoSignal;
+import kabam.rotmg.account.web.WebAccountConfig;
    import kabam.rotmg.core.signals.TaskErrorSignal;
    import kabam.rotmg.ui.signals.BuyCharacterSlotSignal;
    import org.swiftsuspenders.Injector;

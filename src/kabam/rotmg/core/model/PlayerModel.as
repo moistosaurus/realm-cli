@@ -5,7 +5,6 @@ package kabam.rotmg.core.model
    import com.company.assembleegameclient.appengine.SavedNewsItem;
    import com.company.assembleegameclient.parameters.Parameters;
    import kabam.rotmg.account.core.Account;
-   import kabam.rotmg.game.signals.FamePriceMultiplierUpdatedSignal;
    import kabam.rotmg.servers.api.LatLong;
    import org.osflash.signals.Signal;
    
@@ -28,27 +27,12 @@ package kabam.rotmg.core.model
       [Inject]
       public var account:Account;
       
-      [Inject]
-      public var famePriceMultiplierUpdated:FamePriceMultiplierUpdatedSignal;
-      
       public function PlayerModel()
       {
          super();
          this.isInvalidated = true;
       }
-      
-      public function setFamePriceMultiplier(value:Number) : void
-      {
-         this.famePriceMultiplier = value;
-         trace("model famePriceMultiplier: " + this.famePriceMultiplier);
-         this.famePriceMultiplierUpdated.dispatch();
-      }
-      
-      public function getFamePriceMultiplier() : Number
-      {
-         return this.famePriceMultiplier;
-      }
-      
+
       public function getHasPlayerDied() : Boolean
       {
          return this.charList.hasPlayerDied;

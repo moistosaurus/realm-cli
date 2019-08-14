@@ -4,11 +4,7 @@ package kabam.rotmg.messaging.impl.outgoing
    
    public class Buy extends OutgoingMessage
    {
-       
-      
       public var objectId_:int;
-      
-      public var multiplier_:Number = -1;
       
       public function Buy(id:uint, callback:Function)
       {
@@ -18,12 +14,11 @@ package kabam.rotmg.messaging.impl.outgoing
       override public function writeToOutput(data:IDataOutput) : void
       {
          data.writeInt(this.objectId_);
-         data.writeFloat(this.multiplier_);
       }
       
       override public function toString() : String
       {
-         return formatToString("BUY","objectId_","multiplier_");
+         return formatToString("BUY","objectId_");
       }
    }
 }

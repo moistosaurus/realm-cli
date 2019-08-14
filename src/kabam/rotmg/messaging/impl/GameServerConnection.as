@@ -312,8 +312,6 @@ package kabam.rotmg.messaging.impl
       
       public static const RESKIN:int = 79;
       
-      public static const FAMEPRICEMULTIPLIER:int = 80;
-      
       private static const TO_MILLISECONDS:int = 1000;
       
       public static var instance:GameServerConnection;
@@ -545,7 +543,6 @@ package kabam.rotmg.messaging.impl
          messages.map(FILE).toMessage(File).toMethod(this.onFile);
          messages.map(INVITEDTOGUILD).toMessage(InvitedToGuild).toMethod(this.onInvitedToGuild);
          messages.map(PLAYSOUND).toMessage(PlaySound).toMethod(this.onPlaySound);
-         messages.map(FAMEPRICEMULTIPLIER).toMessage(FamePriceMultiplier).toMethod(this.onFamePriceMultiplier);
       }
       
       private function unmapMessages() : void
@@ -621,7 +618,6 @@ package kabam.rotmg.messaging.impl
          messages.unmap(FILE);
          messages.unmap(INVITEDTOGUILD);
          messages.unmap(PLAYSOUND);
-         messages.unmap(FAMEPRICEMULTIPLIER);
       }
       
       private function encryptConnection() : void
@@ -937,14 +933,6 @@ package kabam.rotmg.messaging.impl
          this.outstandingBuy_ = new OutstandingBuy(sObj.soldObjectInternalName(),sObj.price_,sObj.currency_);
          var buyMesssage:Buy = this.messages.require(BUY) as Buy;
          buyMesssage.objectId_ = sellableObjectId;
-         if(currencyType == Currency.FAME)
-         {
-            buyMesssage.multiplier_ = this.playerModel.getFamePriceMultiplier();
-         }
-         else
-         {
-            buyMesssage.multiplier_ = -1;
-         }
          this.serverConnection.sendMessage(buyMesssage);
       }
       
@@ -1747,10 +1735,6 @@ package kabam.rotmg.messaging.impl
          var colors:Vector.<uint> = null;
          var speechBalloonvo:AddSpeechBalloonVO = null;
          var textString:String = text.text_;
-         if(text.cleanText_.length > 0 && text.objectId_ != this.playerId_)
-         {
-            textString = text.cleanText_;
-         }
          if(text.objectId_ >= 0)
          {
             go = this.gs_.map.goDict_[text.objectId_];
@@ -1821,16 +1805,6 @@ package kabam.rotmg.messaging.impl
       
       private function onMapInfo(mapInfo:MapInfo) : void
       {
-         var clientXMLString:String = null;
-         var extraXMLString:String = null;
-         for each(clientXMLString in mapInfo.clientXML_)
-         {
-            this.parseXML(clientXMLString);
-         }
-         for each(extraXMLString in mapInfo.extraXML_)
-         {
-            this.parseXML(extraXMLString);
-         }
          this.gs_.applyMapInfo(mapInfo);
          this.rand_ = new Random(mapInfo.fp_);
          if(this.createCharacter_)
@@ -2053,12 +2027,6 @@ package kabam.rotmg.messaging.impl
          var dialog:Dialog = event.currentTarget as Dialog;
          dialog.parent.removeChild(dialog);
          this.gs_.closed.dispatch();
-      }
-      
-      private function onFamePriceMultiplier(famePriceMultiplier:FamePriceMultiplier) : void
-      {
-         trace("server famePriceMultiplier: " + famePriceMultiplier.multiplier);
-         this.playerModel.setFamePriceMultiplier(famePriceMultiplier.multiplier);
       }
    }
 }

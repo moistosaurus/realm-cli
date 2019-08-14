@@ -166,8 +166,8 @@ package kabam.rotmg.ui
          this.mapNoServersDialogFactory();
          this.setupCharacterWindow();
          this.startup.addSignal(ShowLoadingUISignal,-1);
+         this.startup.addTask(GetCharListTask); // switching those works
          this.startup.addTask(LoadAccountTask);
-         this.startup.addTask(GetCharListTask);
          this.startup.addSignal(ShowTitleUISignal,StartupSequence.LAST);
       }
       

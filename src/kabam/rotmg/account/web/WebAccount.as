@@ -51,7 +51,7 @@ package kabam.rotmg.account.web
          this.password = password;
          try
          {
-            rotmg = SharedObject.getLocal("VRotMG","/");
+            rotmg = SharedObject.getLocal("OSRotMG","/");
             rotmg.data["GUID"] = userId;
             rotmg.data["Password"] = password;
             rotmg.flush();

@@ -44,7 +44,6 @@ package kabam.rotmg.account.web.services
       
       private function updateUser(response:String) : void
       {
-         var xml:XML = new XML(response);
          this.account.updateUser(this.data.username,this.data.password);
       }
    }

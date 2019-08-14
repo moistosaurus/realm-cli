@@ -71,6 +71,7 @@ package kabam.rotmg.account.web
       protected function mapModel() : void
       {
          this.injector.map(Account).toSingleton(WebAccount);
+         //this.injector.map(CharListDataSignal).asSingleton();
       }
       
       protected function mapCommands() : void
@@ -81,6 +82,7 @@ package kabam.rotmg.account.web
          this.commandMap.map(WebChangePasswordSignal).toCommand(WebChangePasswordCommand);
          this.commandMap.map(SendPasswordReminderSignal).toCommand(WebSendPasswordReminderCommand);
          this.commandMap.map(RegisterSignal).toCommand(WebRegisterAccountCommand);
+         //this.commandMap.map(CharListDataSignal);
       }
       
       protected function mapMediators() : void

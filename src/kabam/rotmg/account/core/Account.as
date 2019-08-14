@@ -2,7 +2,7 @@ package kabam.rotmg.account.core
 {
    public interface Account
    {
-      function updateUser(param1:String, param2:String) : void;
+      function updateUser(guid:String, password:String) : void;
       
       function getUserName() : String;
       
@@ -16,6 +16,6 @@ package kabam.rotmg.account.core
       
       function clear() : void;
       
-      function reportIntStat(param1:String, param2:int) : void;
+      function reportIntStat(name:String, value:int) : void;
    }
 }

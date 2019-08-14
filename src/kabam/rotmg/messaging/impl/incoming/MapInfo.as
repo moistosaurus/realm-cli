@@ -24,22 +24,13 @@ package kabam.rotmg.messaging.impl.incoming
       
       public var showDisplays_:Boolean;
       
-      public var clientXML_:Vector.<String>;
-      
-      public var extraXML_:Vector.<String>;
-      
       public function MapInfo(id:uint, callback:Function)
       {
-         this.clientXML_ = new Vector.<String>();
-         this.extraXML_ = new Vector.<String>();
          super(id,callback);
       }
       
       override public function parseFromInput(data:IDataInput) : void
       {
-         var len:int = 0;
-         var i:int = 0;
-         var xmlLen:int = 0;
          this.width_ = data.readInt();
          this.height_ = data.readInt();
          this.name_ = data.readUTF();
@@ -49,20 +40,6 @@ package kabam.rotmg.messaging.impl.incoming
          this.difficulty_ = data.readInt();
          this.allowPlayerTeleport_ = data.readBoolean();
          this.showDisplays_ = data.readBoolean();
-         len = data.readShort();
-         this.clientXML_.length = 0;
-         for(i = 0; i < len; i++)
-         {
-            xmlLen = data.readInt();
-            this.clientXML_.push(data.readUTFBytes(xmlLen));
-         }
-         len = data.readShort();
-         this.extraXML_.length = 0;
-         for(i = 0; i < len; i++)
-         {
-            xmlLen = data.readInt();
-            this.extraXML_.push(data.readUTFBytes(xmlLen));
-         }
       }
       
       override public function toString() : String
