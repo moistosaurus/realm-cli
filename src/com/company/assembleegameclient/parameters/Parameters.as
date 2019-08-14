@@ -59,12 +59,16 @@ package com.company.assembleegameclient.parameters
       
       public static const HELP_MESSAGE:String = "Help:\n" + "[/pause]: pause the game (until you [/pause] again)\n" + "[/who]: list players online\n" + "[/tutorial]: enter the tutorial\n" + "[/yell <message>]: send message to all players in Nexus\n" + "[/tell <player name> <message>]: send a private message to a player\n" + "[/guild <message>]: send a message to your guild\n" + "[/ignore <player name>]: don\'t show chat messages from player\n" + "[/unignore <player name>]: stop ignoring a player\n" + "[/teleport <player name>]: teleport to a player\n" + "[/trade <player name>]: request a trade with a player\n" + "[/invite <player name>]: invite a player to your guild\n" + "[/join <guild name>]: join a guild (invite necessary)\n" + "[/help]: this message";
       
-      public static const RANDOM1:String = "311f80691451c71b09a13a2a6e";
+      public static const RANDOM1:String = "B1A5ED";
       
-      public static const RANDOM2:String = "72c5583cafb6818995cbd74b80";
+      public static const RANDOM2:String = "612a806cac78114ba5013cb531";
       
-      public static const RSA_PUBLIC_KEY:String = "-----BEGIN PUBLIC KEY-----\n" + "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDEmgEmQcgLd0mvWqL6AKmhzj" + "JfZoAmZC0PUmG8K9CB1Ml68P00S3eU+TSL5aG8Mg3Tipvs02gC2veC10knRi7r" + "EsUwL8+h22EsjnpKZ/7K5YV9cefryTMnS0x4QGZbSkdPz/rLh0uGwk8Zu0cEKb" + "xQyvd3+pSmqZ5/ZQGaFjm9TQIDAQAB\n" + "-----END PUBLIC KEY-----";
-      
+      public static const RSA_PUBLIC_KEY:String =
+              "-----BEGIN PUBLIC KEY-----\n" +
+              "MFswDQYJKoZIhvcNAQEBBQADSgAwRwJAeyjMOLhcK4o2AnFRhn8vPteUy5Fux/cX" +
+              "N/J+wT/zYIEUINo02frn+Kyxx0RIXJ3CvaHkwmueVL8ytfqo8Ol/OwIDAQAB\n" +
+              "-----END PUBLIC KEY-----";
+
       private static var savedOptions_:SharedObject = null;
       
       private static var keyNames_:Dictionary = new Dictionary();
