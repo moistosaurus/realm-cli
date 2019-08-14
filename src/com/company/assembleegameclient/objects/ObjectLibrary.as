@@ -2,7 +2,8 @@ package com.company.assembleegameclient.objects
 {
    import com.company.assembleegameclient.objects.animation.AnimationsData;
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.util.AssetLibrary;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.util.AssetLibrary;
    import com.company.util.ConversionUtil;
    import flash.display.BitmapData;
    import flash.utils.Dictionary;
@@ -184,13 +185,13 @@ package com.company.assembleegameclient.objects
          var mask:BitmapData = Boolean(textureData)?textureData.mask_:null;
          if(mask == null)
          {
-            return TextureRedrawer.redraw(texture,size,includeBottom,0,0,useCaching,scaleValue);
+            return TextureRedrawer.redraw(texture,size,includeBottom,0,useCaching,scaleValue);
          }
          var objectXML:XML = xmlLibrary_[objectType];
          var tex1:int = Boolean(objectXML.hasOwnProperty("Tex1"))?int(int(objectXML.Tex1)):int(0);
          var tex2:int = Boolean(objectXML.hasOwnProperty("Tex2"))?int(int(objectXML.Tex2)):int(0);
          texture = TextureRedrawer.resize(texture,mask,size,includeBottom,tex1,tex2);
-         texture = TextureRedrawer.outlineGlow(texture,0,0);
+         texture = GlowRedrawer.outlineGlow(texture,0);
          return texture;
       }
       

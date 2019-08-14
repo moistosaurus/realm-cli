@@ -4,7 +4,8 @@ package kabam.rotmg.assets.services
    import com.company.assembleegameclient.util.AnimatedChars;
    import com.company.assembleegameclient.util.MaskedImage;
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.util.BitmapUtil;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.util.BitmapUtil;
    import flash.display.BitmapData;
    import kabam.rotmg.assets.model.Animation;
    import kabam.rotmg.assets.model.CharacterTemplate;
@@ -36,7 +37,7 @@ package kabam.rotmg.assets.services
          this.size = size;
          var character:AnimatedChar = this.makeCharacter(template);
          var data:BitmapData = this.makeFrame(character,AnimatedChar.STAND,0);
-         data = TextureRedrawer.outlineGlow(data,0,0);
+         data = GlowRedrawer.outlineGlow(data,0);
          data = BitmapUtil.cropToBitmapData(data,6,6,data.width - 12,data.height - 6);
          return data;
       }
@@ -48,9 +49,9 @@ package kabam.rotmg.assets.services
          this.size = size;
          var character:AnimatedChar = this.makeCharacter(template);
          var first:BitmapData = this.makeFrame(character,AnimatedChar.WALK,0.5);
-         first = TextureRedrawer.outlineGlow(first,0,0);
+         first = GlowRedrawer.outlineGlow(first,0);
          var second:BitmapData = this.makeFrame(character,AnimatedChar.WALK,0);
-         second = TextureRedrawer.outlineGlow(second,0,0);
+         second = GlowRedrawer.outlineGlow(second,0);
          var animation:Animation = new Animation();
          animation.setFrames(first,second);
          return animation;

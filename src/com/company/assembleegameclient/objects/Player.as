@@ -15,7 +15,8 @@ package com.company.assembleegameclient.objects
    import com.company.assembleegameclient.util.FreeList;
    import com.company.assembleegameclient.util.MaskedImage;
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.ui.SimpleText;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.ui.SimpleText;
    import com.company.util.CachingColorTransformer;
    import com.company.util.ConversionUtil;
    import com.company.util.GraphicsUtil;
@@ -49,158 +50,88 @@ package com.company.assembleegameclient.objects
    {
       
       public static const MS_BETWEEN_TELEPORT:int = 10000;
-      
       private static const MOVE_THRESHOLD:Number = 0.4;
-      
       private static const NEARBY:Vector.<Point> = new <Point>[new Point(0,0),new Point(1,0),new Point(0,1),new Point(1,1)];
-      
+
       private static var newP:Point = new Point();
       
       private static const RANK_OFFSET_MATRIX:Matrix = new Matrix(1,0,0,1,2,4);
-      
       private static const NAME_OFFSET_MATRIX:Matrix = new Matrix(1,0,0,1,20,0);
       
       private static const MIN_MOVE_SPEED:Number = 0.004;
-      
       private static const MAX_MOVE_SPEED:Number = 0.0096;
-      
       private static const MIN_ATTACK_FREQ:Number = 0.0015;
-      
       private static const MAX_ATTACK_FREQ:Number = 0.008;
-      
       private static const MIN_ATTACK_MULT:Number = 0.5;
-      
       private static const MAX_ATTACK_MULT:Number = 2;
-       
-      
+
+      private static const LOW_HEALTH_CT_OFFSET:int = 128;
+      private static var lowHealthCT:Dictionary = new Dictionary();
+
       public var xpTimer:int;
-      
       public var skinId:int;
-      
       public var skin:AnimatedChar;
-      
       public var accountId_:int = -1;
-      
       public var credits_:int = 0;
-      
       public var numStars_:int = 0;
-      
       public var fame_:int = 0;
-      
       public var nameChosen_:Boolean = false;
-      
       public var currFame_:int = 0;
-      
       public var nextClassQuestFame_:int = -1;
-      
       public var legendaryRank_:int = -1;
-      
       public var guildName_:String = null;
-      
       public var guildRank_:int = -1;
-      
       public var isFellowGuild_:Boolean = false;
-      
       public var breath_:int = -1;
-      
       public var maxMP_:int = 200;
-      
       public var mp_:Number = 0;
-      
       public var nextLevelExp_:int = 1000;
-      
       public var exp_:int = 0;
-      
       public var attack_:int = 0;
-      
       public var speed_:int = 0;
-      
       public var dexterity_:int = 0;
-      
       public var vitality_:int = 0;
-      
       public var wisdom_:int = 0;
-      
       public var maxHPBoost_:int = 0;
-      
       public var maxMPBoost_:int = 0;
-      
       public var attackBoost_:int = 0;
-      
       public var defenseBoost_:int = 0;
-      
       public var speedBoost_:int = 0;
-      
       public var vitalityBoost_:int = 0;
-      
       public var wisdomBoost_:int = 0;
-      
       public var dexterityBoost_:int = 0;
-      
       public var xpBoost_:int = 0;
-      
       public var healthPotionCount_:int = 0;
-      
       public var magicPotionCount_:int = 0;
-      
       public var attackMax_:int = 0;
-      
       public var defenseMax_:int = 0;
-      
       public var speedMax_:int = 0;
-      
       public var dexterityMax_:int = 0;
-      
       public var vitalityMax_:int = 0;
-      
       public var wisdomMax_:int = 0;
-      
       public var maxHPMax_:int = 0;
-      
       public var maxMPMax_:int = 0;
-      
       public var hasBackpack_:Boolean = false;
-      
       public var starred_:Boolean = false;
-      
       public var ignored_:Boolean = false;
-      
       public var distSqFromThisPlayer_:Number = 0;
-      
       protected var rotate_:Number = 0;
-      
       protected var relMoveVec_:Point = null;
-      
       protected var moveMultiplier_:Number = 1;
-      
       public var attackPeriod_:int = 0;
-      
       public var nextAltAttack_:int = 0;
-      
       public var nextTeleportAt_:int = 0;
-      
       public var dropBoost:int = 0;
-      
       public var tierBoost:int = 0;
-      
       protected var healingEffect_:HealingEffect = null;
-      
       protected var nearestMerchant_:Merchant = null;
-      
       public var isDefaultAnimatedChar:Boolean = true;
-      
       private var addTextLine:AddTextLineSignal;
-      
       private var factory:CharacterFactory;
-      
       private var ip_:IntPoint;
-      
       private var breathBackFill_:GraphicsSolidFill = null;
-      
       private var breathBackPath_:GraphicsPath = null;
-      
       private var breathFill_:GraphicsSolidFill = null;
-      
       private var breathPath_:GraphicsPath = null;
       
       public function Player(objectXML:XML)
@@ -901,14 +832,20 @@ package com.company.assembleegameclient.objects
          if(hp_ < maxHP_ * 0.2)
          {
             rv = int(Math.abs(Math.sin(time / 200)) * 10) / 10;
-            c = 128;
-            ct = new ColorTransform(1,1,1,1,rv * c,-rv * c,-rv * c);
+            var ct = lowHealthCT[rv];
+            if (ct == null){
+               ct = new ColorTransform(1,1,1,1,
+                       rv * LOW_HEALTH_CT_OFFSET,
+                       -rv * LOW_HEALTH_CT_OFFSET,
+                       -rv * LOW_HEALTH_CT_OFFSET);
+               lowHealthCT[rv] = ct;
+            }
             texture = CachingColorTransformer.transformBitmapData(texture,ct);
          }
          var filteredTexture:BitmapData = texturingCache_[texture];
          if(filteredTexture == null)
          {
-            filteredTexture = TextureRedrawer.outlineGlow(texture,0,this.legendaryRank_ == -1?uint(0):uint(16711680));
+            filteredTexture = GlowRedrawer.outlineGlow(texture,this.legendaryRank_ == -1?uint(0):uint(16711680));
             texturingCache_[texture] = filteredTexture;
          }
          if(isPaused() || isStasis())
@@ -931,7 +868,7 @@ package com.company.assembleegameclient.objects
             image = animatedChar_.imageFromDir(AnimatedChar.RIGHT,AnimatedChar.STAND,0);
             size = 4 / image.image_.width * 100;
             portrait_ = TextureRedrawer.resize(image.image_,image.mask_,size,true,tex1Id_,tex2Id_);
-            portrait_ = TextureRedrawer.outlineGlow(portrait_,0,0);
+            portrait_ = GlowRedrawer.outlineGlow(portrait_,0);
          }
          return portrait_;
       }

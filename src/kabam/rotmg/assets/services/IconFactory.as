@@ -1,7 +1,8 @@
 package kabam.rotmg.assets.services
 {
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.util.AssetLibrary;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.util.AssetLibrary;
    import com.company.util.BitmapUtil;
    import flash.display.Bitmap;
    import flash.display.BitmapData;
@@ -35,7 +36,7 @@ package kabam.rotmg.assets.services
       
       private static function cropAndGlowIcon(data:BitmapData) : BitmapData
       {
-         data = TextureRedrawer.outlineGlow(data,0,4294967295);
+         data = GlowRedrawer.outlineGlow(data,4294967295);
          data = BitmapUtil.cropToBitmapData(data,10,10,data.width - 20,data.height - 20);
          return data;
       }

@@ -6,14 +6,16 @@ package com.company.assembleegameclient.appengine
    import com.company.assembleegameclient.util.AnimatedChars;
    import com.company.assembleegameclient.util.MaskedImage;
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.util.CachingColorTransformer;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.util.CachingColorTransformer;
    import flash.display.BitmapData;
    import flash.geom.ColorTransform;
    
    public class SavedCharacter
    {
-       
-      
+      private static const notAvailableCT:ColorTransform = new ColorTransform(0, 0, 0, 0.5, 0, 0, 0, 0);
+      private static const dimCT:ColorTransform = new ColorTransform(0.75, 0.75, 0.75, 1, 0, 0, 0, 0);
+
       public var charXML_:XML;
       
       public var name_:String = null;
@@ -32,22 +34,22 @@ package com.company.assembleegameclient.appengine
          var tex1:int = savedChar != null?int(savedChar.tex1()):int(null);
          var tex2:int = savedChar != null?int(savedChar.tex2()):int(null);
          var bd:BitmapData = TextureRedrawer.resize(image.image_,image.mask_,100,false,tex1,tex2);
-         bd = TextureRedrawer.outlineGlow(bd,0,0);
+         bd = GlowRedrawer.outlineGlow(bd,0);
          if(!available)
          {
-            bd = CachingColorTransformer.transformBitmapData(bd,new ColorTransform(0,0,0,0.5,0,0,0,0));
+            bd = CachingColorTransformer.transformBitmapData(bd,notAvailableCT);
          }
          else if(!selected)
          {
-            bd = CachingColorTransformer.transformBitmapData(bd,new ColorTransform(0.75,0.75,0.75,1,0,0,0,0));
+            bd = CachingColorTransformer.transformBitmapData(bd,dimCT);
          }
          return bd;
       }
       
       public static function compare(char1:SavedCharacter, char2:SavedCharacter) : Number
       {
-         var char1Use:Number = Boolean(Parameters.data_.charIdUseMap.hasOwnProperty(char1.charId()))?Number(Parameters.data_.charIdUseMap[char1.charId()]):Number(0);
-         var char2Use:Number = Boolean(Parameters.data_.charIdUseMap.hasOwnProperty(char2.charId()))?Number(Parameters.data_.charIdUseMap[char2.charId()]):Number(0);
+         var char1Use:Number = Boolean(Parameters.data_.charIdUseMap.hasOwnProperty(char1.charId().toString()))?Number(Parameters.data_.charIdUseMap[char1.charId()]):Number(0);
+         var char2Use:Number = Boolean(Parameters.data_.charIdUseMap.hasOwnProperty(char2.charId().toString()))?Number(Parameters.data_.charIdUseMap[char2.charId()]):Number(0);
          if(char1Use != char2Use)
          {
             return char2Use - char1Use;

@@ -23,21 +23,21 @@ package com.company.assembleegameclient.engine3d
        
       
       public var size_:Number;
-      
       public var posS_:Vector3D;
+
+      private var n:Vector.<Number>;
       
       private const data_:Vector.<Number> = new Vector.<Number>();
-      
       private const path_:GraphicsPath = new GraphicsPath(commands_,data_);
-      
       private const bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill(null,new Matrix(),false,false);
-      
       private const solidFill_:GraphicsSolidFill = new GraphicsSolidFill(0,1);
       
       public function Point3D(size:Number)
       {
          super();
          this.size_ = size;
+         this.n = new Vector.<Number>(16, true);
+         this.posS_ = new Vector3D();
       }
       
       public function setSize(size:Number) : void
@@ -50,7 +50,7 @@ package com.company.assembleegameclient.engine3d
          var ca:Number = NaN;
          var sa:Number = NaN;
          var m:Matrix = null;
-         this.posS_ = Utils3D.projectVector(lToS,posL);
+         projectVector2posS(lToS, posL);
          if(this.posS_.w < 0)
          {
             return;
@@ -86,6 +86,15 @@ package com.company.assembleegameclient.engine3d
          }
          graphicsData.push(this.path_);
          graphicsData.push(END_FILL);
+      }
+
+      private function projectVector2posS(m:Matrix3D, v:Vector3D):void {
+         m.copyRawDataTo(n);
+         posS_.x = v.x * n[0] + v.y * n[4] + v.z * n[8] + n[12];
+         posS_.y = v.x * n[1] + v.y * n[5] + v.z * n[9] + n[13];
+         posS_.z = v.x * n[2] + v.y * n[6] + v.z * n[10] + n[14];
+         posS_.w = v.x * n[3] + v.y * n[7] + v.z * n[11] + n[15];
+         posS_.project();
       }
    }
 }

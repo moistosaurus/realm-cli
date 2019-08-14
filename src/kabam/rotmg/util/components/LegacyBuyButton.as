@@ -146,7 +146,7 @@ package kabam.rotmg.util.components
       
       private function draw() : void
       {
-         this.graphicsData[0] = !!mouseEnabled?this.enabledFill:this.disabledFill;
+         this.graphicsData[0] = mouseEnabled?this.enabledFill:this.disabledFill;
          graphics.clear();
          graphics.drawGraphicsData(this.graphicsData);
       }

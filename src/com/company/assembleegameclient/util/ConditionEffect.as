@@ -1,6 +1,7 @@
 package com.company.assembleegameclient.util
 {
-   import com.company.util.AssetLibrary;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.util.AssetLibrary;
    import com.company.util.PointUtil;
    import flash.display.BitmapData;
    import flash.filters.BitmapFilterQuality;
@@ -207,7 +208,7 @@ package com.company.assembleegameclient.util
                   {
                      icon = new BitmapData(16,16,true,0);
                      icon.draw(AssetLibrary.getImageFromSet("lofiInterface2",effects_[ce].iconOffsets_[i]),drawMatrix);
-                     icon = TextureRedrawer.outlineGlow(icon,0,4294967295);
+                     icon = GlowRedrawer.outlineGlow(icon,4294967295);
                      icon.applyFilter(icon,icon.rect,PointUtil.ORIGIN,GLOW_FILTER);
                      icons.push(icon);
                   }

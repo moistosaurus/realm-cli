@@ -63,13 +63,13 @@ package com.company.assembleegameclient.util
             case FOUNDER:
                icon = AssetLibrary.getImageFromSet("lofiInterfaceBig",16);
          }
-         return TextureRedrawer.redraw(icon,size,true,0,0,true);
+         return TextureRedrawer.redraw(icon,size,true,0,true);
       }
       
       public static function guildFameIcon(size:int) : BitmapData
       {
          var icon:BitmapData = AssetLibrary.getImageFromSet("lofiObj3",226);
-         return TextureRedrawer.redraw(icon,size,true,0,0,true);
+         return TextureRedrawer.redraw(icon,size,true,0,true);
       }
       
       public static function allowedChange(authRank:int, oldRank:int, newRank:int) : Boolean

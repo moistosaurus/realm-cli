@@ -3,7 +3,8 @@ package com.company.assembleegameclient.map.mapoverlay
    import com.company.assembleegameclient.map.Camera;
    import com.company.assembleegameclient.objects.GameObject;
    import com.company.assembleegameclient.parameters.Parameters;
-   import com.company.util.GraphicsUtil;
+import com.company.ui.SimpleText;
+import com.company.util.GraphicsUtil;
    import flash.display.CapsStyle;
    import flash.display.GraphicsPath;
    import flash.display.GraphicsPathCommand;
@@ -59,7 +60,7 @@ package com.company.assembleegameclient.map.mapoverlay
          this.text_.embedFonts = true;
          this.text_.width = 150;
          var format:TextFormat = new TextFormat();
-         format.font = "Myriad Pro";
+         format.font = SimpleText._Font.fontName;
          format.size = 14;
          format.bold = bold;
          format.color = textColor;

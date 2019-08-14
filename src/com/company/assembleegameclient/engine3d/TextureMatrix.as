@@ -11,7 +11,7 @@ package com.company.assembleegameclient.engine3d
       
       public var tToS_:Matrix;
       
-      private var uvMatrix_:Matrix = null;
+      private var uvMatrix_:Matrix;
       
       private var tempMatrix_:Matrix;
       
@@ -19,6 +19,7 @@ package com.company.assembleegameclient.engine3d
       {
          this.tToS_ = new Matrix();
          this.tempMatrix_ = new Matrix();
+         this.uvMatrix_ = new Matrix();
          super();
          this.texture_ = texture;
          this.calculateUVMatrix(uvt);
@@ -52,26 +53,22 @@ package com.company.assembleegameclient.engine3d
          this.tempMatrix_.ty = vout[1];
          this.tToS_.concat(this.tempMatrix_);
       }
-      
-      public function calculateUVMatrix(uvt:Vector.<Number>) : void
-      {
-         if(this.texture_ == null)
-         {
+
+      public function calculateUVMatrix(uvt:Vector.<Number>):void {
+         if (this.texture_ == null) {
             this.uvMatrix_ = null;
             return;
          }
-         var li:int = uvt.length - 3;
-         var uv0x:Number = uvt[0] * this.texture_.width;
-         var uv0y:Number = uvt[1] * this.texture_.height;
-         var uv1x:Number = uvt[3] * this.texture_.width;
-         var uv1y:Number = uvt[4] * this.texture_.height;
-         var uv2x:Number = uvt[li] * this.texture_.width;
-         var uv2y:Number = uvt[li + 1] * this.texture_.height;
-         var uv_xx:Number = uv1x - uv0x;
-         var uv_xy:Number = uv1y - uv0y;
-         var uv_yx:Number = uv2x - uv0x;
-         var uv_yy:Number = uv2y - uv0y;
-         this.uvMatrix_ = new Matrix(uv_xx,uv_xy,uv_yx,uv_yy,uv0x,uv0y);
+
+         var i:int = uvt.length - 3;
+         var tx:Number = uvt[0] * this.texture_.width;
+         var ty:Number = uvt[1] * this.texture_.height;
+         this.uvMatrix_.a = uvt[3] * this.texture_.width - tx;
+         this.uvMatrix_.b = uvt[4] * this.texture_.height - ty;
+         this.uvMatrix_.c = uvt[i] * this.texture_.width - tx;
+         this.uvMatrix_.d = uvt[i + 1] * this.texture_.height - ty;
+         this.uvMatrix_.tx = tx;
+         this.uvMatrix_.ty = ty;
          this.uvMatrix_.invert();
       }
    }

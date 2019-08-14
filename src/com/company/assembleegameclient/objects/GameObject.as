@@ -18,7 +18,8 @@ package com.company.assembleegameclient.objects
    import com.company.assembleegameclient.util.ConditionEffect;
    import com.company.assembleegameclient.util.MaskedImage;
    import com.company.assembleegameclient.util.TextureRedrawer;
-   import com.company.ui.SimpleText;
+import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
+import com.company.ui.SimpleText;
    import com.company.util.AssetLibrary;
    import com.company.util.BitmapUtil;
    import com.company.util.CachingColorTransformer;
@@ -917,7 +918,7 @@ package com.company.assembleegameclient.objects
             if(newTexture == null)
             {
                newTexture = TextureRedrawer.resize(texture,mask,size,false,this.tex1Id_,this.tex2Id_);
-               newTexture = TextureRedrawer.outlineGlow(newTexture,0,0);
+               newTexture = GlowRedrawer.outlineGlow(newTexture,0);
                this.texturingCache_[texture] = newTexture;
             }
             texture = newTexture;
@@ -940,7 +941,7 @@ package com.company.assembleegameclient.objects
             portraitTexture = this.props_.portrait_ != null?this.props_.portrait_.getTexture():this.texture_;
             size = 4 / portraitTexture.width * 100;
             this.portrait_ = TextureRedrawer.resize(portraitTexture,this.mask_,size,true,this.tex1Id_,this.tex2Id_);
-            this.portrait_ = TextureRedrawer.outlineGlow(this.portrait_,0,0);
+            this.portrait_ = GlowRedrawer.outlineGlow(this.portrait_,0,0);
          }
          return this.portrait_;
       }

@@ -29,50 +29,28 @@ package com.company.assembleegameclient.objects
    {
       
       private static var objBullIdToObjId_:Dictionary = new Dictionary();
-       
       
       public var props_:ObjectProperties;
-      
       public var containerProps_:ObjectProperties;
-      
       public var projProps_:ProjectileProperties;
-      
       public var texture_:BitmapData;
-      
       public var bulletId_:uint;
-      
       public var ownerId_:int;
-      
       public var containerType_:int;
-      
       public var bulletType_:uint;
-      
       public var damagesEnemies_:Boolean;
-      
       public var damagesPlayers_:Boolean;
-      
       public var damage_:int;
-      
       public var sound_:String;
-      
       public var startX_:Number;
-      
       public var startY_:Number;
-      
       public var startTime_:int;
-      
       public var angle_:Number = 0;
-      
       public var multiHitDict_:Dictionary;
-      
       public var p_:Point3D;
-      
       private var staticPoint_:Point;
-      
       private var staticVector3D_:Vector3D;
-      
       protected var shadowGradientFill_:GraphicsGradientFill;
-      
       protected var shadowPath_:GraphicsPath;
       
       public function Projectile()

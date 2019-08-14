@@ -27,10 +27,8 @@ package kabam.rotmg.game.view
       private var owner:SellableObject;
       
       private var nameText:SimpleText;
-      
-      private var cashBuyButton:LegacyBuyButton;
-      
-      private var fameBuyButton:LegacyBuyButton;
+
+      private var buyButton:LegacyBuyButton;
       
       private var rankReqText:Sprite = null;
       
@@ -44,8 +42,6 @@ package kabam.rotmg.game.view
       
       private const BUTTON_OFFSET:int = 17;
       
-      private var famePriceMultiplier:Number = 1;
-      
       public function SellableObjectPanel(gs:GameSprite, owner:SellableObject)
       {
          this.buyItem = new Signal(SellableObject);
@@ -53,8 +49,7 @@ package kabam.rotmg.game.view
          this.bitmap = new Bitmap();
          super(gs);
          this.createNameText();
-         this.createCashBuyButton();
-         this.createFameBuyButton();
+         this.createBuyButton();
          this.setOwner(owner);
          this.createIcon();
          addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
@@ -90,18 +85,11 @@ package kabam.rotmg.game.view
          return requiredText;
       }
       
-      private function createFameBuyButton() : void
+      private function createBuyButton() : void
       {
-         this.cashBuyButton = new LegacyBuyButton("",16,0,Currency.GOLD);
-         this.cashBuyButton.addEventListener(MouseEvent.CLICK,this.onCashBuyButtonClick);
-         addChild(this.cashBuyButton);
-      }
-      
-      private function createCashBuyButton() : void
-      {
-         this.fameBuyButton = new LegacyBuyButton("",16,0,Currency.FAME);
-         this.fameBuyButton.addEventListener(MouseEvent.CLICK,this.onFameBuyButtonClick);
-         addChild(this.fameBuyButton);
+         this.buyButton = new LegacyBuyButton("",16,0,0);
+         this.buyButton.addEventListener(MouseEvent.CLICK,this.onBuyButtonClick);
+         addChild(this.buyButton);
       }
       
       private function createIcon() : void
@@ -133,8 +121,7 @@ package kabam.rotmg.game.view
          }
          this.owner = _owner;
          var title:String = this.owner.soldObjectName();
-         this.cashBuyButton.setPrice(this.owner.price_,Currency.GOLD);
-         this.fameBuyButton.setPrice(this.owner.price_,Currency.FAME);
+         this.buyButton.setPrice(this.owner.price_,_owner.currency_);
          this.nameText.htmlText = "<p align=\"center\">" + title + "</p>";
       }
       
@@ -174,14 +161,9 @@ package kabam.rotmg.game.view
          this.resetTooltip();
       }
       
-      private function onCashBuyButtonClick(event:MouseEvent) : void
+      private function onBuyButtonClick(event:MouseEvent) : void
       {
-         this.buyItem.dispatch(this.owner,Currency.GOLD);
-      }
-      
-      private function onFameBuyButtonClick(event:MouseEvent) : void
-      {
-         this.buyItem.dispatch(this.owner,Currency.FAME);
+         this.buyItem.dispatch(this.owner,this.owner.currency_);
       }
       
       override public function draw() : void
@@ -207,14 +189,10 @@ package kabam.rotmg.game.view
          }
          else
          {
-            this.cashBuyButton.setPrice(this.owner.price_,Currency.GOLD);
-            this.cashBuyButton.setEnabled(gs_.gsc_.outstandingBuy_ == null);
-            this.cashBuyButton.x = WIDTH / 4 * 1 - this.cashBuyButton.width / 2;
-            this.cashBuyButton.y = HEIGHT - this.cashBuyButton.height / 2 - this.BUTTON_OFFSET;
-            this.fameBuyButton.setPrice(this.owner.price_ * this.famePriceMultiplier,Currency.FAME);
-            this.fameBuyButton.setEnabled(gs_.gsc_.outstandingBuy_ == null);
-            this.fameBuyButton.x = WIDTH / 4 * 3 - this.fameBuyButton.width / 2;
-            this.fameBuyButton.y = HEIGHT - this.fameBuyButton.height / 2 - this.BUTTON_OFFSET;
+            this.buyButton.setPrice(this.owner.price_,owner.currency_);
+            this.buyButton.setEnabled(gs_.gsc_.outstandingBuy_ == null);
+            this.buyButton.x = WIDTH / 2 - this.buyButton.width / 2;
+            this.buyButton.y = HEIGHT - this.buyButton.height / 2 - this.BUTTON_OFFSET;
             this.addButtons();
             if(this.rankReqText != null && contains(this.rankReqText))
             {
@@ -241,32 +219,18 @@ package kabam.rotmg.game.view
       
       private function addButtons() : void
       {
-         if(!contains(this.cashBuyButton))
+         if(!contains(this.buyButton))
          {
-            addChild(this.cashBuyButton);
-         }
-         if(!contains(this.fameBuyButton))
-         {
-            addChild(this.fameBuyButton);
+            addChild(this.buyButton);
          }
       }
       
       private function removeButtons() : void
       {
-         if(contains(this.cashBuyButton))
+         if(contains(this.buyButton))
          {
-            removeChild(this.cashBuyButton);
+            removeChild(this.buyButton);
          }
-         if(contains(this.fameBuyButton))
-         {
-            removeChild(this.fameBuyButton);
-         }
-      }
-      
-      public function setFamePriceMultiplier(value:Number) : void
-      {
-         this.famePriceMultiplier = value;
-         trace("view famePriceMultiplier: " + this.famePriceMultiplier);
       }
    }
 }

@@ -30,7 +30,7 @@ package com.company.assembleegameclient.objects.thrown
       public function ThrownProjectile(id:uint, lifetime:int, start:Point, end:Point)
       {
          this.bitmapData = ObjectLibrary.getTextureFromType(id);
-         this.bitmapData = TextureRedrawer.redraw(this.bitmapData,80,true,0,0,false);
+         this.bitmapData = TextureRedrawer.redraw(this.bitmapData,80,true,0,false);
          _rotationDelta = 0.2;
          super(0,this.bitmapData);
          this.lifetime_ = this.timeLeft_ = lifetime;

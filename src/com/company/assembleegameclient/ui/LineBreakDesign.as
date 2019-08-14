@@ -11,16 +11,14 @@ package com.company.assembleegameclient.ui
    {
        
       
-      private var designFill_:GraphicsSolidFill;
+      private var designFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
       
-      private var designPath_:GraphicsPath;
+      private var designPath_:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>(),GraphicsPathWinding.NON_ZERO);
       
       private const designGraphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[designFill_,designPath_,GraphicsUtil.END_FILL];
       
       public function LineBreakDesign(width:int, color:uint)
       {
-         this.designFill_ = new GraphicsSolidFill(16777215,1);
-         this.designPath_ = new GraphicsPath(new Vector.<int>(),new Vector.<Number>(),GraphicsPathWinding.NON_ZERO);
          super();
          this.setWidthColor(width,color);
       }

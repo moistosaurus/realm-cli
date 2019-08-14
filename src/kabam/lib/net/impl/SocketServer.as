@@ -212,7 +212,7 @@ package kabam.lib.net.impl
             }
             catch(error:Error)
             {
-               logErrorAndClose("Socket-Server Protocol Error: {0}",[error.toString()]);
+               logErrorAndClose("Socket-Server Protocol Error: {0}, {1}",[error.toString(), messageId]);
                break;
             }
             message.consume();

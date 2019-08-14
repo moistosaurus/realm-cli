@@ -112,7 +112,7 @@ package com.company.assembleegameclient.ui
          this.speechBubbleContainer = new Sprite();
          addChild(this.speechBubbleContainer);
          var bubbleBD:BitmapData = AssetLibrary.getImageFromSet("lofiInterfaceBig",21);
-         bubbleBD = TextureRedrawer.redraw(bubbleBD,20,true,0,0,false);
+         bubbleBD = TextureRedrawer.redraw(bubbleBD,20,true,0,false);
          this.speechBubbleIcon_ = new Bitmap(bubbleBD);
          this.speechBubbleIcon_.x = this.speechBubbleIcon_.x - 5;
          addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);

@@ -78,15 +78,15 @@ package com.company.assembleegameclient.ui.tooltip
          this.inventorySlotID = inventorySlotID;
          this.isInventoryFull = Boolean(player)?Boolean(player.isInventoryFull()):Boolean(false);
          this.playerCanUse = player != null?Boolean(ObjectLibrary.isUsableByPlayer(objectType,player)):Boolean(false);
-         var backgroundColor:uint = this.playerCanUse || this.player_ == null?uint(3552822):uint(6036765);
-         var outlineColor:uint = this.playerCanUse || player == null?uint(10197915):uint(10965039);
+         var backgroundColor:uint = this.playerCanUse || this.player_ == null ? 0x363636 : 6036765;
+         var outlineColor:uint = this.playerCanUse || player == null ? 0x9B9B9B : 10965039;
          super(backgroundColor,1,outlineColor,1,true);
          this.slotTypeToTextBuilder = new SlotComparisonFactory();
          this.objectType_ = objectType;
          this.objectXML_ = ObjectLibrary.xmlLibrary_[objectType];
          var equipSlotIndex:int = Boolean(this.player_)?int(ObjectLibrary.getMatchingSlotIndex(this.objectType_,this.player_)):int(-1);
          this.isEquippable_ = equipSlotIndex != -1;
-         this.effects = new Vector.<EquipmentToolTip>();
+         this.effects = new Vector.<Effect>();
          this.invType = invType;
          this.itemSlotTypeId = int(this.objectXML_.SlotType);
          if(this.player_ == null)
@@ -213,7 +213,7 @@ package com.company.assembleegameclient.ui.tooltip
          if(this.objectXML_.hasOwnProperty("ExtraTooltipData"))
          {
             effectDataList = this.objectXML_.ExtraTooltipData.EffectInfo;
-            uniqueEffectList = new Vector.<EquipmentToolTip>();
+            uniqueEffectList = new Vector.<Effect>();
             for each(effectDataXML in effectDataList)
             {
                uniqueEffectList.push(new Effect(effectDataXML.attribute("name"),effectDataXML.attribute("description")));
@@ -523,7 +523,7 @@ package com.company.assembleegameclient.ui.tooltip
          var reqMet:Boolean = false;
          var stat:int = 0;
          var value:int = 0;
-         this.restrictions = new Vector.<EquipmentToolTip>();
+         this.restrictions = new Vector.<Restriction>();
          if(this.objectXML_.hasOwnProperty("VaultItem") && this.invType != -1 && this.invType != ObjectLibrary.idToType_["Vault Chest"])
          {
             this.restrictions.push(new Restriction("Store this item in your Vault to avoid losing it!",16549442,true));
@@ -568,7 +568,7 @@ package com.company.assembleegameclient.ui.tooltip
             {
                stat = int(reqXML.@stat);
                value = int(reqXML.@value);
-               this.restrictions.push(new Restriction("Requires " + StatData.statToName(stat) + " of " + value,!!reqMet?uint(11776947):uint(16549442),!!reqMet?Boolean(false):Boolean(true)));
+               this.restrictions.push(new Restriction("Requires " + StatData.statToName(stat) + " of " + value,reqMet?11776947:16549442,reqMet?Boolean(false):Boolean(true)));
             }
          }
       }

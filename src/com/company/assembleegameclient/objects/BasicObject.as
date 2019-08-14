@@ -31,7 +31,7 @@ package com.company.assembleegameclient.objects
       
       public var posS_:Vector.<Number>;
       
-      public var sortVal_:Number;
+      public var sortVal_:int;
       
       public function BasicObject()
       {
@@ -88,7 +88,7 @@ package com.company.assembleegameclient.objects
          this.posW_.push(this.x_,this.y_,0,this.x_,this.y_,this.z_);
          this.posS_.length = 0;
          camera.wToS_.transformVectors(this.posW_,this.posS_);
-         this.sortVal_ = this.posS_[1];
+         this.sortVal_ = int(this.posS_[1]);
       }
       
       public function addTo(map:Map, x:Number, y:Number) : Boolean
