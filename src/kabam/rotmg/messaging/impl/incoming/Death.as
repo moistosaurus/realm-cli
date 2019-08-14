@@ -13,12 +13,6 @@ package kabam.rotmg.messaging.impl.incoming
       
       public var killedBy_:String;
       
-      public var zombieId:int;
-      
-      public var zombieType:int;
-      
-      public var isZombie:Boolean;
-      
       public var background:BitmapData;
       
       public function Death(id:uint, callback:Function)
@@ -37,9 +31,6 @@ package kabam.rotmg.messaging.impl.incoming
          this.accountId_ = data.readInt();
          this.charId_ = data.readInt();
          this.killedBy_ = data.readUTF();
-         this.zombieType = data.readInt();
-         this.zombieId = data.readInt();
-         this.isZombie = this.zombieId != -1;
       }
       
       override public function toString() : String

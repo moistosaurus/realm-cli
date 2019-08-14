@@ -5,14 +5,7 @@ package kabam.rotmg.death
    import kabam.rotmg.death.control.HandleDeathSignal;
    import kabam.rotmg.death.control.HandleNormalDeathCommand;
    import kabam.rotmg.death.control.HandleNormalDeathSignal;
-   import kabam.rotmg.death.control.ResurrectPlayerCommand;
-   import kabam.rotmg.death.control.ResurrectPlayerSignal;
-   import kabam.rotmg.death.control.ZombifyCommand;
-   import kabam.rotmg.death.control.ZombifySignal;
    import kabam.rotmg.death.model.DeathModel;
-   import kabam.rotmg.death.view.ZombifyDialog;
-   import kabam.rotmg.death.view.ZombifyDialogMediator;
-   import kabam.rotmg.death.view.ZombifyGameMediator;
    import org.swiftsuspenders.Injector;
    import robotlegs.bender.extensions.mediatorMap.api.IMediatorMap;
    import robotlegs.bender.extensions.signalCommandMap.api.ISignalCommandMap;
@@ -41,10 +34,6 @@ package kabam.rotmg.death
          this.injector.map(DeathModel).asSingleton();
          this.commandMap.map(HandleDeathSignal).toCommand(HandleDeathCommand);
          this.commandMap.map(HandleNormalDeathSignal).toCommand(HandleNormalDeathCommand);
-         this.commandMap.map(ZombifySignal).toCommand(ZombifyCommand);
-         this.commandMap.map(ResurrectPlayerSignal).toCommand(ResurrectPlayerCommand);
-         this.mediatorMap.map(GameSprite).toMediator(ZombifyGameMediator);
-         this.mediatorMap.map(ZombifyDialog).toMediator(ZombifyDialogMediator);
       }
    }
 }

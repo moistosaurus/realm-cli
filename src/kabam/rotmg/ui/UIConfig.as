@@ -28,8 +28,6 @@ package kabam.rotmg.ui
    import kabam.rotmg.account.core.view.RegisterPromptDialog;
    import kabam.rotmg.account.core.view.RegisterPromptDialogMediator;
    import kabam.rotmg.application.api.ApplicationSetup;
-   import kabam.rotmg.death.view.ResurrectionView;
-   import kabam.rotmg.death.view.ResurrectionViewMediator;
    import kabam.rotmg.game.model.PotionInventoryModel;
    import kabam.rotmg.game.view.NameChangerPanel;
    import kabam.rotmg.game.view.NameChangerPanelMediator;
@@ -161,7 +159,6 @@ package kabam.rotmg.ui
          this.mediatorMap.map(StatMetersView).toMediator(StatMetersMediator);
          this.mediatorMap.map(HUDView).toMediator(HUDMediator);
          this.mediatorMap.map(PotionSlotView).toMediator(PotionSlotMediator);
-         this.mediatorMap.map(ResurrectionView).toMediator(ResurrectionViewMediator);
          this.setupKeyUI();
          this.mapNoServersDialogFactory();
          this.setupCharacterWindow();

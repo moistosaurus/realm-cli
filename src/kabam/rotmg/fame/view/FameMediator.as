@@ -95,10 +95,10 @@ package kabam.rotmg.fame.view
       
       private function makeIcon() : BitmapData
       {
-         if(this.isFreshDeath && this.death.isZombie)
-         {
-            return this.makeZombieTexture();
-         }
+         //if(this.isFreshDeath && this.death.isZombie)
+         //{
+         //   return this.makeZombieTexture();
+         //}
          return this.makeNormalTexture();
       }
       
@@ -106,14 +106,14 @@ package kabam.rotmg.fame.view
       {
          return this.factory.makeIcon(this.task.template,250,this.task.texture1,this.task.texture2);
       }
-      
-      private function makeZombieTexture() : BitmapData
+
+      /*private function makeZombieTexture() : BitmapData
       {
          var textureData:TextureData = ObjectLibrary.typeToTextureData_[this.death.zombieType];
          var animatedChar:AnimatedChar = textureData.animatedChar_;
          var image:MaskedImage = animatedChar.imageFromDir(AnimatedChar.RIGHT,AnimatedChar.STAND,0);
          return TextureRedrawer.resize(image.image_,image.mask_,250,true,this.task.texture1,this.task.texture2);
-      }
+      }*/
       
       private function onClosed() : void
       {

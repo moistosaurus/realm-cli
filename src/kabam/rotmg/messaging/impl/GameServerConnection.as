@@ -68,7 +68,6 @@ package kabam.rotmg.messaging.impl
    import kabam.rotmg.core.StaticInjectorContext;
    import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.death.control.HandleDeathSignal;
-   import kabam.rotmg.death.control.ZombifySignal;
    import kabam.rotmg.dialogs.control.OpenDialogSignal;
    import kabam.rotmg.game.focus.control.SetGameFocusSignal;
    import kabam.rotmg.game.model.AddSpeechBalloonVO;
@@ -379,8 +378,6 @@ package kabam.rotmg.messaging.impl
       
       private var handleDeath:HandleDeathSignal;
       
-      private var zombify:ZombifySignal;
-      
       private var setGameFocus:SetGameFocusSignal;
       
       private var updateBackpackTab:UpdateBackpackTabSignal;
@@ -407,7 +404,6 @@ package kabam.rotmg.messaging.impl
          this.updateBackpackTab = StaticInjectorContext.getInjector().getInstance(UpdateBackpackTabSignal);
          this.logger = this.injector.getInstance(ILogger);
          this.handleDeath = this.injector.getInstance(HandleDeathSignal);
-         this.zombify = this.injector.getInstance(ZombifySignal);
          this.setGameFocus = this.injector.getInstance(SetGameFocusSignal);
          this.classesModel = this.injector.getInstance(ClassesModel);
          this.serverConnection = this.injector.getInstance(SocketServer);

@@ -21,13 +21,7 @@ package kabam.rotmg.death.control
       
       [Inject]
       public var player:PlayerModel;
-      
-      [Inject]
-      public var resurrect:ResurrectPlayerSignal;
-      
-      [Inject]
-      public var zombify:ZombifySignal;
-      
+
       [Inject]
       public var normal:HandleNormalDeathSignal;
       
@@ -66,18 +60,7 @@ package kabam.rotmg.death.control
       private function updateModelAndHandleDeath() : void
       {
          this.model.setLastDeath(this.death);
-         if(this.death.isZombie)
-         {
-            this.zombify.dispatch(this.death);
-         }
-         else if(!this.player.getHasPlayerDied())
-         {
-            this.resurrect.dispatch(this.death);
-         }
-         else
-         {
-            this.normal.dispatch(this.death);
-         }
+         this.normal.dispatch(this.death);
       }
    }
 }
