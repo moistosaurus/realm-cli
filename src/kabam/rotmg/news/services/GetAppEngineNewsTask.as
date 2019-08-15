@@ -64,12 +64,9 @@ package kabam.rotmg.news.services
          newsCellVO.headline = newsObject.title;
          newsCellVO.imageURL = newsObject.image;
          newsCellVO.linkDetail = newsObject.linkDetail;
-         newsCellVO.startDate = Number(newsObject.startTime);
-         newsCellVO.endDate = Number(newsObject.endTime);
          newsCellVO.linkType = NewsCellLinkType.parse(newsObject.linkType);
-         newsCellVO.networks = String(newsObject.platform).split(",");
-         newsCellVO.priority = uint(newsObject.priority);
-         newsCellVO.slot = uint(newsObject.slot);
+         newsCellVO.priority = newsObject.priority;
+         newsCellVO.slot = newsObject.slot;
          return newsCellVO;
       }
       

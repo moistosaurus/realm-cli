@@ -1,7 +1,6 @@
 package kabam.rotmg.ui.view
 {
    import com.company.assembleegameclient.objects.Player;
-   import com.company.assembleegameclient.ui.ExperienceBoostTimerPopup;
    import com.company.assembleegameclient.ui.StatusBar;
    import flash.display.Sprite;
    import flash.events.Event;
@@ -17,12 +16,6 @@ package kabam.rotmg.ui.view
       private var hpBar_:StatusBar;
       
       private var mpBar_:StatusBar;
-      
-      private var areTempXpListenersAdded:Boolean;
-      
-      private var curXPBoost:int;
-      
-      private var expTimer:ExperienceBoostTimerPopup;
       
       public function StatMetersView()
       {
@@ -51,51 +44,12 @@ package kabam.rotmg.ui.view
          }
          if(player.level_ != 20)
          {
-            if(this.expTimer)
-            {
-               this.expTimer.update(player.xpTimer);
-            }
             if(!this.expBar_.visible)
             {
                this.expBar_.visible = true;
                this.fameBar_.visible = false;
             }
             this.expBar_.draw(player.exp_,player.nextLevelExp_,0);
-            if(this.curXPBoost != player.xpBoost_)
-            {
-               this.curXPBoost = player.xpBoost_;
-               if(this.curXPBoost)
-               {
-                  this.expBar_.showMultiplierText();
-               }
-               else
-               {
-                  this.expBar_.hideMultiplierText();
-               }
-            }
-            if(player.xpTimer)
-            {
-               if(!this.areTempXpListenersAdded)
-               {
-                  this.expBar_.addEventListener("MULTIPLIER_OVER",this.onExpBarOver);
-                  this.expBar_.addEventListener("MULTIPLIER_OUT",this.onExpBarOut);
-                  this.areTempXpListenersAdded = true;
-               }
-            }
-            else
-            {
-               if(this.areTempXpListenersAdded)
-               {
-                  this.expBar_.removeEventListener("MULTIPLIER_OVER",this.onExpBarOver);
-                  this.expBar_.removeEventListener("MULTIPLIER_OUT",this.onExpBarOut);
-                  this.areTempXpListenersAdded = false;
-               }
-               if(this.expTimer && this.expTimer.parent)
-               {
-                  removeChild(this.expTimer);
-                  this.expTimer = null;
-               }
-            }
          }
          else
          {
@@ -108,20 +62,6 @@ package kabam.rotmg.ui.view
          }
          this.hpBar_.draw(player.hp_,player.maxHP_,player.maxHPBoost_,player.maxHPMax_);
          this.mpBar_.draw(player.mp_,player.maxMP_,player.maxMPBoost_,player.maxMPMax_);
-      }
-      
-      private function onExpBarOver(event:Event) : void
-      {
-         addChild(this.expTimer = new ExperienceBoostTimerPopup());
-      }
-      
-      private function onExpBarOut(event:Event) : void
-      {
-         if(this.expTimer && this.expTimer.parent)
-         {
-            removeChild(this.expTimer);
-            this.expTimer = null;
-         }
       }
    }
 }

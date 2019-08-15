@@ -30,14 +30,14 @@ package com.company.util
       {
          var xdiff:Number = x2 - x1;
          var ydiff:Number = y2 - y1;
-         return xdiff * xdiff + ydiff * ydiff;
+         return (xdiff * xdiff) + (ydiff * ydiff);
       }
       
       public static function distanceXY(x1:Number, y1:Number, x2:Number, y2:Number) : Number
       {
          var xdiff:Number = x2 - x1;
          var ydiff:Number = y2 - y1;
-         return Math.sqrt(xdiff * xdiff + ydiff * ydiff);
+         return Math.sqrt((xdiff * xdiff) + (ydiff * ydiff));
       }
       
       public static function lerpXY(x1:Number, y1:Number, x2:Number, y2:Number, f:Number) : Point
@@ -53,8 +53,8 @@ package com.company.util
       public static function pointAt(p:Point, angle:Number, r:Number) : Point
       {
          var ret:Point = new Point();
-         ret.x = p.x + r * Math.cos(angle);
-         ret.y = p.y + r * Math.sin(angle);
+         ret.x = p.x + (r * Math.cos(angle));
+         ret.y = p.y + (r * Math.sin(angle));
          return ret;
       }
    }

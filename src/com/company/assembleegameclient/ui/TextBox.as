@@ -80,7 +80,7 @@ package com.company.assembleegameclient.ui
       
       public function TextBox(gs:GameSprite, w:int, h:int)
       {
-         this.tellers_ = new Array();
+         this.tellers_ = [];
          this.timer_ = new Timer(1000);
          super();
          this.gs_ = gs;

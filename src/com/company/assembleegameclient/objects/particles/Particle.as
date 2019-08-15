@@ -10,34 +10,30 @@ package com.company.assembleegameclient.objects.particles
    import flash.display.GraphicsPath;
    import flash.display.IGraphicsData;
    import flash.geom.Matrix;
-   
-   public class Particle extends BasicObject
+import flash.utils.Dictionary;
+
+public class Particle extends BasicObject
    {
-       
-      
+      protected var bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill(null,null,false,false);
+      protected var path_:GraphicsPath = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,null);
+      protected var vS_:Vector.<Number>= new Vector.<Number>();
+      protected var fillMatrix_:Matrix= new Matrix();
+
       public var size_:int;
-      
       public var color_:uint;
-      
-      protected var bitmapFill_:GraphicsBitmapFill;
-      
-      protected var path_:GraphicsPath;
-      
-      protected var vS_:Vector.<Number>;
-      
-      protected var fillMatrix_:Matrix;
+
+      private var texture_:BitmapData;
+      private var tW_:int;
+      private var tH_:int;
       
       public function Particle(color:uint, z:Number, size:int)
       {
-         this.bitmapFill_ = new GraphicsBitmapFill(null,null,false,false);
-         this.path_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,null);
-         this.vS_ = new Vector.<Number>();
-         this.fillMatrix_ = new Matrix();
          super();
          objectId_ = getNextFakeObjectId();
          this.setZ(z);
-         this.setColor(color);
-         this.setSize(size);
+
+         this.color_ = color; // So it doesn't call updateTexture() twice for no reason
+         setSize(size);
       }
       
       public function moveTo(x:Number, y:Number) : Boolean
@@ -57,6 +53,7 @@ package com.company.assembleegameclient.objects.particles
       public function setColor(color:uint) : void
       {
          this.color_ = color;
+         updateTexture();
       }
       
       public function setZ(z:Number) : void
@@ -67,17 +64,31 @@ package com.company.assembleegameclient.objects.particles
       public function setSize(size:int) : void
       {
          this.size_ = size / 100 * 5;
+         updateTexture();
       }
-      
+
+      private function updateTexture() : void
+      {
+         this.texture_ = TextureRedrawer.redrawSolidSquare(this.color_,this.size_);
+         this.tW_ = this.texture_.width / 2;
+         this.tH_ = this.texture_.height / 2;
+
+      }
+
       override public function draw(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
-         var texture:BitmapData = TextureRedrawer.redrawSolidSquare(this.color_,this.size_);
-         var w:int = texture.width;
-         var h:int = texture.height;
          this.vS_.length = 0;
-         this.vS_.push(posS_[3] - w / 2,posS_[4] - h / 2,posS_[3] + w / 2,posS_[4] - h / 2,posS_[3] + w / 2,posS_[4] + h / 2,posS_[3] - w / 2,posS_[4] + h / 2);
+         this.vS_.push(
+                 posS_[3] - this.tW_,
+                 posS_[4] - this.tH_,
+                 posS_[3] + this.tW_,
+                 posS_[4] - this.tH_,
+                 posS_[3] + this.tW_,
+                 posS_[4] + this.tH_,
+                 posS_[3] - this.tW_,
+                 posS_[4] + this.tH_);
          this.path_.data = this.vS_;
-         this.bitmapFill_.bitmapData = texture;
+         this.bitmapFill_.bitmapData = this.texture_;
          this.fillMatrix_.identity();
          this.fillMatrix_.translate(this.vS_[0],this.vS_[1]);
          this.bitmapFill_.matrix = this.fillMatrix_;

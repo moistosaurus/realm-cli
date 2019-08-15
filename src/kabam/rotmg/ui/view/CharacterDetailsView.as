@@ -1,8 +1,6 @@
 package kabam.rotmg.ui.view
 {
    import com.company.assembleegameclient.objects.Player;
-   import com.company.assembleegameclient.ui.BoostPanelButton;
-   import com.company.assembleegameclient.ui.ExperienceBoostTimerPopup;
    import com.company.assembleegameclient.ui.IconButton;
    import com.company.ui.SimpleText;
    import com.company.util.AssetLibrary;
@@ -34,14 +32,6 @@ package kabam.rotmg.ui.view
       public var gotoNexus:Signal;
       
       public var gotoOptions:Signal;
-      
-      private var curXPBoost:int;
-      
-      private var boostPanelButton:BoostPanelButton;
-      
-      private var expTimer:ExperienceBoostTimerPopup;
-      
-      private var areTempXpListenersAdded:Boolean;
       
       public function CharacterDetailsView()
       {
@@ -102,35 +92,9 @@ package kabam.rotmg.ui.view
       {
          this.portrait_.bitmapData = player.getPortrait();
       }
-      
+
       public function draw(player:Player) : void
       {
-         if(this.expTimer)
-         {
-            this.expTimer.update(player.xpTimer);
-         }
-         if(player.tierBoost || player.dropBoost)
-         {
-            this.boostPanelButton = this.boostPanelButton || new BoostPanelButton(player);
-            if(this.portrait_)
-            {
-               this.portrait_.x = 13;
-            }
-            if(this.nameText_)
-            {
-               this.nameText_.x = 47;
-            }
-            this.boostPanelButton.x = 6;
-            this.boostPanelButton.y = 5;
-            addChild(this.boostPanelButton);
-         }
-         else if(this.boostPanelButton)
-         {
-            removeChild(this.boostPanelButton);
-            this.boostPanelButton = null;
-            this.portrait_.x = -2;
-            this.nameText_.x = 36;
-         }
       }
       
       private function onNexusClick(event:MouseEvent) : void

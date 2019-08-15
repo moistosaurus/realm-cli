@@ -351,7 +351,6 @@ package com.company.assembleegameclient.map
          var distSq:Number = NaN;
          var b:Number = NaN;
          var t:Number = NaN;
-         var filters:Array = null;
          var d:Number = NaN;
          var screenRect:Rectangle = camera.clipRect_;
          x = -screenRect.x;
@@ -494,7 +493,7 @@ package com.company.assembleegameclient.map
          this.map_.filters.length = 0;
          if(this.player_ != null && (this.player_.condition_ & ConditionEffect.MAP_FILTER_BITMASK) != 0)
          {
-            filters = [];
+            var filters:Array = [];
             if(this.player_.isDrunk())
             {
                d = 20 + 10 * Math.sin(time / 1000);

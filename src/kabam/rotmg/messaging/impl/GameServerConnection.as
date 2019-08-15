@@ -1620,18 +1620,6 @@ package kabam.rotmg.messaging.impl
                case StatData.BREATH_STAT:
                   player.breath_ = value;
                   continue;
-               case StatData.XP_BOOSTED_STAT:
-                  player.xpBoost_ = value;
-                  continue;
-               case StatData.XP_TIMER_STAT:
-                  player.xpTimer = value * TO_MILLISECONDS;
-                  continue;
-               case StatData.LD_TIMER_STAT:
-                  player.dropBoost = value * TO_MILLISECONDS;
-                  continue;
-               case StatData.LT_TIMER_STAT:
-                  player.tierBoost = value * TO_MILLISECONDS;
-                  continue;
                case StatData.HEALTH_POTION_STACK_STAT:
                   player.healthPotionCount_ = value;
                   continue;

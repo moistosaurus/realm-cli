@@ -411,7 +411,7 @@ package com.company.assembleegameclient.ui.tooltip
                   this.effects.push(new Effect("",val));
                   continue;
                default:
-                  continue;
+
             }
          }
       }

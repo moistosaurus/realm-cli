@@ -68,7 +68,6 @@ import com.company.ui.SimpleText;
       private static const LOW_HEALTH_CT_OFFSET:int = 128;
       private static var lowHealthCT:Dictionary = new Dictionary();
 
-      public var xpTimer:int;
       public var skinId:int;
       public var skin:AnimatedChar;
       public var accountId_:int = -1;
@@ -100,7 +99,6 @@ import com.company.ui.SimpleText;
       public var vitalityBoost_:int = 0;
       public var wisdomBoost_:int = 0;
       public var dexterityBoost_:int = 0;
-      public var xpBoost_:int = 0;
       public var healthPotionCount_:int = 0;
       public var magicPotionCount_:int = 0;
       public var attackMax_:int = 0;
@@ -121,8 +119,6 @@ import com.company.ui.SimpleText;
       public var attackPeriod_:int = 0;
       public var nextAltAttack_:int = 0;
       public var nextTeleportAt_:int = 0;
-      public var dropBoost:int = 0;
-      public var tierBoost:int = 0;
       protected var healingEffect_:HealingEffect = null;
       protected var nearestMerchant_:Merchant = null;
       public var isDefaultAnimatedChar:Boolean = true;
@@ -523,30 +519,7 @@ import com.company.ui.SimpleText;
          var moveSpeed:Number = NaN;
          var moveVecAngle:Number = NaN;
          var d:int = 0;
-         if(this.tierBoost && !isPaused())
-         {
-            this.tierBoost = this.tierBoost - dt;
-            if(this.tierBoost < 0)
-            {
-               this.tierBoost = 0;
-            }
-         }
-         if(this.dropBoost && !isPaused())
-         {
-            this.dropBoost = this.dropBoost - dt;
-            if(this.dropBoost < 0)
-            {
-               this.dropBoost = 0;
-            }
-         }
-         if(this.xpTimer && !isPaused())
-         {
-            this.xpTimer = this.xpTimer - dt;
-            if(this.xpTimer < 0)
-            {
-               this.xpTimer = 0;
-            }
-         }
+
          if(isHealing() && !isPaused())
          {
             if(this.healingEffect_ == null)

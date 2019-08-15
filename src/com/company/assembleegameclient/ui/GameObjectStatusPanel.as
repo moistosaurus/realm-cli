@@ -48,14 +48,6 @@ package com.company.assembleegameclient.ui
       
       private var iPanel:InventoryGrid;
       
-      private var curXPBoost:int;
-      
-      private var boostPanelButton:BoostPanelButton;
-      
-      private var expTimer:ExperienceBoostTimerPopup;
-      
-      private var areTempXpListenersAdded:Boolean;
-      
       public function GameObjectStatusPanel(gs:GameSprite, go:Player, w:int, h:int)
       {
          super();
@@ -158,24 +150,7 @@ package com.company.assembleegameclient.ui
             this.expBar_.labelText_.text = lvlText;
             this.expBar_.labelText_.updateMetrics();
          }
-         if(this.expTimer)
-         {
-            this.expTimer.update(this.go_.xpTimer);
-         }
-         if(this.go_.tierBoost || this.go_.dropBoost)
-         {
-            this.boostPanelButton = this.boostPanelButton || new BoostPanelButton(this.go_);
-            this.portrait_.x = 13;
-            this.boostPanelButton.x = 6;
-            this.boostPanelButton.y = 5;
-            addChild(this.boostPanelButton);
-         }
-         else if(this.boostPanelButton)
-         {
-            removeChild(this.boostPanelButton);
-            this.boostPanelButton = null;
-            this.portrait_.x = -2;
-         }
+
          if(this.go_.level_ != 20)
          {
             if(!this.expBar_.visible)
@@ -184,41 +159,6 @@ package com.company.assembleegameclient.ui
                this.fameBar_.visible = false;
             }
             this.expBar_.draw(this.go_.exp_,this.go_.nextLevelExp_,0);
-            if(this.curXPBoost != this.go_.xpBoost_)
-            {
-               this.curXPBoost = this.go_.xpBoost_;
-               if(this.curXPBoost)
-               {
-                  this.expBar_.showMultiplierText();
-               }
-               else
-               {
-                  this.expBar_.hideMultiplierText();
-               }
-            }
-            if(this.go_.xpTimer)
-            {
-               if(!this.areTempXpListenersAdded)
-               {
-                  this.expBar_.addEventListener("MULTIPLIER_OVER",this.onExpBarOver);
-                  this.expBar_.addEventListener("MULTIPLIER_OUT",this.onExpBarOut);
-                  this.areTempXpListenersAdded = true;
-               }
-            }
-            else
-            {
-               if(this.areTempXpListenersAdded)
-               {
-                  this.expBar_.removeEventListener("MULTIPLIER_OVER",this.onExpBarOver);
-                  this.expBar_.removeEventListener("MULTIPLIER_OUT",this.onExpBarOut);
-                  this.areTempXpListenersAdded = false;
-               }
-               if(this.expTimer && this.expTimer.parent)
-               {
-                  removeChild(this.expTimer);
-                  this.expTimer = null;
-               }
-            }
          }
          else
          {
@@ -234,20 +174,6 @@ package com.company.assembleegameclient.ui
          this.stats_.draw(this.go_);
          this.ePanel.draw();
          this.iPanel.draw();
-      }
-      
-      private function onExpBarOver(event:Event) : void
-      {
-         addChild(this.expTimer = new ExperienceBoostTimerPopup());
-      }
-      
-      private function onExpBarOut(event:Event) : void
-      {
-         if(this.expTimer && this.expTimer.parent)
-         {
-            removeChild(this.expTimer);
-            this.expTimer = null;
-         }
       }
       
       public function destroy() : void

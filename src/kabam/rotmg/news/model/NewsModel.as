@@ -48,10 +48,7 @@ package kabam.rotmg.news.model
          var newsObject:NewsCellVO = null;
          for each(newsObject in incoming)
          {
-            if(this.isNewsTimely(newsObject))
-            {
-               this.prioritize(newsObject);
-            }
+            this.prioritize(newsObject);
          }
       }
       
@@ -68,12 +65,6 @@ package kabam.rotmg.news.model
       private function comparePriority(a:NewsCellVO, b:NewsCellVO) : NewsCellVO
       {
          return a.priority < b.priority?a:b;
-      }
-      
-      private function isNewsTimely(newsObject:NewsCellVO) : Boolean
-      {
-         var now:Number = new Date().getTime();
-         return newsObject.startDate < now && now < newsObject.endDate;
       }
    }
 }

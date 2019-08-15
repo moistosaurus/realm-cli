@@ -35,11 +35,7 @@ package com.company.assembleegameclient.ui
       public var valueText_:SimpleText;
       
       public var boostText_:SimpleText;
-      
-      public var multiplierText:SimpleText;
-      
-      public var multiplierIcon:Sprite;
-      
+
       private var colorSprite:Sprite;
       
       private var defaultForegroundColor:Number;
@@ -85,18 +81,6 @@ package com.company.assembleegameclient.ui
          this.boostText_.alpha = 0.6;
          this.boostText_.y = -3;
          this.boostText_.filters = [new DropShadowFilter(0,0,0)];
-         this.multiplierIcon = new Sprite();
-         this.multiplierIcon.x = this.w_ - 25;
-         this.multiplierIcon.y = -3;
-         this.multiplierIcon.graphics.beginFill(16711935,0);
-         this.multiplierIcon.graphics.drawRect(0,0,20,20);
-         this.multiplierIcon.addEventListener(MouseEvent.MOUSE_OVER,this.onMultiplierOver);
-         this.multiplierIcon.addEventListener(MouseEvent.MOUSE_OUT,this.onMultiplierOut);
-         this.multiplierText = new SimpleText(14,9493531,false,0,0);
-         this.multiplierText.setBold(true);
-         this.multiplierText.text = "x2";
-         this.multiplierText.filters = [new DropShadowFilter(0,0,0)];
-         this.multiplierIcon.addChild(this.multiplierText);
          addEventListener(MouseEvent.MOUSE_OVER,this.onMouseOver);
          addEventListener(MouseEvent.MOUSE_OUT,this.onMouseOut);
       }
@@ -218,20 +202,6 @@ package com.company.assembleegameclient.ui
             {
                removeChild(this.boostText_);
             }
-         }
-      }
-      
-      public function showMultiplierText() : void
-      {
-         addChild(this.multiplierIcon);
-         this.startPulse(3,9493531,16777215);
-      }
-      
-      public function hideMultiplierText() : void
-      {
-         if(this.multiplierIcon.parent)
-         {
-            removeChild(this.multiplierIcon);
          }
       }
       
