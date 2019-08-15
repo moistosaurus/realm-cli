@@ -34,7 +34,15 @@ package com.company.assembleegameclient.sound
       {
          Parameters.data_.playMusic = playMusic;
          Parameters.save();
-         musicChannel_.soundTransform = new SoundTransform(Boolean(Parameters.data_.playMusic)?Number(0.3):Number(0));
+         if (!playMusic && musicChannel_ != null)
+         {
+            musicChannel_.stop();
+            musicChannel_ = null;
+         }
+         else
+         {
+            musicChannel_ = music_.play(0,int.MAX_VALUE, new SoundTransform(Boolean(Parameters.data_.playMusic)?Number(0.3):Number(0)));
+         }
       }
    }
 }

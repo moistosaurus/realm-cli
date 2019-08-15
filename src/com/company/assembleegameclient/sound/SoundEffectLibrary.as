@@ -66,13 +66,18 @@ package com.company.assembleegameclient.sound
       
       public static function play(name:String, volume:Number = 1.0, isFX:Boolean = true) : void
       {
+         var playFX:Boolean = Parameters.data_.playSFX && isFX || !isFX && Parameters.data_.playPewPew;
+         if (!playFX) {
+            return;
+         }
+
          var actualVolume:Number = NaN;
          var trans:SoundTransform = null;
          var channel:SoundChannel = null;
          var sound:Sound = load(name);
          try
          {
-            actualVolume = Parameters.data_.playSFX && isFX || !isFX && Parameters.data_.playPewPew?Number(volume):Number(0);
+            actualVolume = Number(volume);
             trans = new SoundTransform(actualVolume);
             channel = sound.play(0,0,trans);
             channel.addEventListener(Event.SOUND_COMPLETE,onSoundComplete,false,0,true);
