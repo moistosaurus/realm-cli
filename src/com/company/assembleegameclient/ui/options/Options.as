@@ -243,7 +243,6 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new KeyMapper("toggleCentering","Toggle Centering of Player","This key will toggle the position between centered and " + "offset"));
          this.addOption(new KeyMapper("interact","Interact/Buy","This key will allow you to enter a portal or buy an item"));
          this.addOption(new ChoiceOption("contextualClick",new <String>["On","Off"],[true,false],"Contextual Click","Toggle the contextual click functionality",null));
-         this.addOption(new ChoiceOption("contextualPotionBuy",new <String>["On","Off"],[true,false],"Contextual Potion Buy","Toggle the contextual potion buying functionality",null));
       }
       
       private function onAllowRotationChange() : void

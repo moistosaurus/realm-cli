@@ -195,7 +195,6 @@ package com.company.assembleegameclient.parameters
          setDefault("paymentMethod",null);
          setDefault("showGuildInvitePopup",true);
          setDefault("contextualClick",true);
-         setDefault("contextualPotionBuy",true);
          setDefault("inventorySwap",true);
       }
    }
