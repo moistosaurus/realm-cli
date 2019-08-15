@@ -33,7 +33,6 @@ package com.company.assembleegameclient.game
    import kabam.rotmg.core.model.MapModel;
    import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.game.view.CreditDisplay;
-   import kabam.rotmg.game.view.GiftStatusDisplay;
    import kabam.rotmg.maploading.signals.HideMapLoadingSignal;
    import kabam.rotmg.maploading.signals.ShowMapLoadingSignal;
    import kabam.rotmg.messaging.impl.GameServerConnection;
@@ -80,8 +79,6 @@ package com.company.assembleegameclient.game
       public var guildText_:GuildText;
       
       public var creditDisplay_:CreditDisplay;
-      
-      public var giftStatusDisplay:GiftStatusDisplay;
       
       public var isEditor:Boolean;
       
@@ -176,16 +173,6 @@ package com.company.assembleegameclient.game
       {
          this.showRankText();
          this.showGuildText();
-         this.showGiftStatusDisplay();
-      }
-      
-      private function showGiftStatusDisplay() : void
-      {
-         this.giftStatusDisplay = new GiftStatusDisplay();
-         this.giftStatusDisplay.x = 6;
-         this.giftStatusDisplay.y = this.displaysPosY;
-         this.displaysPosY = this.displaysPosY + UIUtils.NOTIFICATION_SPACE;
-         addChild(this.giftStatusDisplay);
       }
 
       private function showGuildText() : void

@@ -7,7 +7,6 @@ package com.company.assembleegameclient.game
    import com.company.assembleegameclient.tutorial.Tutorial;
    import com.company.assembleegameclient.tutorial.doneAction;
    import com.company.assembleegameclient.ui.options.Options;
-   import com.company.assembleegameclient.util.TextureRedrawer;
    import com.company.util.KeyCodes;
    import flash.display.Stage;
    import flash.display.StageDisplayState;
@@ -23,11 +22,9 @@ package com.company.assembleegameclient.game
    import kabam.rotmg.constants.UseType;
    import kabam.rotmg.core.StaticInjectorContext;
    import kabam.rotmg.core.view.Layers;
-   import kabam.rotmg.game.model.AddTextLineVO;
    import kabam.rotmg.game.model.PotionInventoryModel;
    import kabam.rotmg.game.model.UseBuyPotionVO;
    import kabam.rotmg.game.signals.AddTextLineSignal;
-   import kabam.rotmg.game.signals.GiftStatusUpdateSignal;
    import kabam.rotmg.game.signals.SetTextBoxVisibilitySignal;
    import kabam.rotmg.game.signals.UseBuyPotionSignal;
    import kabam.rotmg.messaging.impl.GameServerConnection;
@@ -38,54 +35,29 @@ package com.company.assembleegameclient.game
    
    public class MapUserInput
    {
-      
       private static var stats_:Stats = new Stats();
-      
       private static const MOUSE_DOWN_WAIT_PERIOD:uint = 175;
-      
       private static var arrowWarning_:Boolean = false;
-       
-      
+
       public var gs_:GameSprite;
-      
       private var moveLeft_:Boolean = false;
-      
       private var moveRight_:Boolean = false;
-      
       private var moveUp_:Boolean = false;
-      
       private var moveDown_:Boolean = false;
-      
       private var rotateLeft_:Boolean = false;
-      
       private var rotateRight_:Boolean = false;
-      
       private var mouseDown_:Boolean = false;
-      
       private var autofire_:Boolean = false;
-      
       private var specialKeyDown_:Boolean = false;
-      
       private var enablePlayerInput_:Boolean = true;
-      
       private var mouseDownTimer:Timer;
-      
       private var mouseDownCount:uint;
-      
-      private var giftStatusUpdateSignal:GiftStatusUpdateSignal;
-      
       private var addTextLine:AddTextLineSignal;
-      
       private var setTextBoxVisibility:SetTextBoxVisibilitySignal;
-      
       private var miniMapZoom:MiniMapZoomSignal;
-      
       private var useBuyPotionSignal:UseBuyPotionSignal;
-      
       private var potionInventoryModel:PotionInventoryModel;
-      
       private var tabStripModel:TabStripModel;
-      
       private var layers:Layers;
       
       public function MapUserInput(gs:GameSprite)
@@ -97,7 +69,6 @@ package com.company.assembleegameclient.game
          this.gs_.addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
          this.gs_.addEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
          var injector:Injector = StaticInjectorContext.getInjector();
-         this.giftStatusUpdateSignal = injector.getInstance(GiftStatusUpdateSignal);
          this.addTextLine = injector.getInstance(AddTextLineSignal);
          this.setTextBoxVisibility = injector.getInstance(SetTextBoxVisibilitySignal);
          this.miniMapZoom = injector.getInstance(MiniMapZoomSignal);

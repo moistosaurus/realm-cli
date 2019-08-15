@@ -76,7 +76,6 @@ package kabam.rotmg.messaging.impl
    import kabam.rotmg.game.model.PotionInventoryModel;
    import kabam.rotmg.game.signals.AddSpeechBalloonSignal;
    import kabam.rotmg.game.signals.AddTextLineSignal;
-   import kabam.rotmg.game.signals.GiftStatusUpdateSignal;
    import kabam.rotmg.game.view.components.QueuedStatusText;
    import kabam.rotmg.messaging.impl.data.GroundTileData;
    import kabam.rotmg.messaging.impl.data.ObjectData;
@@ -92,7 +91,6 @@ package kabam.rotmg.messaging.impl
    import kabam.rotmg.messaging.impl.incoming.Death;
    import kabam.rotmg.messaging.impl.incoming.EnemyShoot;
    import kabam.rotmg.messaging.impl.incoming.Failure;
-   import kabam.rotmg.messaging.impl.incoming.FamePriceMultiplier;
    import kabam.rotmg.messaging.impl.incoming.File;
    import kabam.rotmg.messaging.impl.incoming.GlobalNotification;
    import kabam.rotmg.messaging.impl.incoming.Goto;
@@ -170,233 +168,123 @@ package kabam.rotmg.messaging.impl
    {
       
       public static const FAILURE:int = 0;
-      
       public static const CREATE_SUCCESS:int = 31;
-      
       public static const CREATE:int = 36;
-      
       public static const PLAYERSHOOT:int = 38;
-      
       public static const MOVE:int = 7;
-      
       public static const PLAYERTEXT:int = 69;
-      
       public static const TEXT:int = 25;
-      
       public static const SERVERPLAYERSHOOT:int = 13;
-      
       public static const DAMAGE:int = 47;
-      
       public static const UPDATE:int = 26;
-      
       public static const UPDATEACK:int = 11;
-      
       public static const NOTIFICATION:int = 63;
-      
       public static const NEWTICK:int = 62;
-      
       public static const INVSWAP:int = 65;
-      
       public static const USEITEM:int = 30;
-      
       public static const SHOWEFFECT:int = 56;
-      
       public static const HELLO:int = 17;
-      
       public static const GOTO:int = 52;
-      
       public static const INVDROP:int = 35;
-      
       public static const INVRESULT:int = 4;
-      
       public static const RECONNECT:int = 39;
-      
       public static const PING:int = 6;
-      
       public static const PONG:int = 16;
-      
       public static const MAPINFO:int = 60;
-      
       public static const LOAD:int = 45;
-      
       public static const PIC:int = 28;
-      
       public static const SETCONDITION:int = 10;
-      
       public static const TELEPORT:int = 49;
-      
       public static const USEPORTAL:int = 3;
-      
       public static const DEATH:int = 41;
-      
       public static const BUY:int = 50;
-      
       public static const BUYRESULT:int = 27;
-      
       public static const AOE:int = 68;
-      
       public static const GROUNDDAMAGE:int = 64;
-      
       public static const PLAYERHIT:int = 24;
-      
       public static const ENEMYHIT:int = 76;
-      
       public static const AOEACK:int = 59;
-      
       public static const SHOOTACK:int = 22;
-      
       public static const OTHERHIT:int = 66;
-      
       public static const SQUAREHIT:int = 51;
-      
       public static const GOTOACK:int = 14;
-      
       public static const EDITACCOUNTLIST:int = 53;
-      
       public static const ACCOUNTLIST:int = 46;
-      
       public static const QUESTOBJID:int = 34;
-      
       public static const CHOOSENAME:int = 33;
-      
       public static const NAMERESULT:int = 20;
-      
       public static const CREATEGUILD:int = 15;
-      
       public static const GUILDRESULT:int = 58;
-      
       public static const GUILDREMOVE:int = 78;
-      
       public static const GUILDINVITE:int = 8;
-      
       public static const ALLYSHOOT:int = 74;
-      
       public static const ENEMYSHOOT:int = 19;
-      
       public static const REQUESTTRADE:int = 21;
-      
       public static const TRADEREQUESTED:int = 61;
-      
       public static const TRADESTART:int = 67;
-      
       public static const CHANGETRADE:int = 37;
-      
       public static const TRADECHANGED:int = 23;
-      
       public static const ACCEPTTRADE:int = 57;
-      
       public static const CANCELTRADE:int = 1;
-      
       public static const TRADEDONE:int = 12;
-      
       public static const TRADEACCEPTED:int = 18;
-      
       public static const CLIENTSTAT:int = 75;
-      
       public static const CHECKCREDITS:int = 48;
-      
       public static const ESCAPE:int = 42;
-      
       public static const FILE:int = 55;
-      
       public static const INVITEDTOGUILD:int = 77;
-      
       public static const JOINGUILD:int = 5;
-      
       public static const CHANGEGUILDRANK:int = 40;
-      
       public static const PLAYSOUND:int = 44;
-      
       public static const GLOBAL_NOTIFICATION:int = 9;
-      
       public static const RESKIN:int = 79;
       
       private static const TO_MILLISECONDS:int = 1000;
-      
       public static var instance:GameServerConnection;
-      
+
       private static const NORMAL_SPEECH_COLORS:Vector.<uint> = new <uint>[14802908,16777215,5526612];
-      
       private static const ENEMY_SPEECH_COLORS:Vector.<uint> = new <uint>[5644060,16549442,13484223];
-      
       private static const TELL_SPEECH_COLORS:Vector.<uint> = new <uint>[2493110,61695,13880567];
-      
       private static const GUILD_SPEECH_COLORS:Vector.<uint> = new <uint>[4098560,10944349,13891532];
-       
-      
+
       public var gs_:GameSprite;
-      
       public var server_:Server;
-      
       public var gameId_:int;
-      
       public var createCharacter_:Boolean;
-      
       public var charId_:int;
-      
       public var keyTime_:int;
-      
       public var key_:ByteArray;
-      
       public var mapJSON_:String;
-      
       public var lastTickId_:int = -1;
-      
       public var jitterWatcher_:JitterWatcher = null;
-      
       public var serverConnection:SocketServer;
-      
       private var messages:MessageProvider;
-      
       private var playerId_:int = -1;
-      
       private var player:Player;
-      
       private var retryConnection_:Boolean = true;
-      
       public var outstandingBuy_:OutstandingBuy = null;
-      
       private var rand_:Random = null;
-      
-      private var giftChestUpdateSignal:GiftStatusUpdateSignal;
-      
       private var death:Death;
-      
       private var retryTimer_:Timer;
-      
       private var delayBeforeReconect:int = 1;
-      
       private var addTextLine:AddTextLineSignal;
-      
       private var addSpeechBalloon:AddSpeechBalloonSignal;
-      
       private var updateGroundTileSignal:UpdateGroundTileSignal;
-      
       private var updateGameObjectTileSignal:UpdateGameObjectTileSignal;
-      
       private var logger:ILogger;
-      
       private var handleDeath:HandleDeathSignal;
-      
       private var setGameFocus:SetGameFocusSignal;
-      
       private var updateBackpackTab:UpdateBackpackTabSignal;
-      
       private var classesModel:ClassesModel;
-      
       private var playerModel:PlayerModel;
-      
       private var isConnected:Boolean;
-      
       private var injector:Injector;
-      
       private var model:GameModel;
       
       public function GameServerConnection(gs:GameSprite, server:Server, gameId:int, createCharacter:Boolean, charId:int, keyTime:int, key:ByteArray, mapJSON:String)
       {
          super();
          this.injector = StaticInjectorContext.getInjector();
-         this.giftChestUpdateSignal = this.injector.getInstance(GiftStatusUpdateSignal);
          this.addTextLine = this.injector.getInstance(AddTextLineSignal);
          this.addSpeechBalloon = this.injector.getInstance(AddSpeechBalloonSignal);
          this.updateGroundTileSignal = this.injector.getInstance(UpdateGroundTileSignal);
@@ -1266,13 +1154,6 @@ package kabam.rotmg.messaging.impl
             case "showKeyUI":
                ShowKeyUISignal.instance.dispatch();
                break;
-            case "giftChestOccupied":
-               this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_GIFT);
-               break;
-            case "giftChestEmpty":
-               this.giftChestUpdateSignal.dispatch(GiftStatusUpdateSignal.HAS_NO_GIFT);
-               break;
-            case "beginnersPackage":
          }
       }
       

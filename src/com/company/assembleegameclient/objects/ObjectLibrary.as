@@ -14,34 +14,22 @@ import com.company.util.AssetLibrary;
    
    public class ObjectLibrary
    {
-      
       public static var playerChars_:Vector.<XML> = new Vector.<XML>();
-      
       public static var hexTransforms_:Vector.<XML> = new Vector.<XML>();
-      
       public static var playerClassAbbr_:Dictionary = new Dictionary();
-      
       public static const propsLibrary_:Dictionary = new Dictionary();
-      
       public static const xmlLibrary_:Dictionary = new Dictionary();
-      
       public static const idToType_:Dictionary = new Dictionary();
-      
       public static const typeToDisplayId_:Dictionary = new Dictionary();
-      
       public static const typeToTextureData_:Dictionary = new Dictionary();
-      
       public static const typeToTopTextureData_:Dictionary = new Dictionary();
-      
       public static const typeToAnimationsData_:Dictionary = new Dictionary();
-      
       public static const defaultProps_:ObjectProperties = new ObjectProperties(null);
       
       public static const TYPE_MAP:Object = {
          "CaveWall":CaveWall,
          "Character":Character,
          "CharacterChanger":CharacterChanger,
-         "ClosedGiftChest":ClosedGiftChest,
          "ClosedVaultChest":ClosedVaultChest,
          "ConnectedWall":ConnectedWall,
          "Container":Container,

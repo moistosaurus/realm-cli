@@ -1,7 +1,6 @@
 package kabam.rotmg.game
 {
    import com.company.assembleegameclient.game.GameSprite;
-   import com.company.assembleegameclient.game.GiftStatusModel;
    import com.company.assembleegameclient.map.Map;
    import com.company.assembleegameclient.map.MapMediator;
    import com.company.assembleegameclient.map.QueueStatusTextSignal;
@@ -17,7 +16,6 @@ package kabam.rotmg.game
    import com.company.assembleegameclient.ui.panels.mediators.ItemGridMediator;
    import kabam.rotmg.application.api.ApplicationSetup;
    import kabam.rotmg.core.signals.AppInitDataReceivedSignal;
-   import kabam.rotmg.game.commands.GiftStatusUpdateCommand;
    import kabam.rotmg.game.commands.ParsePotionDataCommand;
    import kabam.rotmg.game.commands.PlayGameCommand;
    import kabam.rotmg.game.commands.TextPanelMessageUpdateCommand;
@@ -35,18 +33,14 @@ package kabam.rotmg.game
    import kabam.rotmg.game.signals.DisconnectGameSignal;
    import kabam.rotmg.game.signals.ExitGameSignal;
    import kabam.rotmg.game.signals.GameClosedSignal;
-   import kabam.rotmg.game.signals.GiftStatusUpdateSignal;
    import kabam.rotmg.game.signals.PlayGameSignal;
    import kabam.rotmg.game.signals.SetTextBoxVisibilitySignal;
    import kabam.rotmg.game.signals.SetWorldInteractionSignal;
    import kabam.rotmg.game.signals.TextPanelMessageUpdateSignal;
-   import kabam.rotmg.game.signals.UpdateGiftStatusDisplaySignal;
    import kabam.rotmg.game.signals.UseBuyPotionSignal;
    import kabam.rotmg.game.view.CreditDisplay;
    import kabam.rotmg.game.view.CreditDisplayMediator;
    import kabam.rotmg.game.view.GameSpriteMediator;
-   import kabam.rotmg.game.view.GiftStatusDisplay;
-   import kabam.rotmg.game.view.GiftStatusDisplayMediator;
    import kabam.rotmg.game.view.MapOverlayMediator;
    import kabam.rotmg.game.view.MoneyChangerPanel;
    import kabam.rotmg.game.view.MoneyChangerPanelMediator;
@@ -103,19 +97,17 @@ package kabam.rotmg.game
       
       private function generalGameConfiguration() : void
       {
-         this.injector.map(UpdateGiftStatusDisplaySignal).asSingleton();
          this.injector.map(SetWorldInteractionSignal).asSingleton();
          this.injector.map(AddTextLineSignal).asSingleton();
          this.injector.map(SetTextBoxVisibilitySignal).asSingleton();
          this.injector.map(AddSpeechBalloonSignal).asSingleton();
          this.injector.map(ChatFilter).asSingleton();
-         this.injector.map(GiftStatusModel).asSingleton();
          this.injector.map(DisconnectGameSignal).asSingleton();
          this.injector.map(TabStripModel).asSingleton();
          this.injector.map(ExitGameSignal).asSingleton();
          this.injector.map(QueueStatusTextSignal).asSingleton();
          this.makeTextPanelMappings();
-         this.makeGiftStatusDisplayMappings();
+         this.makeStatusDisplayMappings();
          this.mediatorMap.map(PortalPanel).toMediator(PortalPanelMediator);
          this.mediatorMap.map(GameObjectStatusPanel).toMediator(GameObjectStatusPanelMediator);
          this.mediatorMap.map(InteractPanel).toMediator(InteractPanelMediator);
@@ -128,7 +120,6 @@ package kabam.rotmg.game
          this.mediatorMap.map(StatsView).toMediator(StatsMediator);
          this.mediatorMap.map(TabStripView).toMediator(TabStripMediator);
          this.commandMap.map(AppInitDataReceivedSignal).toCommand(ParsePotionDataCommand);
-         this.commandMap.map(GiftStatusUpdateSignal).toCommand(GiftStatusUpdateCommand);
          this.commandMap.map(UseBuyPotionSignal).toCommand(UseBuyPotionCommand);
          this.commandMap.map(GameClosedSignal).toCommand(TransitionFromGameToMenuCommand);
          this.commandMap.map(PlayGameSignal).toCommand(PlayGameCommand);
@@ -141,10 +132,9 @@ package kabam.rotmg.game
          this.commandMap.map(TextPanelMessageUpdateSignal,true).toCommand(TextPanelMessageUpdateCommand);
          this.mediatorMap.map(TextPanel).toMediator(TextPanelMediator);
       }
-      
-      private function makeGiftStatusDisplayMappings() : void
+
+      private function makeStatusDisplayMappings() : void
       {
-         this.mediatorMap.map(GiftStatusDisplay).toMediator(GiftStatusDisplayMediator);
          this.mediatorMap.map(GameSprite).toMediator(GameSpriteMediator);
          this.mediatorMap.map(CreditDisplay).toMediator(CreditDisplayMediator);
          this.mediatorMap.map(MoneyChangerPanel).toMediator(MoneyChangerPanelMediator);

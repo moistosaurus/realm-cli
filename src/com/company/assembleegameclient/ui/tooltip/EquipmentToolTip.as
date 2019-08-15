@@ -24,51 +24,28 @@ package com.company.assembleegameclient.ui.tooltip
        
       
       private var icon_:Bitmap;
-      
       private var titleText_:SimpleText;
-      
       private var tierText_:SimpleText;
-      
       private var descText_:SimpleText;
-      
       private var line1_:LineBreakDesign;
-      
       private var effectsText_:SimpleText;
-      
       private var line2_:LineBreakDesign;
-      
       private var restrictionsText_:SimpleText;
-      
       private var player_:Player;
-      
       private var isEquippable_:Boolean = false;
-      
       private var objectType_:int;
-      
       private var curItemXML_:XML = null;
-      
       private var objectXML_:XML = null;
-      
       private var slotTypeToTextBuilder:SlotComparisonFactory;
-      
       private var playerCanUse:Boolean;
-      
       private var restrictions:Vector.<Restriction>;
-      
       private var effects:Vector.<Effect>;
-      
       private var itemSlotTypeId:int;
-      
       private var invType:int;
-      
       private var inventoryOwnerType:String;
-      
       private var inventorySlotID:uint;
-      
       private var isInventoryFull:Boolean;
-      
       private var yOffset:int;
-      
       private var comparisonResults:SlotComparisonResult;
       
       public function EquipmentToolTip(objectType:int, player:Player, invType:int, inventoryOwnerType:String, inventorySlotID:uint = 1.0)
