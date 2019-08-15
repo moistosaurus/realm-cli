@@ -34,7 +34,7 @@ public class GlowRedrawer
         super();
     }
 
-    public static function outlineGlow(texture:BitmapData, glowColor:uint, outlineSize:Number = 1.4, caching:Boolean = false, outlineColor:int = 0) : BitmapData
+    public static function outlineGlow(texture:BitmapData, glowColor:uint, outlineSize:Number = 1.4, caching:Boolean = true, outlineColor:int = 0) : BitmapData
     {
         var hash:String = getHash(glowColor,outlineSize,outlineColor);
         if(caching && isCached(texture,hash))
