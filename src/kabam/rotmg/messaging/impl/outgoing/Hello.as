@@ -5,20 +5,12 @@ package kabam.rotmg.messaging.impl.outgoing
    
    public class Hello extends OutgoingMessage
    {
-       
-      
       public var buildVersion_:String;
-      
       public var gameId_:int = 0;
-      
       public var guid_:String;
-      
       public var password_:String;
-      
       public var keyTime_:int = 0;
-      
       public var key_:ByteArray;
-      
       public var mapJSON_:String;
       
       public function Hello(id:uint, callback:Function)

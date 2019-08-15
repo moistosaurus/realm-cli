@@ -4,12 +4,9 @@ package kabam.rotmg.messaging.impl.incoming
    
    public class Failure extends IncomingMessage
    {
-      
-      public static const INCORRECT_VERSION:int = 4;
-      
-      public static const BAD_KEY:int = 5;
-      
-      public static const INVALID_TELEPORT_TARGET:int = 6;
+      public static const INCORRECT_VERSION:int = 1;
+      public static const FORCE_CLOSE_GAME:int = 2;
+      public static const INVALID_TELEPORT_TARGET:int = 3;
        
       
       public var errorId_:int;

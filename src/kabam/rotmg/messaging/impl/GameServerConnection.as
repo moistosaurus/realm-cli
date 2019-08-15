@@ -1850,8 +1850,8 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
             case Failure.INCORRECT_VERSION:
                this.handleIncorrectVersionFailure(event);
                break;
-            case Failure.BAD_KEY:
-               this.handleBadKeyFailure(event);
+            case Failure.FORCE_CLOSE_GAME:
+               this.handleForceCloseGameFailure(event);
                break;
             case Failure.INVALID_TELEPORT_TARGET:
                this.handleInvalidTeleportTarget(event);
@@ -1867,7 +1867,7 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
          this.player.nextTeleportAt_ = 0;
       }
       
-      private function handleBadKeyFailure(event:Failure) : void
+      private function handleForceCloseGameFailure(event:Failure) : void
       {
          this.addTextLine.dispatch(new AddTextLineVO(Parameters.ERROR_CHAT_NAME,event.errorDescription_));
          this.retryConnection_ = false;
