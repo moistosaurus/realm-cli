@@ -6,9 +6,7 @@ package kabam.rotmg.messaging.impl.incoming
    {
       public static const SUCCESS_BRID:int = 0;
 
-      public static const NOT_ENOUGH_GOLD_BRID:int = 1;
-
-      public static const NOT_ENOUGH_FAME_BRID:int = 2;
+      public static const DIALOG_BRID:int = 1;
        
       
       public var result_:int;

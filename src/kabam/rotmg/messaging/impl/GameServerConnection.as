@@ -160,7 +160,8 @@ package kabam.rotmg.messaging.impl
    import kabam.rotmg.ui.signals.ShowKeySignal;
    import kabam.rotmg.ui.signals.ShowKeyUISignal;
    import kabam.rotmg.ui.signals.UpdateBackpackTabSignal;
-   import kabam.rotmg.ui.view.NotEnoughGoldDialog;
+import kabam.rotmg.ui.view.FlexibleDialog;
+import kabam.rotmg.ui.view.NotEnoughGoldDialog;
    import org.swiftsuspenders.Injector;
    import robotlegs.bender.framework.api.ILogger;
    
@@ -1710,11 +1711,8 @@ package kabam.rotmg.messaging.impl
          this.outstandingBuy_ = null;
          switch(buyResult.result_)
          {
-            case BuyResult.NOT_ENOUGH_GOLD_BRID:
-               StaticInjectorContext.getInjector().getInstance(OpenDialogSignal).dispatch(new NotEnoughGoldDialog());
-               break;
-            case BuyResult.NOT_ENOUGH_FAME_BRID:
-               StaticInjectorContext.getInjector().getInstance(OpenDialogSignal).dispatch(new NotEnoughFameDialog());
+            case BuyResult.DIALOG_BRID:
+               StaticInjectorContext.getInjector().getInstance(OpenDialogSignal).dispatch(new FlexibleDialog("Purchase Error", buyResult.resultString_));
                break;
             default:
                this.addTextLine.dispatch(new AddTextLineVO(buyResult.result_ == BuyResult.SUCCESS_BRID?Parameters.SERVER_CHAT_NAME:Parameters.ERROR_CHAT_NAME,buyResult.resultString_));

@@ -72,7 +72,9 @@ package kabam.rotmg.ui
    import kabam.rotmg.ui.view.CurrentCharacterRectMediator;
    import kabam.rotmg.ui.view.ErrorDialogMediator;
    import kabam.rotmg.ui.view.GameObjectStatusPanelMediator;
-   import kabam.rotmg.ui.view.HUDMediator;
+import kabam.rotmg.ui.view.FlexibleDialog;
+import kabam.rotmg.ui.view.FlexibleMediator;
+import kabam.rotmg.ui.view.HUDMediator;
    import kabam.rotmg.ui.view.HUDView;
    import kabam.rotmg.ui.view.KeysMediator;
    import kabam.rotmg.ui.view.KeysView;
@@ -142,6 +144,7 @@ package kabam.rotmg.ui
          this.mediatorMap.map(ErrorDialog).toMediator(ErrorDialogMediator);
          this.mediatorMap.map(GraveyardLine).toMediator(NewsLineMediator);
          this.mediatorMap.map(NotEnoughGoldDialog).toMediator(NotEnoughGoldMediator);
+         this.mediatorMap.map(FlexibleDialog).toMediator(FlexibleMediator);
          this.mediatorMap.map(GameObjectStatusPanel).toMediator(GameObjectStatusPanelMediator);
          this.mediatorMap.map(InteractPanel).toMediator(InteractPanelMediator);
          this.mediatorMap.map(ItemGrid).toMediator(ItemGridMediator);
