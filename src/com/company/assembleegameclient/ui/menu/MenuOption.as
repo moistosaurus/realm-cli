@@ -31,7 +31,7 @@ package com.company.assembleegameclient.ui.menu
       {
          super();
          this.origIconBitmapData_ = origIconBitmapData;
-         this.iconBitmapData_ = TextureRedrawer.redraw(origIconBitmapData,this.redrawSize(),true,0,0);
+         this.iconBitmapData_ = TextureRedrawer.redraw(origIconBitmapData,this.redrawSize(),true,0);
          this.icon_ = new Bitmap(this.iconBitmapData_);
          this.icon_.filters = [new DropShadowFilter(0,0,0)];
          this.icon_.x = -12;
@@ -65,7 +65,7 @@ package com.company.assembleegameclient.ui.menu
          else
          {
             transformedBitmapData = CachingColorTransformer.transformBitmapData(this.origIconBitmapData_,this.ct_);
-            transformedBitmapData = TextureRedrawer.redraw(transformedBitmapData,this.redrawSize(),true,0,0);
+            transformedBitmapData = TextureRedrawer.redraw(transformedBitmapData,this.redrawSize(),true,0);
             this.icon_.bitmapData = transformedBitmapData;
             this.text_.transform.colorTransform = this.ct_;
          }

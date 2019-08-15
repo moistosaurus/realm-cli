@@ -34,7 +34,7 @@ package com.company.assembleegameclient.ui
       {
          super();
          this.origIconBitmapData_ = bitmapData;
-         this.iconBitmapData_ = TextureRedrawer.redraw(this.origIconBitmapData_,320 / this.origIconBitmapData_.width,true,0,0);
+         this.iconBitmapData_ = TextureRedrawer.redraw(this.origIconBitmapData_,320 / this.origIconBitmapData_.width,true,0);
          this.icon_ = new Bitmap(this.iconBitmapData_);
          this.icon_.x = -12;
          this.icon_.y = -12;

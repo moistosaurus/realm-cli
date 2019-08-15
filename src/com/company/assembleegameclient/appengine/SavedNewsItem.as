@@ -33,13 +33,13 @@ package com.company.assembleegameclient.appengine
       private static function forumIcon() : BitmapData
       {
          var bd:BitmapData = AssetLibrary.getImageFromSet("lofiInterface2",4);
-         return TextureRedrawer.redraw(bd,80,true,0,0);
+         return TextureRedrawer.redraw(bd,80,true,0);
       }
       
       private static function fameIcon() : BitmapData
       {
          var bd:BitmapData = AssetLibrary.getImageFromSet("lofiObj3",224);
-         return TextureRedrawer.redraw(bd,80,true,0,0);
+         return TextureRedrawer.redraw(bd,80,true,0);
       }
       
       public function getIcon() : BitmapData

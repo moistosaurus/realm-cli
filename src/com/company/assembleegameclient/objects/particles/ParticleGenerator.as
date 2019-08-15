@@ -35,7 +35,7 @@ package com.company.assembleegameclient.objects.particles
          if(this.effectProps.bitmapFile)
          {
             this.bitmapData = AssetLibrary.getImageFromSet(this.effectProps.bitmapFile,this.effectProps.bitmapIndex);
-            this.bitmapData = TextureRedrawer.redraw(this.bitmapData,this.effectProps.size,true,0,0);
+            this.bitmapData = TextureRedrawer.redraw(this.bitmapData,this.effectProps.size,true,0);
          }
          else
          {

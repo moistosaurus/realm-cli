@@ -106,7 +106,7 @@ package com.company.assembleegameclient.objects
          this.damagesPlayers_ = this.containerProps_.isEnemy_;
          this.damagesEnemies_ = !this.damagesPlayers_;
          this.sound_ = this.containerProps_.oldSound_;
-         this.multiHitDict_ = !!this.projProps_.multiHit_?new Dictionary():null;
+         this.multiHitDict_ = this.projProps_.multiHit_ ? new Dictionary() : null;
          if(this.projProps_.size_ >= 0)
          {
             size = this.projProps_.size_;

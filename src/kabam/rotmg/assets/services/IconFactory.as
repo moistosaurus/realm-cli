@@ -44,7 +44,7 @@ import com.company.util.AssetLibrary;
       public function makeIconBitmap(id:int) : Bitmap
       {
          var iconBD:BitmapData = AssetLibrary.getImageFromSet("lofiInterfaceBig",id);
-         iconBD = TextureRedrawer.redraw(iconBD,320 / iconBD.width,true,0,0);
+         iconBD = TextureRedrawer.redraw(iconBD,320 / iconBD.width,true,0);
          return new Bitmap(iconBD);
       }
    }

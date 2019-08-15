@@ -49,7 +49,7 @@ package kabam.rotmg.game.commands
          this.potionId = this.vo.objectId;
          this.count = this.player.getPotionCount(this.potionId);
          this.potion = this.potInventoryModel.getPotionModel(this.potionId);
-         if(this.count > 0 || this.canPurchasePotion())
+         if(this.count > 0)
          {
             this.usePotionIfEffective();
          }
@@ -58,14 +58,7 @@ package kabam.rotmg.game.commands
             this.logger.info("Not safe to purchase potion");
          }
       }
-      
-      private function canPurchasePotion() : Boolean
-      {
-         var isAffordable:Boolean = this.player.credits_ >= this.potion.currentCost(this.player.getPotionCount(this.potionId));
-         var isPurchaseTriggered:Boolean = Parameters.data_.contextualPotionBuy || this.vo.source == UseBuyPotionVO.SHIFTCLICK;
-         return (isAffordable || this.player.isSafe(10)) && isPurchaseTriggered;
-      }
-      
+
       private function usePotionIfEffective() : void
       {
          if(this.isPlayerStatMaxed())
@@ -95,10 +88,6 @@ package kabam.rotmg.game.commands
       {
          var slot:int = PotionInventoryModel.getPotionSlot(this.vo.objectId);
          this.gsc.useItem(getTimer(),this.player.objectId_,slot,this.potionId,this.player.x_,this.player.y_,UseType.START_USE);
-         if(this.player.getPotionCount(this.vo.objectId) == 0)
-         {
-            this.potInventoryModel.getPotionModel(this.vo.objectId).purchasedPot();
-         }
       }
    }
 }

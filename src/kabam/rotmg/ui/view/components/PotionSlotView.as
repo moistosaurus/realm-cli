@@ -25,73 +25,41 @@ package kabam.rotmg.ui.view.components
    
    public class PotionSlotView extends Sprite
    {
-      
       public static var BUTTON_WIDTH:int = 84;
-      
       private static var BUTTON_HEIGHT:int = 24;
-      
       private static var SMALL_SIZE:int = 4;
-      
       private static var CENTER_ICON_X:int = 13;
-      
       private static var LEFT_ICON_X:int = -6;
-      
       private static const DOUBLE_CLICK_PAUSE:uint = 250;
-      
       private static const DRAG_DIST:int = 3;
-       
       
       public var position:int;
-      
       public var objectType:int;
-      
       public var click:NativeSignal;
-      
       public var buyUse:Signal;
-      
       public var drop:Signal;
-      
       private var lightGrayFill:GraphicsSolidFill;
-      
       private var midGrayFill:GraphicsSolidFill;
-      
       private var darkGrayFill:GraphicsSolidFill;
-      
       private var outerPath:GraphicsPath;
-      
       private var innerPath:GraphicsPath;
-      
       private var useGraphicsData:Vector.<IGraphicsData>;
-      
       private var buyOuterGraphicsData:Vector.<IGraphicsData>;
-      
       private var buyInnerGraphicsData:Vector.<IGraphicsData>;
-      
       private var text:SimpleText;
-      
-      private var costIcon:Bitmap;
-      
       private var potionIconDraggableSprite:Sprite;
-      
       private var potionIcon:Bitmap;
-      
       private var bg:Sprite;
-      
       private var grayscaleMatrix:ColorMatrixFilter;
-      
       private var available:Boolean = false;
-      
       private var doubleClickTimer:Timer;
-      
       private var dragStart:Point;
-      
       private var pendingSecondClick:Boolean;
-      
       private var isDragging:Boolean;
+      private var showPots:Boolean;
       
       public function PotionSlotView(cuts:Array, position:int)
       {
-         var coinBD:BitmapData = null;
          this.lightGrayFill = new GraphicsSolidFill(5526612,1);
          this.midGrayFill = new GraphicsSolidFill(4078909,1);
          this.darkGrayFill = new GraphicsSolidFill(2368034,1);
@@ -104,15 +72,9 @@ package kabam.rotmg.ui.view.components
          mouseChildren = false;
          this.position = position;
          this.grayscaleMatrix = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
-         coinBD = AssetLibrary.getImageFromSet("lofiObj3",225);
-         coinBD = TextureRedrawer.redraw(coinBD,30,false,0,0);
          this.text = new SimpleText(13,16777215,false,BUTTON_HEIGHT,BUTTON_WIDTH);
          this.text.filters = [new DropShadowFilter(0,0,0,1,4,4,2)];
          this.text.y = 2;
-         this.costIcon = new Bitmap(coinBD);
-         this.costIcon.x = 52;
-         this.costIcon.y = -6;
-         this.costIcon.visible = false;
          this.bg = new Sprite();
          GraphicsUtil.clearPath(this.outerPath);
          GraphicsUtil.drawCutEdgeRect(0,0,BUTTON_WIDTH,BUTTON_HEIGHT,4,cuts,this.outerPath);
@@ -120,7 +82,6 @@ package kabam.rotmg.ui.view.components
          this.bg.graphics.drawGraphicsData(this.buyOuterGraphicsData);
          this.bg.graphics.drawGraphicsData(this.buyInnerGraphicsData);
          addChild(this.bg);
-         addChild(this.costIcon);
          addChild(this.text);
          this.potionIconDraggableSprite = new Sprite();
          this.doubleClickTimer = new Timer(DOUBLE_CLICK_PAUSE,1);
@@ -134,7 +95,7 @@ package kabam.rotmg.ui.view.components
          this.drop = new Signal(DisplayObject);
       }
       
-      public function setData(potions:int, cost:int, available:Boolean, objectType:int = -1) : void
+      public function setData(potions:int, available:Boolean, objectType:int = -1) : void
       {
          var iconX:int = 0;
          var iconBD:BitmapData = null;
@@ -157,8 +118,8 @@ package kabam.rotmg.ui.view.components
             this.potionIconDraggableSprite.addChild(potionIconBig);
          }
          this.available = available;
-         filters = !!available?[]:[this.grayscaleMatrix];
-         var showPots:Boolean = potions > 0;
+         filters = available?[]:[this.grayscaleMatrix];
+         showPots = potions > 0;
          if(showPots)
          {
             this.text.text = String(potions);
@@ -169,18 +130,17 @@ package kabam.rotmg.ui.view.components
          }
          else
          {
-            this.text.text = String(cost);
-            iconX = LEFT_ICON_X;
+            this.text.text = "0";
+            iconX = CENTER_ICON_X;
             this.bg.graphics.clear();
             this.bg.graphics.drawGraphicsData(this.buyOuterGraphicsData);
             this.bg.graphics.drawGraphicsData(this.buyInnerGraphicsData);
-            this.text.x = this.costIcon.x - this.text.textWidth + 6;
+            this.text.x = BUTTON_WIDTH / 2 + 5;
          }
          if(this.potionIcon)
          {
             this.potionIcon.x = iconX;
          }
-         this.costIcon.visible = !showPots;
       }
       
       private function onMouseOut(e:MouseEvent) : void
@@ -212,7 +172,7 @@ package kabam.rotmg.ui.view.components
       
       private function onMouseDown(e:MouseEvent) : void
       {
-         if(!this.costIcon.visible)
+         if(showPots)
          {
             this.beginDragCheck(e);
          }

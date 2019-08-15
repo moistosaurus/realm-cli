@@ -902,7 +902,7 @@ import com.company.ui.SimpleText;
          }
          if(this.tex1Id_ == 0 && this.tex2Id_ == 0)
          {
-            texture = TextureRedrawer.redraw(texture,size,false,0,0);
+            texture = TextureRedrawer.redraw(texture,size,false,0);
          }
          else
          {

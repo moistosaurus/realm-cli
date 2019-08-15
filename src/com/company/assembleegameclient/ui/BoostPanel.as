@@ -70,7 +70,7 @@ package com.company.assembleegameclient.ui
       {
          var bitmap:Bitmap = null;
          var headerTextField:SimpleText = null;
-         var bitmapData:BitmapData = TextureRedrawer.redraw(AssetLibrary.getImageFromSet("lofiInterfaceBig",22),20,true,0,0);
+         var bitmapData:BitmapData = TextureRedrawer.redraw(AssetLibrary.getImageFromSet("lofiInterfaceBig",22),20,true,0);
          bitmap = new Bitmap(bitmapData);
          bitmap.x = -3;
          bitmap.y = -1;

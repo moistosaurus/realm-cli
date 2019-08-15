@@ -99,7 +99,7 @@ package com.company.assembleegameclient.objects.particles
                texture = animTexture;
             }
          }
-         texture = TextureRedrawer.redraw(texture,this.size_,true,0,0);
+         texture = TextureRedrawer.redraw(texture,this.size_,true,0);
          var w:int = texture.width;
          var h:int = texture.height;
          this.vS_.length = 0;

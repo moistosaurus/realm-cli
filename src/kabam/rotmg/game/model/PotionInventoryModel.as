@@ -42,32 +42,18 @@ package kabam.rotmg.game.model
       
       public function initializePotionModels(xml:XML) : void
       {
-         var cost:int = 0;
          var potModel:PotionModel = null;
-         var purchaseCooldownMillis:int = xml.PotionPurchaseCooldown;
-         var costCooldownMillis:int = xml.PotionPurchaseCostCooldown;
          var maxStackable:int = xml.MaxStackablePotions;
-         var costs:Array = new Array();
-         for each(cost in xml.PotionPurchaseCosts.cost)
-         {
-            costs.push(cost);
-         }
          potModel = new PotionModel();
-         potModel.purchaseCooldownMillis = purchaseCooldownMillis;
-         potModel.priceCooldownMillis = costCooldownMillis;
          potModel.maxPotionCount = maxStackable;
          potModel.objectId = HEALTH_POTION_ID;
          potModel.position = 0;
-         potModel.costs = costs;
          this.potionModels[potModel.position] = potModel;
          potModel.update.add(this.update);
          potModel = new PotionModel();
-         potModel.purchaseCooldownMillis = purchaseCooldownMillis;
-         potModel.priceCooldownMillis = costCooldownMillis;
          potModel.maxPotionCount = maxStackable;
          potModel.objectId = MAGIC_POTION_ID;
          potModel.position = 1;
-         potModel.costs = costs;
          this.potionModels[potModel.position] = potModel;
          potModel.update.add(this.update);
       }

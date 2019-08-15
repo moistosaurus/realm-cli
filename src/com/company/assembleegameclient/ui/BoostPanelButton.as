@@ -23,7 +23,7 @@ package com.company.assembleegameclient.ui
          super();
          this.player = player;
          var rawBitmapData:BitmapData = AssetLibrary.getImageFromSet("lofiInterfaceBig",22);
-         var bitmapData:BitmapData = TextureRedrawer.redraw(rawBitmapData,20,true,0,0);
+         var bitmapData:BitmapData = TextureRedrawer.redraw(rawBitmapData,20,true,0);
          bitmap = new Bitmap(bitmapData);
          bitmap.x = -7;
          bitmap.y = -10;

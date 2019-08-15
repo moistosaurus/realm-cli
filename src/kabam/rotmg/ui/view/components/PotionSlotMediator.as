@@ -58,7 +58,7 @@ package kabam.rotmg.ui.view.components
       {
          var potionModel:PotionModel = this.potionInventoryModel.potionModels[this.view.position];
          var count:int = player.getPotionCount(potionModel.objectId);
-         this.view.setData(count,potionModel.currentCost(count),potionModel.available,potionModel.objectId);
+         this.view.setData(count,potionModel.available,potionModel.objectId);
       }
       
       private function update(player:Player) : void
@@ -69,7 +69,7 @@ package kabam.rotmg.ui.view.components
          {
             potModel = this.potionInventoryModel.getPotionModel(this.view.objectType);
             count = player.getPotionCount(potModel.objectId);
-            this.view.setData(count,potModel.currentCost(count),potModel.available);
+            this.view.setData(count,potModel.available);
          }
       }
       

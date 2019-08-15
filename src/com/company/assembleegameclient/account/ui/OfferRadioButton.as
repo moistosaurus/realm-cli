@@ -118,7 +118,7 @@ package com.company.assembleegameclient.account.ui
       {
          var coin:Bitmap = null;
          this.coinBitmap = AssetLibrary.getImageFromSet("lofiObj3",225);
-         this.coinBitmap = TextureRedrawer.redraw(this.coinBitmap,50,true,0,0,false);
+         this.coinBitmap = TextureRedrawer.redraw(this.coinBitmap,50,true,0);
          this.coinBitmap = BitmapUtil.cropToBitmapData(this.coinBitmap,8,8,this.coinBitmap.width - 16,this.coinBitmap.height - 16);
          coin = new Bitmap(this.coinBitmap);
          coin.x = this.toggle.x + 35;

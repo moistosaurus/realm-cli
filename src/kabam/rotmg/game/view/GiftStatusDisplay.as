@@ -39,7 +39,7 @@ package kabam.rotmg.game.view
          mouseChildren = false;
          addEventListener(MouseEvent.MOUSE_OVER,this.onHover);
          addEventListener(MouseEvent.MOUSE_OUT,this.onHoverOut);
-         this.giftOpenProcessedTexture = TextureRedrawer.redraw(AssetLibrary.getImageFromSet("lofiObj2",127),40,true,0,0);
+         this.giftOpenProcessedTexture = TextureRedrawer.redraw(AssetLibrary.getImageFromSet("lofiObj2",127),40,true,0);
          this.background = UIUtils.returnHudNotificationBackground();
          this.text = new SimpleText(16,16777215,false,0,0);
          this.text.text = "New Gift";

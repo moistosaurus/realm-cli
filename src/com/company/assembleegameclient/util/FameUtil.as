@@ -113,7 +113,7 @@ package com.company.assembleegameclient.util
       public static function getFameIcon() : BitmapData
       {
          var fameBD:BitmapData = AssetLibrary.getImageFromSet("lofiObj3",224);
-         return TextureRedrawer.redraw(fameBD,40,true,0,0);
+         return TextureRedrawer.redraw(fameBD,40,true,0);
       }
    }
 }

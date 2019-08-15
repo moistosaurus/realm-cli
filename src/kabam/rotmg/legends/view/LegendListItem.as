@@ -127,7 +127,7 @@ package kabam.rotmg.legends.view
       private function makeFameIcon() : void
       {
          var fameBD:BitmapData = AssetLibrary.getImageFromSet("lofiObj3",224);
-         this.fameIcon = new Bitmap(TextureRedrawer.redraw(fameBD,40,true,0,0));
+         this.fameIcon = new Bitmap(TextureRedrawer.redraw(fameBD,40,true,0));
          this.fameIcon.x = 652;
          this.fameIcon.y = HEIGHT / 2 - this.fameIcon.height / 2;
          addChild(this.fameIcon);

@@ -55,7 +55,7 @@ package com.company.assembleegameclient.ui.tooltip
          var animatedChar:AnimatedChar = AnimatedChars.getAnimatedChar(String(playerXML.AnimatedTexture.File),int(playerXML.AnimatedTexture.Index));
          var image:MaskedImage = animatedChar.imageFromDir(AnimatedChar.RIGHT,AnimatedChar.STAND,0);
          var size:int = 4 / image.width() * 100;
-         var bd:BitmapData = TextureRedrawer.redraw(image.image_,size,true,0,0);
+         var bd:BitmapData = TextureRedrawer.redraw(image.image_,size,true,0);
          showUnlockRequirements = this.shouldShowUnlockRequirements(model,playerXML);
          if(showUnlockRequirements)
          {
@@ -129,7 +129,7 @@ package com.company.assembleegameclient.ui.tooltip
             this.costText_.x = 12;
             this.costText_.y = height - 4;
             coinBD = AssetLibrary.getImageFromSet("lofiObj3",225);
-            coinBD = TextureRedrawer.redraw(coinBD,30,true,0,0);
+            coinBD = TextureRedrawer.redraw(coinBD,30,true,0);
             this.coinBitmap_ = new Bitmap(coinBD);
             this.coinBitmap_.y = this.costText_.y - 8;
             this.coinBitmap_.x = this.costText_.x + this.costText_.textWidth;

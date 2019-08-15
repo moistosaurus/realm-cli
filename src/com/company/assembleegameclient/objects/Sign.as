@@ -40,7 +40,7 @@ package com.company.assembleegameclient.objects
          txt.text = name_.split("|").join("\n");
          var bitmapData:BitmapData = new BitmapData(txt.width,txt.height,true,0);
          bitmapData.draw(txt);
-         texture_ = TextureRedrawer.redraw(bitmapData,size_,false,0,0);
+         texture_ = TextureRedrawer.redraw(bitmapData,size_,false,0);
          return texture_;
       }
    }

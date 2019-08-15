@@ -7,30 +7,18 @@ package com.company.assembleegameclient.objects
    
    public class BasicObject
    {
-      
       private static var nextFakeObjectId_:int = 0;
-       
-      
+
       public var map_:Map;
-      
       public var square_:Square;
-      
       public var objectId_:int;
-      
       public var x_:Number;
-      
       public var y_:Number;
-      
       public var z_:Number;
-      
       public var hasShadow_:Boolean;
-      
       public var drawn_:Boolean;
-      
       public var posW_:Vector.<Number>;
-      
       public var posS_:Vector.<Number>;
-      
       public var sortVal_:int;
       
       public function BasicObject()

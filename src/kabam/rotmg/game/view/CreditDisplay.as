@@ -41,7 +41,7 @@ package kabam.rotmg.game.view
          this.creditsText_.filters = [new DropShadowFilter(0,0,0,1,4,4,2)];
          addChild(this.creditsText_);
          var coinBD:BitmapData = AssetLibrary.getImageFromSet("lofiObj3",225);
-         coinBD = TextureRedrawer.redraw(coinBD,40,true,0,0);
+         coinBD = TextureRedrawer.redraw(coinBD,40,true,0);
          this.coinIcon_ = new Bitmap(coinBD);
          addChild(this.coinIcon_);
          this.fameText_ = new SimpleText(FONT_SIZE,16777215,false,0,0);
