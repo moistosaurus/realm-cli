@@ -18,7 +18,6 @@ package kabam.rotmg.game
    import kabam.rotmg.core.signals.AppInitDataReceivedSignal;
    import kabam.rotmg.game.commands.ParsePotionDataCommand;
    import kabam.rotmg.game.commands.PlayGameCommand;
-   import kabam.rotmg.game.commands.TextPanelMessageUpdateCommand;
    import kabam.rotmg.game.commands.TransitionFromGameToMenuCommand;
    import kabam.rotmg.game.commands.UseBuyPotionCommand;
    import kabam.rotmg.game.focus.GameFocusConfig;
@@ -27,7 +26,6 @@ package kabam.rotmg.game
    import kabam.rotmg.game.logging.RollingMeanLoopMonitor;
    import kabam.rotmg.game.model.ChatFilter;
    import kabam.rotmg.game.model.GameModel;
-   import kabam.rotmg.game.model.TextPanelData;
    import kabam.rotmg.game.signals.AddSpeechBalloonSignal;
    import kabam.rotmg.game.signals.AddTextLineSignal;
    import kabam.rotmg.game.signals.DisconnectGameSignal;
@@ -36,7 +34,6 @@ package kabam.rotmg.game
    import kabam.rotmg.game.signals.PlayGameSignal;
    import kabam.rotmg.game.signals.SetTextBoxVisibilitySignal;
    import kabam.rotmg.game.signals.SetWorldInteractionSignal;
-   import kabam.rotmg.game.signals.TextPanelMessageUpdateSignal;
    import kabam.rotmg.game.signals.UseBuyPotionSignal;
    import kabam.rotmg.game.view.CreditDisplay;
    import kabam.rotmg.game.view.CreditDisplayMediator;
@@ -48,8 +45,6 @@ package kabam.rotmg.game
    import kabam.rotmg.game.view.SellableObjectPanel;
    import kabam.rotmg.game.view.SellableObjectPanelMediator;
    import kabam.rotmg.game.view.TextBoxMediator;
-   import kabam.rotmg.game.view.TextPanel;
-   import kabam.rotmg.game.view.TextPanelMediator;
    import kabam.rotmg.game.view.components.StatMediator;
    import kabam.rotmg.game.view.components.StatView;
    import kabam.rotmg.game.view.components.StatsMediator;
@@ -106,7 +101,6 @@ package kabam.rotmg.game
          this.injector.map(TabStripModel).asSingleton();
          this.injector.map(ExitGameSignal).asSingleton();
          this.injector.map(QueueStatusTextSignal).asSingleton();
-         this.makeTextPanelMappings();
          this.makeStatusDisplayMappings();
          this.mediatorMap.map(PortalPanel).toMediator(PortalPanelMediator);
          this.mediatorMap.map(GameObjectStatusPanel).toMediator(GameObjectStatusPanelMediator);
@@ -124,13 +118,6 @@ package kabam.rotmg.game
          this.commandMap.map(GameClosedSignal).toCommand(TransitionFromGameToMenuCommand);
          this.commandMap.map(PlayGameSignal).toCommand(PlayGameCommand);
          this.mapLoopMonitor();
-      }
-      
-      private function makeTextPanelMappings() : void
-      {
-         this.injector.map(TextPanelData).asSingleton();
-         this.commandMap.map(TextPanelMessageUpdateSignal,true).toCommand(TextPanelMessageUpdateCommand);
-         this.mediatorMap.map(TextPanel).toMediator(TextPanelMediator);
       }
 
       private function makeStatusDisplayMappings() : void

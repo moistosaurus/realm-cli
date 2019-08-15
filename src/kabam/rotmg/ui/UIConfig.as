@@ -31,8 +31,6 @@ package kabam.rotmg.ui
    import kabam.rotmg.game.model.PotionInventoryModel;
    import kabam.rotmg.game.view.NameChangerPanel;
    import kabam.rotmg.game.view.NameChangerPanelMediator;
-   import kabam.rotmg.game.view.TextPanel;
-   import kabam.rotmg.game.view.TextPanelMediator;
    import kabam.rotmg.startup.control.StartupSequence;
    import kabam.rotmg.ui.commands.ChooseNameCommand;
    import kabam.rotmg.ui.commands.EnterGameCommand;
@@ -146,7 +144,6 @@ package kabam.rotmg.ui
          this.mediatorMap.map(NotEnoughGoldDialog).toMediator(NotEnoughGoldMediator);
          this.mediatorMap.map(GameObjectStatusPanel).toMediator(GameObjectStatusPanelMediator);
          this.mediatorMap.map(InteractPanel).toMediator(InteractPanelMediator);
-         this.mediatorMap.map(TextPanel).toMediator(TextPanelMediator);
          this.mediatorMap.map(ItemGrid).toMediator(ItemGridMediator);
          this.mediatorMap.map(ChooseNameRegisterDialog).toMediator(ChooseNameRegisterMediator);
          this.mediatorMap.map(CharacterSlotRegisterDialog).toMediator(CharacterSlotRegisterMediator);
