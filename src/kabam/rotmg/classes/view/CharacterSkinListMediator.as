@@ -1,14 +1,16 @@
 package kabam.rotmg.classes.view
 {
-   import flash.display.DisplayObject;
+import com.company.assembleegameclient.appengine.SavedCharacter;
+
+import flash.display.DisplayObject;
    import kabam.rotmg.classes.model.CharacterClass;
    import kabam.rotmg.classes.model.ClassesModel;
-   import robotlegs.bender.bundles.mvcs.Mediator;
+import kabam.rotmg.core.model.PlayerModel;
+
+import robotlegs.bender.bundles.mvcs.Mediator;
    
    public class CharacterSkinListMediator extends Mediator
    {
-       
-      
       [Inject]
       public var view:CharacterSkinListView;
       

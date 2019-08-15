@@ -5,20 +5,12 @@ package kabam.rotmg.game.model
    
    public class GameInitData
    {
-       
-      
       public var server:Server;
-      
       public var gameId:int;
-      
       public var createCharacter:Boolean;
-      
       public var charId:int;
-      
       public var keyTime:int;
-      
       public var key:ByteArray;
-      
       public var isNewGame:Boolean;
       
       public function GameInitData()

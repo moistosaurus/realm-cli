@@ -733,8 +733,6 @@ import com.company.ui.SimpleText;
          var walkPer:int = 0;
          var dict:Dictionary = null;
          var rv:Number = NaN;
-         var c:int = 0;
-         var ct:ColorTransform = null;
          var p:Number = 0;
          var action:int = AnimatedChar.STAND;
          if(time < attackStart_ + this.attackPeriod_)
@@ -805,7 +803,7 @@ import com.company.ui.SimpleText;
          if(hp_ < maxHP_ * 0.2)
          {
             rv = int(Math.abs(Math.sin(time / 200)) * 10) / 10;
-            var ct = lowHealthCT[rv];
+            var ct:ColorTransform = lowHealthCT[rv];
             if (ct == null){
                ct = new ColorTransform(1,1,1,1,
                        rv * LOW_HEALTH_CT_OFFSET,

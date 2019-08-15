@@ -15,42 +15,24 @@ package kabam.rotmg.maploading.view
    
    public class MapLoadingView extends Sprite
    {
-      
       public static const MINIMUM_DISPLAY_TIME:Number = 1000;
-      
       public static const MAX_DIFFICULTY:int = 5;
-      
       public static const FADE_OUT_TIME:Number = 0.4;
-       
       
       public var MapLoadingSymbol:Class;
-      
       private var screen:DisplayObjectContainer;
-      
       private var mapNameField:SimpleText;
-      
       private var indicators:Vector.<DisplayObject>;
-      
       private var diffRow:MovieClip;
-      
       private var charContainer:MovieClip;
-      
       private var mapHasLoaded:Boolean;
-      
       private var asset:UnpackEmbed;
-      
       private var dataIsSet:Boolean;
-      
       private var background:MovieClip;
-      
       private var mapName:String;
-      
       private var difficulty:int;
-      
       private var animation:Animation;
-      
       private const minimumDisplayTimer:Timer = new Timer(MINIMUM_DISPLAY_TIME,1);
-      
       private var minimumTimeElapsed:Boolean;
       
       public function MapLoadingView()

@@ -10,19 +10,11 @@ package kabam.rotmg.core.model
    
    public class PlayerModel
    {
-       
-      
       public const creditsChanged:Signal = new Signal(int);
-      
       public const fameChanged:Signal = new Signal(int);
-      
       public var charList:SavedCharactersList;
-      
       public var isInvalidated:Boolean;
-      
       public var currentCharId:int;
-      
-      private var famePriceMultiplier:Number = 1;
       
       [Inject]
       public var account:Account;

@@ -9,62 +9,34 @@ package com.company.assembleegameclient.appengine
    
    public class SavedCharactersList extends Event
    {
-      
       public static const SAVED_CHARS_LIST:String = "SAVED_CHARS_LIST";
-      
       public static const AVAILABLE:String = "available";
-      
       public static const UNAVAILABLE:String = "unavailable";
-      
       public static const UNRESTRICTED:String = "unrestricted";
-      
       private static const DEFAULT_LATLONG:LatLong = new LatLong(37.4436,-122.412);
-       
-      
+
       private var origData_:String;
-      
       private var charsXML_:XML;
-      
       public var accountId_:int;
-      
       public var nextCharId_:int;
-      
       public var maxNumChars_:int;
-      
       public var numChars_:int = 0;
-      
       public var savedChars_:Vector.<SavedCharacter>;
-      
       public var charStats_:Object;
-      
       public var totalFame_:int = 0;
-      
       public var fame_:int = 0;
-      
       public var credits_:int = 0;
-      
       public var numStars_:int = 0;
-      
       public var nextCharSlotPrice_:int;
-      
       public var guildName_:String;
-      
       public var guildRank_:int;
-      
       public var name_:String = null;
-      
       public var nameChosen_:Boolean;
-      
       public var isAdmin_:Boolean;
-      
       public var news_:Vector.<SavedNewsItem>;
-      
       public var myPos_:LatLong;
-      
       public var hasPlayerDied:Boolean = false;
-      
       public var classAvailability:Object;
-      
       private var account:Account;
       
       public function SavedCharactersList(data:String)

@@ -18,40 +18,23 @@ package kabam.rotmg.characters.reskin.view
    
    public class ReskinCharacterView extends Sprite
    {
-      
       private static const CANCEL:String = "Cancel";
-      
       private static const SELECT:String = "Select";
-      
       private static const TITLE_TEXT:String = "Select a Skin";
-      
       private static const MARGIN:int = 10;
-      
       private static const DIALOG_WIDTH:int = CharacterSkinListView.WIDTH + MARGIN * 2;
-      
       private static const BUTTON_WIDTH:int = 120;
-      
       private static const BUTTON_FONT:int = 16;
-      
       private static const BUTTONS_HEIGHT:int = 40;
-      
       private static const TITLE_OFFSET:int = 27;
-       
-      
+
       private const background:DialogBackground = makeBackground();
-      
       private const title:SimpleText = makeTitle();
-      
       private const list:CharacterSkinListView = makeListView();
-      
       private const cancel:TextButton = makeCancelButton();
-      
       private const select:TextButton = makeSelectButton();
-      
       public const cancelled:Signal = new NativeMappedSignal(cancel,MouseEvent.CLICK);
-      
       public const selected:Signal = new NativeMappedSignal(select,MouseEvent.CLICK);
-      
       public var viewHeight:int;
       
       public function ReskinCharacterView()

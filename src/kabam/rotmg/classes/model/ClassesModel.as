@@ -4,18 +4,13 @@ package kabam.rotmg.classes.model
    
    public class ClassesModel
    {
-      
       public static const WIZARD_ID:int = 782;
-       
-      
+
       public const selected:Signal = new Signal(CharacterClass);
-      
       private const map:Object = {};
-      
       private const classes:Vector.<CharacterClass> = new Vector.<CharacterClass>(0);
       
       private var count:uint = 0;
-      
       private var selectedChar:CharacterClass;
       
       public function ClassesModel()
@@ -63,8 +58,8 @@ package kabam.rotmg.classes.model
       
       public function getCharacterSkin(type:int) : CharacterSkin
       {
-         var skin:CharacterSkin = null;
-         var character:CharacterClass = null;
+         var skin:CharacterSkin;
+         var character:CharacterClass;
          for each(character in this.classes)
          {
             skin = character.skins.getSkin(type);

@@ -21,56 +21,31 @@ package kabam.rotmg.classes.view
    
    public class CharacterSkinListItem extends Sprite
    {
-      
       public static const WIDTH:int = 420;
-      
       public static const PADDING:int = 16;
-      
       public static const HEIGHT:int = 60;
-      
       private static const UNLOCK_TEXT:String = "Unlock at Level {LEVEL}";
-      
       private static const HIGHLIGHTED_COLOR:uint = 8092539;
-      
       private static const AVAILABLE_COLOR:uint = 5921370;
-      
       private static const LOCKED_COLOR:uint = 2631720;
-       
-      
+
       private const grayscaleMatrix:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
-      
       private const background:Shape = makeBackground();
-      
       private const skinContainer:Sprite = makeSkinContainer();
-      
       private const nameText:SimpleText = makeNameText();
-      
       private const selectionButton:RadioButton = makeSelectionButton();
-      
       private const lock:Bitmap = makeLock();
-      
       private const lockText:SimpleText = makeLockText();
-      
       private const buyButtonContainer:Sprite = makeBuyButtonContainer();
-      
       public const buy:Signal = new NativeMappedSignal(buyButtonContainer,MouseEvent.CLICK);
-      
       public const over:Signal = new Signal();
-      
       public const out:Signal = new Signal();
-      
       public const selected:Signal = selectionButton.changed;
-      
       private var model:CharacterSkin;
-      
       private var state:CharacterSkinState;
-      
       private var isSelected:Boolean = false;
-      
       private var skinIcon:Bitmap;
-      
       private var buyButton:BuyButton;
-      
       private var isOver:Boolean;
       
       public function CharacterSkinListItem()

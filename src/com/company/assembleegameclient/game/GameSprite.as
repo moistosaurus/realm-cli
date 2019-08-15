@@ -44,60 +44,33 @@ package com.company.assembleegameclient.game
    
    public class GameSprite extends Sprite
    {
-      
       protected static const PAUSED_FILTER:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
-       
-      
-      public const closed:Signal = new Signal();
-      
-      public const monitor:Signal = new Signal(String,int);
-      
-      public const modelInitialized:Signal = new Signal();
-      
-      public const drawCharacterWindow:Signal = new Signal(Player);
-      
-      public var map:Map;
-      
-      public var camera_:Camera;
-      
-      public var gsc_:GameServerConnection;
-      
-      public var mui_:MapUserInput;
-      
-      public var textBox_:TextBox;
-      
-      public var tutorial_:Tutorial;
-      
-      public var isNexus_:Boolean = false;
-      
-      public var idleWatcher_:IdleWatcher;
-      
-      public var hudView:HUDView;
-      
-      public var rankText_:RankText;
-      
-      public var guildText_:GuildText;
-      
-      public var creditDisplay_:CreditDisplay;
-      
-      public var isEditor:Boolean;
-      
-      public var lastUpdate_:int = 0;
-      
-      public var moveRecords_:MoveRecords;
-      
-      public var mapModel:MapModel;
 
+      public const closed:Signal = new Signal();
+      public const monitor:Signal = new Signal(String,int);
+      public const modelInitialized:Signal = new Signal();
+      public const drawCharacterWindow:Signal = new Signal(Player);
+      public var map:Map;
+      public var camera_:Camera;
+      public var gsc_:GameServerConnection;
+      public var mui_:MapUserInput;
+      public var textBox_:TextBox;
+      public var tutorial_:Tutorial;
+      public var isNexus_:Boolean = false;
+      public var idleWatcher_:IdleWatcher;
+      public var hudView:HUDView;
+      public var rankText_:RankText;
+      public var guildText_:GuildText;
+      public var creditDisplay_:CreditDisplay;
+      public var isEditor:Boolean;
+      public var lastUpdate_:int = 0;
+      public var moveRecords_:MoveRecords;
+      public var mapModel:MapModel;
       public var model:PlayerModel;
-      
       private var focus:GameObject;
-      
       private var frameTimeSum_:int = 0;
-      
       private var frameTimeCount_:int = 0;
-      
       private var isGameStarted:Boolean;
-      
       private var displaysPosY:uint = 4;
       
       public function GameSprite(server:Server, gameId:int, createCharacter:Boolean, charId:int, keyTime:int, key:ByteArray, model:PlayerModel, mapJSON:String)
@@ -165,7 +138,12 @@ package com.company.assembleegameclient.game
             this.startTutorial();
          }
 
-         Parameters.save();
+         if (this.map.name_ == "Nexus")
+         {
+            isNexus_ = true;
+         }
+
+         //Parameters.save();
          this.hidePreloader();
       }
       
