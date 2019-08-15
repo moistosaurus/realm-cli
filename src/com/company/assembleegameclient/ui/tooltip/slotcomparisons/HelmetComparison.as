@@ -1,6 +1,8 @@
 package com.company.assembleegameclient.ui.tooltip.slotcomparisons
 {
-   public class HelmetComparison extends SlotComparison
+import kabam.rotmg.constants.ActivationType;
+
+public class HelmetComparison extends SlotComparison
    {
        
       

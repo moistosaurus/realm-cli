@@ -4,22 +4,14 @@ package com.company.assembleegameclient.ui.tooltip.slotcomparisons
    
    public class SlotComparison
    {
-      
-      static const BETTER_COLOR:String = "#00ff00";
-      
-      static const WORSE_COLOR:String = "#ff0000";
-      
-      static const NO_DIFF_COLOR:String = "#FFFF8F";
-      
-      static const LABEL_COLOR:String = "#B3B3B3";
-      
-      static const UNTIERED_COLOR:String = "#8a2be2";
-       
-      
+      public static const BETTER_COLOR:String = "#00ff00";
+      public static const WORSE_COLOR:String = "#ff0000";
+      public static const NO_DIFF_COLOR:String = "#FFFF8F";
+      public static const LABEL_COLOR:String = "#B3B3B3";
+      public static const UNTIERED_COLOR:String = "#8a2be2";
+
       public var processedTags:Dictionary;
-      
       public var processedActivateOnEquipTags:Dictionary;
-      
       public var comparisonText:String;
       
       public function SlotComparison()

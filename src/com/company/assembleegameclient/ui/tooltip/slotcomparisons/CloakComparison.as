@@ -1,6 +1,8 @@
 package com.company.assembleegameclient.ui.tooltip.slotcomparisons
 {
-   public class CloakComparison extends SlotComparison
+import kabam.rotmg.constants.ActivationType;
+
+public class CloakComparison extends SlotComparison
    {
        
       

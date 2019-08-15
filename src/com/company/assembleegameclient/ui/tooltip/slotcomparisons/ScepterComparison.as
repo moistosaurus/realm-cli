@@ -1,6 +1,8 @@
 package com.company.assembleegameclient.ui.tooltip.slotcomparisons
 {
-   public class ScepterComparison extends SlotComparison
+import kabam.rotmg.constants.ActivationType;
+
+public class ScepterComparison extends SlotComparison
    {
        
       
@@ -34,14 +36,15 @@ package com.company.assembleegameclient.ui.tooltip.slotcomparisons
             otherTargets = int(otherResult[0].@maxTargets);
             comparisonText = comparisonText + ("Lightning: " + wrapInColoredFont(damage + " to " + targets + " targets\n",getTextColor(damage - otherDamage)));
             processedTags[result[0].toXMLString()] = true;
-         }
-         if(itemXML.Activate.@condEffect)
-         {
-            condition = itemXML.Activate.@condEffect;
-            duration = itemXML.Activate.@condDuration;
-            compositeStr = " " + condition + " for " + duration + " secs\n";
-            htmlStr = "Shot Effect:\n" + wrapInColoredFont(compositeStr,NO_DIFF_COLOR);
-            comparisonText = comparisonText + htmlStr;
+
+            if(result[0].hasOwnProperty("@condEffect"))
+            {
+               condition = result[0].@condEffect;
+               duration = result[0].@condDuration;
+               compositeStr = " " + condition + " for " + duration + " secs\n";
+               htmlStr = "Shot Effect:\n" + wrapInColoredFont(compositeStr,NO_DIFF_COLOR);
+               comparisonText = comparisonText + htmlStr;
+            }
          }
       }
    }

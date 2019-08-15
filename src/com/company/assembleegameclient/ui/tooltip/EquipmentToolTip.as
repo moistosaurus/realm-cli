@@ -17,11 +17,8 @@ package com.company.assembleegameclient.ui.tooltip
    
    public class EquipmentToolTip extends ToolTip
    {
-      
       private static const MAX_WIDTH:int = 230;
-      
       private static const CSS_TEXT:String = ".in { margin-left:10px; text-indent: -10px; }";
-       
       
       private var icon_:Bitmap;
       private var titleText_:SimpleText;
@@ -239,7 +236,7 @@ package com.company.assembleegameclient.ui.tooltip
          {
             fameBonus = int(this.objectXML_.FameBonus);
             text = fameBonus + "%";
-            textColor = !!this.playerCanUse?TooltipHelper.BETTER_COLOR:TooltipHelper.NO_DIFF_COLOR;
+            textColor = this.playerCanUse?TooltipHelper.BETTER_COLOR:TooltipHelper.NO_DIFF_COLOR;
             if(this.curItemXML_ != null && this.curItemXML_.hasOwnProperty("FameBonus"))
             {
                curFameBonus = int(this.curItemXML_.FameBonus.text());
@@ -433,7 +430,7 @@ package com.company.assembleegameclient.ui.tooltip
          var otherAmount:int = 0;
          var stat:int = int(activateXML.@stat);
          var amount:int = int(activateXML.@amount);
-         var textColor:String = !!this.playerCanUse?TooltipHelper.BETTER_COLOR:TooltipHelper.NO_DIFF_COLOR;
+         var textColor:String = this.playerCanUse?TooltipHelper.BETTER_COLOR:TooltipHelper.NO_DIFF_COLOR;
          var otherMatches:XMLList = null;
          if(this.curItemXML_ != null)
          {
