@@ -9,24 +9,15 @@ package kabam.rotmg.util.components
    
    final class VerticalScrollbarBar extends Sprite
    {
-      
       public static const WIDTH:int = VerticalScrollbar.WIDTH;
-      
       public static const BEVEL:int = VerticalScrollbar.BEVEL;
-      
       public static const PADDING:int = VerticalScrollbar.PADDING;
-       
-      
+
       public const dragging:Signal = new Signal(int);
-      
       public const rect:BevelRect = new BevelRect(WIDTH - PADDING * 2,0,BEVEL);
-      
       private const helper:GraphicsHelper = new GraphicsHelper();
-      
       private var downOffset:Number;
-      
       private var isOver:Boolean;
-      
       private var isDown:Boolean;
       
       function VerticalScrollbarBar()

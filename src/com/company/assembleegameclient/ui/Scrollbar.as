@@ -62,23 +62,23 @@ package com.company.assembleegameclient.ui
 
       protected function onAddedToStage(event:Event) : void
       {
-         addEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
+         parent.addEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
       }
 
       protected function onRemovedFromStage(event:Event): void
       {
-         removeEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
+         parent.removeEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
          removeEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
          removeEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
       }
 
       protected function onMouseWheel(event:MouseEvent):void {
          if (event.delta > 0) {
-            this.jumpUp();
+            this.jumpUp(0.2);
          }
          else {
             if (event.delta < 0) {
-               this.jumpDown();
+               this.jumpDown(0.2);
             }
          }
       }
@@ -107,14 +107,14 @@ package com.company.assembleegameclient.ui
          this.sendPos();
       }
       
-      public function jumpUp() : void
+      public function jumpUp(mult:Number) : void
       {
-         this.setPos(this.pos() - this.jumpDist_);
+         this.setPos(this.pos() - (this.jumpDist_ * mult));
       }
       
-      public function jumpDown() : void
+      public function jumpDown(mult:Number) : void
       {
-         this.setPos(this.pos() + this.jumpDist_);
+         this.setPos(this.pos() + (this.jumpDist_ * mult));
       }
       
       private function getSprite(downFunction:Function) : Sprite
@@ -142,11 +142,11 @@ package com.company.assembleegameclient.ui
       {
          if(event.localY < this.posIndicator_.y)
          {
-            this.jumpUp();
+            this.jumpUp(1);
          }
          else
          {
-            this.jumpDown();
+            this.jumpDown(1);
          }
       }
       

@@ -12,8 +12,6 @@ package kabam.rotmg.ui.commands
    
    public class EnterGameCommand
    {
-       
-      
       [Inject]
       public var account:Account;
       
@@ -34,7 +32,7 @@ package kabam.rotmg.ui.commands
       
       [Inject]
       public var noServersDialogFactory:NoServersDialogFactory;
-      
+
       private const DEFAULT_CHARACTER:int = 782;
       
       public function EnterGameCommand()
@@ -44,17 +42,20 @@ package kabam.rotmg.ui.commands
       
       public function execute() : void
       {
-         if(!this.account.isRegistered())
-         {
-            this.launchGame();
-         }
-         else if(!this.servers.isServerAvailable())
+         if(!this.servers.isServerAvailable())
          {
             this.showNoServersDialog();
          }
          else
          {
-            this.showCurrentCharacterScreen();
+            if(!this.account.isRegistered())
+            {
+               this.launchGame();
+            }
+            else
+            {
+               this.showCurrentCharacterScreen();
+            }
          }
       }
       

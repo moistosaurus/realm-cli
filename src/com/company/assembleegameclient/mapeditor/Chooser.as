@@ -125,28 +125,14 @@ package com.company.assembleegameclient.mapeditor
       
       protected function onAddedToStage(event:Event) : void
       {
-         addEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
          this.scrollBar_.setIndicatorSize(HEIGHT,this.elementSprite_.height);
          addChild(this.scrollBar_);
       }
-      
+
       protected function onRemovedFromStage(event:Event) : void
       {
-         removeEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
       }
-      
-      protected function onMouseWheel(event:MouseEvent) : void
-      {
-         if(event.delta > 0)
-         {
-            this.scrollBar_.jumpUp();
-         }
-         else if(event.delta < 0)
-         {
-            this.scrollBar_.jumpDown();
-         }
-      }
-      
+
       private function drawBackground() : void
       {
          GraphicsUtil.clearPath(this.path_);

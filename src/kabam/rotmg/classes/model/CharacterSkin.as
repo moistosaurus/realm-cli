@@ -5,22 +5,14 @@ package kabam.rotmg.classes.model
    
    public class CharacterSkin
    {
-       
-      
       public const changed:Signal = new Signal(CharacterSkin);
       
       public var id:int = 0;
-      
       public var name:String = "";
-      
       public var unlockLevel:int;
-      
       public var template:CharacterTemplate;
-      
       public var cost:int;
-      
       private var state:CharacterSkinState;
-      
       private var isSelected:Boolean;
       
       public function CharacterSkin()

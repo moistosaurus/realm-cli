@@ -10,22 +10,14 @@ package kabam.rotmg.util.components
    
    public class VerticalScrollingList extends Sprite implements List
    {
-      
       public static const SCROLLBAR_PADDING:int = 2;
-      
       public static const SCROLLBAR_GUTTER:int = VerticalScrollbar.WIDTH + SCROLLBAR_PADDING;
-       
-      
+
       public const scrollStateChanged:Signal = new Signal(Boolean);
-      
       private var layout:VerticalLayout;
-      
       private var list:LayoutList;
-      
       private var scrollbar:VerticalScrollbar;
-      
       private var isEnabled:Boolean = true;
-      
       private var size:Size;
       
       public function VerticalScrollingList()

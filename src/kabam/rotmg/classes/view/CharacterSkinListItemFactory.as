@@ -46,7 +46,7 @@ package kabam.rotmg.classes.view
       
       private function makeBuyButton() : LegacyBuyButton
       {
-         var button:LegacyBuyButton = new LegacyBuyButton("Buy for ",13,0,Currency.GOLD);
+         var button:LegacyBuyButton = new LegacyBuyButton("Buy for ",16,0,Currency.GOLD);
          button.setWidth(120);
          return button;
       }

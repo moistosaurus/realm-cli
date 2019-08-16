@@ -14,36 +14,21 @@ package kabam.rotmg.util.components
    
    public class LegacyBuyButton extends BuyButton
    {
-      
       private static const BEVEL:int = 4;
-      
       private static const PADDING:int = 5;
-      
       public static const coin:BitmapData = IconFactory.makeCoin();
-      
       public static const fame:BitmapData = IconFactory.makeFame();
-      
       public static const guildFame:BitmapData = IconFactory.makeGuildFame();
-       
-      
+
       public var prefix:String;
-      
       public var text:SimpleText;
-      
       public var icon:Bitmap;
-      
       public var price:int = -1;
-      
       public var currency:int = -1;
-      
       public var _width:int = -1;
-      
       private const enabledFill:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
-      
       private const disabledFill:GraphicsSolidFill = new GraphicsSolidFill(8355711,1);
-      
       private const graphicsPath:GraphicsPath = new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-      
       private const graphicsData:Vector.<IGraphicsData> = new <IGraphicsData>[enabledFill,graphicsPath,GraphicsUtil.END_FILL];
       
       public function LegacyBuyButton(prefix:String, size:int, price:int, currency:int)

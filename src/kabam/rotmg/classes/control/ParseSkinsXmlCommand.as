@@ -1,6 +1,7 @@
 package kabam.rotmg.classes.control
 {
-   import kabam.rotmg.assets.model.CharacterTemplate;
+import kabam.rotmg.assets.EmbeddedData;
+import kabam.rotmg.assets.model.CharacterTemplate;
    import kabam.rotmg.classes.model.CharacterClass;
    import kabam.rotmg.classes.model.CharacterSkin;
    import kabam.rotmg.classes.model.ClassesModel;
@@ -22,8 +23,8 @@ package kabam.rotmg.classes.control
       
       public function execute() : void
       {
-         var node:XML = null;
-         var list:XMLList = this.data.SkinsList.Objects.Object;
+         var node:XML = EmbeddedData.skinsXML;
+         var list:XMLList = node.children();
          for each(node in list)
          {
             this.parseNode(node);

@@ -5,7 +5,10 @@ package kabam.rotmg.ui.view
    import com.company.assembleegameclient.screens.CharacterSelectionAndNewsScreen;
    import com.company.assembleegameclient.screens.NewCharacterScreen;
    import com.company.util.MoreDateUtil;
-   import kabam.rotmg.core.model.PlayerModel;
+
+import kabam.rotmg.classes.model.CharacterClass;
+import kabam.rotmg.classes.model.ClassesModel;
+import kabam.rotmg.core.model.PlayerModel;
    import kabam.rotmg.core.signals.SetScreenSignal;
    import kabam.rotmg.game.model.GameInitData;
    import kabam.rotmg.game.signals.PlayGameSignal;
@@ -22,6 +25,9 @@ package kabam.rotmg.ui.view
       
       [Inject]
       public var playerModel:PlayerModel;
+
+      [Inject]
+      public var classesModel:ClassesModel;
       
       [Inject]
       public var setScreen:SetScreenSignal;
@@ -85,6 +91,9 @@ package kabam.rotmg.ui.view
       {
          var character:SavedCharacter = this.playerModel.getCharacterByIndex(0);
          this.playerModel.currentCharId = character.charId();
+         var characterClass:CharacterClass = this.classesModel.getCharacterClass(character.objectType());
+         characterClass.setIsSelected(true);
+         characterClass.skins.getSkin(character.skinType()).setIsSelected(true);
          var game:GameInitData = new GameInitData();
          game.createCharacter = false;
          game.charId = character.charId();

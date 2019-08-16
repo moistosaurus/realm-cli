@@ -6,26 +6,17 @@ package kabam.rotmg.util.components
    
    public class VerticalScrollbar extends Sprite implements Scrollbar
    {
-      
       public static const WIDTH:int = 20;
-      
       public static const BEVEL:int = 4;
-      
       public static const PADDING:int = 0;
-       
-      
+
       private var _positionChanged:Signal;
-      
       public const groove:VerticalScrollbarGroove = new VerticalScrollbarGroove();
-      
       public const bar:VerticalScrollbarBar = new VerticalScrollbarBar();
       
       private var position:Number = 0;
-      
       private var range:int;
-      
       private var invRange:Number;
-      
       private var isEnabled:Boolean = true;
       
       public function VerticalScrollbar()
@@ -117,6 +108,11 @@ package kabam.rotmg.util.components
          this.position = value;
          this.bar.y = PADDING + this.range * this.position;
          this._positionChanged && this._positionChanged.dispatch(this.position);
+      }
+
+      public function scrollPosition(value:Number):void {
+         var position:Number = (this.position + value);
+         this.setPosition(position);
       }
       
       private function onBarDrag(value:int) : void

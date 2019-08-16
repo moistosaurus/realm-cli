@@ -6,7 +6,8 @@ package com.company.assembleegameclient.ui.options
    import com.company.assembleegameclient.sound.Music;
    import com.company.assembleegameclient.sound.SFX;
    import com.company.rotmg.graphics.ScreenGraphic;
-   import com.company.ui.SimpleText;
+import com.company.ui.SimpleText;
+import com.company.ui.SimpleText;
    import com.company.util.KeyCodes;
    import flash.display.Sprite;
    import flash.display.StageDisplayState;
@@ -19,36 +20,21 @@ package com.company.assembleegameclient.ui.options
    
    public class Options extends Sprite
    {
-      
       private static const CONTROLS_TAB:String = "Controls";
-      
       private static const HOTKEYS_TAB:String = "Hot Keys";
-      
       private static const CHAT_TAB:String = "Chat";
-      
       private static const GRAPHICS_TAB:String = "Graphics";
-      
       private static const SOUND_TAB:String = "Sound";
-      
       private static const TABS:Vector.<String> = new <String>[CONTROLS_TAB,HOTKEYS_TAB,CHAT_TAB,GRAPHICS_TAB,SOUND_TAB];
-       
-      
+
       private var gs_:GameSprite;
-      
       private var title_:SimpleText;
-      
       private var continueButton_:TitleMenuOption;
-      
       private var resetToDefaultsButton_:TitleMenuOption;
-      
       private var homeButton_:TitleMenuOption;
-      
       private var tabs_:Vector.<OptionsTabTitle>;
-      
       private var selected_:OptionsTabTitle = null;
-      
       private var options_:Vector.<Sprite>;
-      
       private var optionIndex_:int = 0;
       
       public function Options(gs:GameSprite)

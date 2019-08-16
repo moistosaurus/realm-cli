@@ -64,7 +64,7 @@ package kabam.rotmg.classes
          this.commandMap.map(LogoutSignal).toCommand(ResetClassDataCommand);
          this.commandMap.map(CharListDataSignal).toCommand(ParseCharListXmlCommand);
          this.commandMap.map(ParseClassesXMLSignal).toCommand(ParseClassesXmlCommand);
-         this.commandMap.map(AppInitDataReceivedSignal).toCommand(ParseSkinsXmlCommand);
+         this.commandMap.map(ParseClassesXMLSignal).toCommand(ParseSkinsXmlCommand);
          this.commandMap.map(BuyCharacterSkinSignal).toCommand(BuyCharacterSkinCommand).withGuards(IsAccountRegisteredGuard);
          this.context.lifecycle.afterInitializing(this.init);
       }

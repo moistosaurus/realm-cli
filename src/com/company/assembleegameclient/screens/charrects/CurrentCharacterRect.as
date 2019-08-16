@@ -21,30 +21,18 @@ package com.company.assembleegameclient.screens.charrects
    
    public class CurrentCharacterRect extends CharacterRect
    {
-      
       private static var toolTip_:ToolTip = null;
-       
-      
+
       public var charName:String;
-      
       private var charType:CharacterClass;
-      
       public var char:SavedCharacter;
-      
       public var charStats:CharacterStats;
-      
       private var classNameText:SimpleText;
-      
       private var taglineIcon:Sprite;
-      
       private var taglineText:SimpleText;
-      
       private var deleteButton:Sprite;
-      
       public var selected:Signal;
-      
       public var deleteCharacter:Signal;
-      
       private var icon:DisplayObject;
       
       public function CurrentCharacterRect(charName:String, charType:CharacterClass, char:SavedCharacter, charStats:CharacterStats)

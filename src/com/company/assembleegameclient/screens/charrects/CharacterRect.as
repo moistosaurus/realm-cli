@@ -7,18 +7,12 @@ package com.company.assembleegameclient.screens.charrects
    
    public class CharacterRect extends Sprite
    {
-      
       public static const WIDTH:int = 419;
-      
       public static const HEIGHT:int = 59;
-       
-      
+
       private var color_:uint;
-      
       private var overColor_:uint;
-      
       private var box_:Shape;
-      
       public var selectContainer:Sprite;
       
       public function CharacterRect(color:uint, overColor:uint)
@@ -47,7 +41,7 @@ package com.company.assembleegameclient.screens.charrects
       {
          var g:Graphics = this.box_.graphics;
          g.clear();
-         g.beginFill(!!over?uint(this.overColor_):uint(this.color_));
+         g.beginFill(over?this.overColor_:this.color_);
          g.drawRect(0,0,WIDTH,HEIGHT);
          g.endFill();
       }
