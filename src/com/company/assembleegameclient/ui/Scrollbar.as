@@ -14,34 +14,19 @@ package com.company.assembleegameclient.ui
    
    public class Scrollbar extends Sprite
    {
-       
-      
       private var width_:int;
-      
       private var height_:int;
-      
       private var speed_:Number;
-      
       private var indicatorRect_:Rectangle;
-      
       private var jumpDist_:Number;
-      
       private var background_:Sprite;
-      
       private var upArrow_:Sprite;
-      
       private var downArrow_:Sprite;
-      
       private var posIndicator_:Sprite;
-      
       private var lastUpdateTime_:int;
-      
       private var change_:Number;
-      
       private var backgroundFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
-      
       private var path_:GraphicsPath= new GraphicsPath(new Vector.<int>(),new Vector.<Number>());
-      
       private const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[backgroundFill_,path_,GraphicsUtil.END_FILL];
       
       public function Scrollbar(widthParam:int, heightParam:int, speed:Number = 1.0)
@@ -57,6 +42,8 @@ package com.company.assembleegameclient.ui
          this.posIndicator_ = this.getSprite(this.onStartIndicatorDrag);
          addChild(this.posIndicator_);
          this.resize(widthParam,heightParam,speed);
+         addEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
+         addEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
       }
       
       private static function drawArrow(w:int, h:int, g:Graphics) : void
@@ -72,7 +59,30 @@ package com.company.assembleegameclient.ui
          g.lineTo(-w / 2,-h / 2);
          g.endFill();
       }
-      
+
+      protected function onAddedToStage(event:Event) : void
+      {
+         addEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
+      }
+
+      protected function onRemovedFromStage(event:Event): void
+      {
+         removeEventListener(MouseEvent.MOUSE_WHEEL, this.onMouseWheel);
+         removeEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
+         removeEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
+      }
+
+      protected function onMouseWheel(event:MouseEvent):void {
+         if (event.delta > 0) {
+            this.jumpUp();
+         }
+         else {
+            if (event.delta < 0) {
+               this.jumpDown();
+            }
+         }
+      }
+
       public function pos() : Number
       {
          return (this.posIndicator_.y - this.indicatorRect_.y) / (this.indicatorRect_.height - this.posIndicator_.height);

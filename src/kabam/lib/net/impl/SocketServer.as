@@ -12,8 +12,6 @@ package kabam.lib.net.impl
    
    public class SocketServer
    {
-       
-      
       [Inject]
       public var messages:MessageProvider;
       
@@ -53,12 +51,9 @@ package kabam.lib.net.impl
       
       public function connect(server:String, port:int) : void
       {
-         if(!this.socket.connected)
-         {
-            this.addListeners();
-            this.messageLen = -1;
-            this.socket.connect(server,port);
-         }
+         this.addListeners();
+         this.messageLen = -1;
+         this.socket.connect(server,port);
       }
       
       private function addListeners() : void
@@ -72,12 +67,12 @@ package kabam.lib.net.impl
       
       public function disconnect() : void
       {
-         if(this.socket.connected)
-         {
+         try {
             this.socket.close();
-            this.removeListeners();
-            this.closed.dispatch();
          }
+         catch (error:Error) { }
+         this.removeListeners();
+         this.closed.dispatch();
       }
       
       private function removeListeners() : void

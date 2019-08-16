@@ -79,7 +79,8 @@ import kabam.rotmg.classes.model.ClassesModel;
    import kabam.rotmg.game.signals.AddSpeechBalloonSignal;
    import kabam.rotmg.game.signals.AddTextLineSignal;
    import kabam.rotmg.game.view.components.QueuedStatusText;
-   import kabam.rotmg.messaging.impl.data.GroundTileData;
+import kabam.rotmg.maploading.signals.HideMapLoadingSignal;
+import kabam.rotmg.messaging.impl.data.GroundTileData;
    import kabam.rotmg.messaging.impl.data.ObjectData;
    import kabam.rotmg.messaging.impl.data.ObjectStatusData;
    import kabam.rotmg.messaging.impl.data.StatData;
@@ -280,7 +281,6 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       private var updateBackpackTab:UpdateBackpackTabSignal;
       private var classesModel:ClassesModel;
       private var playerModel:PlayerModel;
-      private var isConnected:Boolean;
       private var injector:Injector;
       private var model:GameModel;
       
@@ -314,13 +314,9 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       public function disconnect() : void
       {
-         if(this.isConnected)
-         {
-            this.isConnected = false;
-            this.removeServerConnectionListeners();
-            this.unmapMessages();
-            this.serverConnection.disconnect();
-         }
+         this.removeServerConnectionListeners();
+         this.unmapMessages();
+         this.serverConnection.disconnect();
       }
       
       private function removeServerConnectionListeners() : void
@@ -332,15 +328,10 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       public function connect() : void
       {
-         if(!this.isConnected && this.isServerDefined())
-         {
-            this.isConnected = true;
-            this.addServerConnectionListeners();
-            this.mapMessages();
-            this.addTextLine.dispatch(new AddTextLineVO(Parameters.CLIENT_CHAT_NAME,"Connecting to " + this.server_.name));
-            this.encryptConnection();
-            this.serverConnection.connect(this.server_.address,this.server_.port);
-         }
+         this.addServerConnectionListeners();
+         this.mapMessages();
+         this.addTextLine.dispatch(new AddTextLineVO(Parameters.CLIENT_CHAT_NAME,"Connecting to " + this.server_.name));
+         this.serverConnection.connect(this.server_.address,this.server_.port);
       }
       
       private function isServerDefined() : Boolean
@@ -937,6 +928,7 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       {
          var account:Account = StaticInjectorContext.getInjector().getInstance(Account);
          this.addTextLine.dispatch(new AddTextLineVO(Parameters.CLIENT_CHAT_NAME,"Connected!"));
+         this.encryptConnection();
          var hello:Hello = this.messages.require(HELLO) as Hello;
          hello.buildVersion_ = Parameters.BUILD_VERSION;
          hello.gameId_ = this.gameId_;
@@ -1814,9 +1806,15 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
          }
          else if(this.retryConnection_)
          {
-            if(this.delayBeforeReconect < 10)
+            if(this.delayBeforeReconect < 12)
             {
-               this.retry(this.delayBeforeReconect++);
+               if (this.delayBeforeReconect == 5)
+               {
+                  var hideMap:HideMapLoadingSignal = StaticInjectorContext.getInjector().getInstance(HideMapLoadingSignal);
+                  hideMap && hideMap.dispatch();
+               }
+               this.retry();
+               this.delayBeforeReconect++;
                this.addTextLine.dispatch(new AddTextLineVO(Parameters.ERROR_CHAT_NAME,"Connection failed!  Retrying..."));
             }
             else
@@ -1826,9 +1824,9 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
          }
       }
       
-      private function retry(time:int) : void
+      private function retry() : void
       {
-         this.retryTimer_ = new Timer(time * 1000,1);
+         this.retryTimer_ = new Timer(1200,1);
          this.retryTimer_.addEventListener(TimerEvent.TIMER_COMPLETE,this.onRetryTimer);
          this.retryTimer_.start();
       }
