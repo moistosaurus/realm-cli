@@ -68,15 +68,8 @@ package com.company.assembleegameclient.screens
                this.boxes_[objectType] = charBox;
                charBox.addEventListener(MouseEvent.ROLL_OVER,this.onCharBoxOver);
                charBox.addEventListener(MouseEvent.ROLL_OUT,this.onCharBoxOut);
-               if(model.hasAvailableCharSlot())
-               {
-                  charBox.characterSelectClicked_.add(this.onCharBoxClick);
-               }
+               charBox.characterSelectClicked_.add(this.onCharBoxClick);
                charBox.buyButtonClicked_.add(this.onBuyClicked);
-               if(objectType == 784 && !charBox.available_)
-               {
-                  charBox.setSale(75);
-               }
                addChild(charBox);
             }
          }

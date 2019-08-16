@@ -13,28 +13,16 @@ package kabam.rotmg.classes.view
    
    public class CharacterSkinView extends Sprite
    {
-       
-      
       private const base:ScreenBase = makeScreenBase();
-      
       private const account:AccountScreen = makeAccountScreen();
-      
       private const lines:Shape = makeLines();
-      
       private const creditsDisplay:CreditDisplay = makeCreditDisplay();
-      
       private const graphic:ScreenGraphic = makeScreenGraphic();
-      
       private const playBtn:TitleMenuOption = makePlayButton();
-      
       private const backBtn:TitleMenuOption = makeBackButton();
-
       private const list:CharacterSkinListView = makeListView();
-
       private const detail:ClassDetailView = makeClassDetailView();
-      
       public const play:Signal = new NativeMappedSignal(playBtn,MouseEvent.CLICK);
-      
       public const back:Signal = new NativeMappedSignal(backBtn,MouseEvent.CLICK);
       
       public function CharacterSkinView()
@@ -120,6 +108,12 @@ package kabam.rotmg.classes.view
          view.y = 110;
          addChild(view);
          return view;
+      }
+
+      public function setPlayButtonEnabled(activate:Boolean):void {
+         if (!activate) {
+            this.playBtn.deactivate();
+         }
       }
    }
 }

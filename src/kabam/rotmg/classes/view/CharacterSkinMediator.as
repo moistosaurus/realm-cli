@@ -9,8 +9,6 @@ package kabam.rotmg.classes.view
    
    public class CharacterSkinMediator extends Mediator
    {
-       
-      
       [Inject]
       public var view:CharacterSkinView;
       
@@ -30,8 +28,12 @@ package kabam.rotmg.classes.view
       
       override public function initialize() : void
       {
+         var hasSlot:Boolean = this.model.hasAvailableCharSlot();
+         this.view.setPlayButtonEnabled(hasSlot);
+         if (hasSlot) {
+            this.view.play.addOnce(this.onPlay);
+         }
          this.view.back.addOnce(this.onBack);
-         this.view.play.addOnce(this.onPlay);
       }
       
       override public function destroy() : void

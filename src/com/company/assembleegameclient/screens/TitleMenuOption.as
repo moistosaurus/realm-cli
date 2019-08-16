@@ -13,22 +13,15 @@ package com.company.assembleegameclient.screens
    
    public class TitleMenuOption extends Sprite
    {
-      
       protected static const OVER_COLOR_TRANSFORM:ColorTransform = new ColorTransform(1,220 / 255,133 / 255);
-       
-      
+
       public const clicked:Signal = new Signal();
-      
       private var colorTransform:ColorTransform;
-      
       private var size:int;
-      
       private var textField:SimpleText;
-      
       private var isPulse:Boolean;
-      
+      private var active:Boolean;
       private var originalWidth:Number;
-      
       private var originalHeight:Number;
       
       public function TitleMenuOption(text:String, size:int, pulse:Boolean)
@@ -39,11 +32,7 @@ package com.company.assembleegameclient.screens
          this.isPulse = pulse;
          this.originalWidth = width;
          this.originalHeight = height;
-         addEventListener(MouseEvent.MOUSE_OVER,this.onMouseOver);
-         addEventListener(MouseEvent.MOUSE_OUT,this.onMouseOut);
-         addEventListener(MouseEvent.CLICK,this.onMouseClick);
-         addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
-         addEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
+         activate();
       }
       
       public function setText(text:String) : void
@@ -59,6 +48,28 @@ package com.company.assembleegameclient.screens
          this.textField.updateMetrics();
          this.textField.filters = [new DropShadowFilter(0,0,0,0.5,12,12)];
          addChild(this.textField);
+      }
+
+      public function activate():void
+      {
+         addEventListener(MouseEvent.MOUSE_OVER,this.onMouseOver);
+         addEventListener(MouseEvent.MOUSE_OUT,this.onMouseOut);
+         addEventListener(MouseEvent.CLICK,this.onMouseClick);
+         addEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
+         addEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
+         this.active = true;
+      }
+
+      public function deactivate():void {
+         var ct:ColorTransform = new ColorTransform();
+         ct.color = 0x363636;
+         this.setColorTransform(ct);
+         removeEventListener(MouseEvent.MOUSE_OVER,this.onMouseOver);
+         removeEventListener(MouseEvent.MOUSE_OUT,this.onMouseOut);
+         removeEventListener(MouseEvent.CLICK,this.onMouseClick);
+         removeEventListener(Event.ADDED_TO_STAGE,this.onAddedToStage);
+         removeEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
+         this.active = false;
       }
       
       private function onAddedToStage(event:Event) : void

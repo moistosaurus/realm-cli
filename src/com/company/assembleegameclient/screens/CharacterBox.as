@@ -29,60 +29,31 @@ package com.company.assembleegameclient.screens
    
    public class CharacterBox extends Sprite
    {
-      
       public static const DELETE_CHAR:String = "DELETE_CHAR";
-      
       public static const ENTER_NAME:String = "ENTER_NAME";
-      
       private static const fullCT:ColorTransform = new ColorTransform(0.8,0.8,0.8);
-      
       private static const emptyCT:ColorTransform = new ColorTransform(0.2,0.2,0.2);
-      
       private static const doneCT:ColorTransform = new ColorTransform(0.87,0.62,0);
-       
-      
+
       private var SaleTag:Class;
-      
       public var playerXML_:XML = null;
-      
       public var charStats_:CharacterStats;
-      
       public var model:PlayerModel;
-      
       public var available_:Boolean;
-      
       private var graphicContainer_:Sprite;
-      
       private var graphic_:Sprite;
-      
       private var bitmap_:Bitmap;
-      
       private var statusText_:SimpleText;
-      
       private var classNameText_:SimpleText;
-      
       private var buyButton_:LegacyBuyButton;
-      
       private var cost:int = 0;
-      
       private var lock_:Bitmap;
-      
-      private var saleText_:SimpleText;
-      
       private var unlockedText_:SimpleText;
-      
-      private var saleTag_;
-      
       public var buyButtonClicked_:NativeSignal;
-      
       public var characterSelectClicked_:NativeSignal;
-      
       public const POSE_TIME:int = 600;
-      
       public var poseStart_:int = -2147483648;
-      
       public var poseDir_:int;
-      
       public var poseAction_:int;
       
       public function CharacterBox(playerXML:XML, charStats:CharacterStats, model:PlayerModel, overrideIsAvailable:Boolean = false)
@@ -171,14 +142,6 @@ package com.company.assembleegameclient.screens
             if(this.lock_ && contains(this.lock_))
             {
                removeChild(this.lock_);
-            }
-            if(this.saleTag_ && contains(this.saleTag_))
-            {
-               removeChild(this.saleTag_);
-            }
-            if(this.saleText_ && contains(this.saleText_))
-            {
-               removeChild(this.saleText_);
             }
             stars = this.getStars(FameUtil.numStars(this.model.getBestFame(this.objectType())),FameUtil.STARS.length);
             stars.y = 60;
@@ -293,24 +256,6 @@ package com.company.assembleegameclient.screens
          return stars;
       }
       
-      public function setSale(percentOff:int) : void
-      {
-         if(!this.saleTag_)
-         {
-            this.saleTag_ = new this.SaleTag();
-            this.saleTag_.x = 38;
-            this.saleTag_.y = 8;
-            addChild(this.saleTag_);
-         }
-         if(!this.saleText_)
-         {
-            this.setSaleText();
-            addChild(this.saleText_);
-         }
-         this.saleText_.text = String(percentOff) + "% OFF";
-         this.saleText_.width = this.saleText_.textWidth + 15;
-      }
-      
       private function setBuyButton() : void
       {
          this.buyButton_ = new LegacyBuyButton("Buy for ",13,this.cost,Currency.GOLD);
@@ -329,18 +274,7 @@ package com.company.assembleegameclient.screens
          this.statusText_.filters = [new DropShadowFilter(0,0,0,1,4,4)];
          this.statusText_.y = 58;
       }
-      
-      private function setSaleText() : void
-      {
-         this.saleText_ = new SimpleText(14,16711680,false,0,0);
-         this.saleText_.autoSize = TextFieldAutoSize.CENTER;
-         this.saleText_.setBold(true);
-         this.saleText_.updateMetrics();
-         this.saleText_.textColor = 16777215;
-         this.saleText_.x = 71;
-         this.saleText_.y = this.saleText_.y + 9;
-      }
-      
+
       private function getCharacterUnlockText() : void
       {
          this.unlockedText_ = new SimpleText(14,65280,false,0,0);
