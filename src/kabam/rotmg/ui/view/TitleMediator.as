@@ -18,8 +18,6 @@ package kabam.rotmg.ui.view
    
    public class TitleMediator extends Mediator
    {
-       
-      
       [Inject]
       public var view:TitleView;
       
@@ -58,13 +56,11 @@ package kabam.rotmg.ui.view
          this.view.accountClicked.add(this.handleIntentionToReviewAccount);
          this.view.legendsClicked.add(this.showLegendsScreen);
          this.view.editorClicked.add(this.showMapEditor);
-         this.view.quitClicked.add(this.attemptToCloseClient);
       }
       
       private function makeEnvironmentData() : EnvironmentData
       {
          var data:EnvironmentData = new EnvironmentData();
-         data.isDesktop = Capabilities.playerType == "Desktop";
          data.isAdmin = this.playerModel.isAdmin();
          data.buildLabel = this.setup.getBuildLabel();
          return data;
@@ -78,7 +74,6 @@ package kabam.rotmg.ui.view
          this.view.accountClicked.remove(this.handleIntentionToReviewAccount);
          this.view.legendsClicked.remove(this.showLegendsScreen);
          this.view.editorClicked.remove(this.showMapEditor);
-         this.view.quitClicked.remove(this.attemptToCloseClient);
       }
       
       private function handleIntentionToPlay() : void
@@ -109,11 +104,6 @@ package kabam.rotmg.ui.view
       private function showMapEditor() : void
       {
          this.setScreen.dispatch(new MapEditor());
-      }
-      
-      private function attemptToCloseClient() : void
-      {
-         dispatch(new Event("APP_CLOSE_EVENT"));
       }
    }
 }

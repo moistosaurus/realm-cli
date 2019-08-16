@@ -6,8 +6,6 @@ package com.company.assembleegameclient.objects
    
    public class GuildHallPortal extends GameObject implements IInteractiveObject
    {
-       
-      
       public function GuildHallPortal(objectXML:XML)
       {
          super(objectXML);

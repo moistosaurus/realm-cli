@@ -15,48 +15,30 @@ package kabam.rotmg.ui.view
    
    public class TitleView extends Sprite
    {
-      
-      static var TitleScreenGraphic:Class = TitleView_TitleScreenGraphic;
-      
+      private static var TitleScreenGraphic:Class = TitleView_TitleScreenGraphic;
+
       private static const COPYRIGHT:String = "© 2010, 2011 by Wild Shadow Studios, Inc.";
        
       
       public var playClicked:Signal;
-      
       public var serversClicked:Signal;
-      
       public var creditsClicked:Signal;
-      
       public var accountClicked:Signal;
-      
       public var legendsClicked:Signal;
-      
       public var editorClicked:Signal;
-      
-      public var quitClicked:Signal;
-      
+
       private var container:Sprite;
-      
+
       private var playButton:TitleMenuOption;
-      
       private var serversButton:TitleMenuOption;
-      
       private var creditsButton:TitleMenuOption;
-      
       private var accountButton:TitleMenuOption;
-      
       private var legendsButton:TitleMenuOption;
-      
       private var editorButton:TitleMenuOption;
-      
-      private var quitButton:TitleMenuOption;
-      
+
       private var versionText:SimpleText;
-      
       private var copyrightText:SimpleText;
-      
       private var darkenFactory:DarkenFactory;
-      
       private var data:EnvironmentData;
       
       public function TitleView()
@@ -93,8 +75,6 @@ package kabam.rotmg.ui.view
          this.container.addChild(this.legendsButton);
          this.editorButton = new TitleMenuOption(ScreenTypes.EDITOR,22,false);
          this.editorClicked = this.editorButton.clicked;
-         this.quitButton = new TitleMenuOption(ScreenTypes.QUIT,22,false);
-         this.quitClicked = this.quitButton.clicked;
          this.versionText = new SimpleText(12,8355711,false,0,0);
          this.versionText.filters = [new DropShadowFilter(0,0,0)];
          this.container.addChild(this.versionText);
@@ -123,7 +103,6 @@ package kabam.rotmg.ui.view
       {
          addChild(this.container);
          this.data.isAdmin && this.container.addChild(this.editorButton);
-         this.data.isDesktop && this.container.addChild(this.quitButton);
       }
       
       private function positionButtons() : void
@@ -140,8 +119,6 @@ package kabam.rotmg.ui.view
          this.legendsButton.y = 532;
          this.editorButton.x = 100;
          this.editorButton.y = 532;
-         this.quitButton.x = 645;
-         this.quitButton.y = 532;
          this.versionText.y = stage.stageHeight - this.versionText.height;
          this.copyrightText.x = stage.stageWidth - this.copyrightText.width;
          this.copyrightText.y = stage.stageHeight - this.copyrightText.height;

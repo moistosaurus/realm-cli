@@ -151,9 +151,9 @@ package com.company.assembleegameclient.parameters
          setDefaultKey("guildChat",KeyCodes.G);
          setDefaultKey("testOne",KeyCodes.J);
          setDefaultKey("testTwo",KeyCodes.K);
-         setDefaultKey("toggleFullscreen",KeyCodes.UNSET);
          setDefaultKey("useHealthPotion",KeyCodes.F);
          setDefaultKey("useMagicPotion",KeyCodes.V);
+         setDefaultKey("switchTabs", KeyCodes.B);
          setDefault("playerObjectType",782);
          setDefault("playMusic",true);
          setDefault("playSFX",true);
@@ -163,7 +163,6 @@ package com.company.assembleegameclient.parameters
          setDefault("cameraAngle",7 * Math.PI / 4);
          setDefault("defaultCameraAngle",7 * Math.PI / 4);
          setDefault("showQuestPortraits",true);
-         setDefault("fullscreenMode",false);
          setDefault("allowRotation",false);
          setDefault("charIdUseMap",{});
          setDefault("drawShadows",true);

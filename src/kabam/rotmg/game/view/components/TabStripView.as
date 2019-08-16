@@ -12,42 +12,24 @@ package kabam.rotmg.game.view.components
    
    public class TabStripView extends Sprite
    {
-      
       public static const TAB_WIDTH:Number = 28;
-      
       public static const TAB_HEIGHT:Number = 35;
-      
       public static const TAB_CORNER_RADIUS:int = 9;
-      
       public static const CONTENT_CORNER_RADIUS:int = 25;
-      
       public static const TAB_TOP_OFFSET:int = 27;
-      
       public static const TAB_X_PADDING:Number = 2;
-      
       public static const TAB_Y_PADDING:Number = 8;
-      
       public static const BACKGROUND_COLOR:uint = 2368034;
-      
       public static const TAB_COLOR:uint = 7039594;
-       
       
-      private var tabs:Vector.<TabView>;
-      
+      public var tabs:Vector.<TabView>;
       private var contents:Vector.<Sprite>;
-      
       private var tabSprite:Sprite;
-      
       private var bgSprite:Sprite;
-      
       private var containerSprite:Sprite;
-      
       public var w:Number;
-      
       public var h:Number;
-      
       public var currentTabIndex:int;
-      
       public const tabSelected:Signal = new Signal(String);
       
       public function TabStripView(w:Number, h:Number)
@@ -79,6 +61,23 @@ package kabam.rotmg.game.view.components
                tab.setSelected(true);
                this.showContent(tab.index);
                this.tabSelected.dispatch(this.contents[tab.index].name);
+            }
+         }
+      }
+
+      public function setSelectedTab(index:uint):void {
+         this.selectTab(this.tabs[index]);
+      }
+
+      private function selectTab(view:TabView):void {
+         var tabFromIndex:TabView;
+         if (view) {
+            tabFromIndex = this.tabs[this.currentTabIndex];
+            if (tabFromIndex.index != view.index) {
+               tabFromIndex.setSelected(false);
+               view.setSelected(true);
+               this.showContent(view.index);
+               this.tabSelected.dispatch(this.contents[view.index].name);
             }
          }
       }

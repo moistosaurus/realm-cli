@@ -18,16 +18,10 @@ package com.company.assembleegameclient.ui.panels
    
    public class PortalPanel extends Panel
    {
-       
-      
       public var owner_:Portal;
-      
       private var nameText_:SimpleText;
-      
       private var enterButton_:TextButton;
-      
       private var fullText_:SimpleText;
-      
       public const exitGameSignal:Signal = new Signal();
       
       public function PortalPanel(gs:GameSprite, owner:Portal)
@@ -90,10 +84,7 @@ package com.company.assembleegameclient.ui.panels
       
       private function enterPortal() : void
       {
-         //var displayId:String = ObjectLibrary.typeToDisplayId_[this.owner_.objectType_];
-         //doneAction(gs_,Tutorial.ENTER_PORTAL_ACTION);
          gs_.gsc_.usePortal(this.owner_.objectId_);
-         //this.exitGameSignal.dispatch();
       }
       
       override public function draw() : void

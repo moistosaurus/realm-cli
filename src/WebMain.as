@@ -70,7 +70,6 @@ package
          stage.scaleMode = StageScaleMode.EXACT_FIT;
          var startup:StartupSignal = this.context.injector.getInstance(StartupSignal);
          startup.dispatch();
-         this.configureForAirIfDesktopPlayer();
       }
       
       private function hackParameters() : void
@@ -109,15 +108,6 @@ package
                  .configure(HUDConfig)
                  .configure(this);
          this.context.logLevel = LogLevel.DEBUG;
-      }
-      
-      private function configureForAirIfDesktopPlayer() : void
-      {
-         if(Capabilities.playerType == "Desktop")
-         {
-            Parameters.data_.fullscreenMode = false;
-            Parameters.save();
-         }
       }
    }
 }

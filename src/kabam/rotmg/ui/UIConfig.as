@@ -29,7 +29,8 @@ package kabam.rotmg.ui
    import kabam.rotmg.account.core.view.RegisterPromptDialogMediator;
    import kabam.rotmg.application.api.ApplicationSetup;
    import kabam.rotmg.game.model.PotionInventoryModel;
-   import kabam.rotmg.game.view.NameChangerPanel;
+import kabam.rotmg.ui.signals.StatsTabHotKeyInputSignal;
+import kabam.rotmg.game.view.NameChangerPanel;
    import kabam.rotmg.game.view.NameChangerPanelMediator;
    import kabam.rotmg.startup.control.StartupSequence;
    import kabam.rotmg.ui.commands.ChooseNameCommand;
@@ -126,6 +127,7 @@ import kabam.rotmg.ui.view.HUDMediator;
          this.injector.map(PotionInventoryModel).asSingleton();
          this.injector.map(UpdatePotionInventorySignal).asSingleton();
          this.injector.map(UpdateBackpackTabSignal).asSingleton();
+         this.injector.map(StatsTabHotKeyInputSignal).asSingleton();
          this.commandMap.map(ShowLoadingUISignal).toCommand(ShowLoadingUICommand);
          this.commandMap.map(ShowTitleUISignal).toCommand(ShowTitleUICommand);
          this.commandMap.map(ChooseNameSignal).toCommand(ChooseNameCommand);

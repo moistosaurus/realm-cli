@@ -15,14 +15,9 @@ package com.company.assembleegameclient.ui.panels
    
    public class GuildHallPortalPanel extends Panel
    {
-       
-      
       private var owner_:GuildHallPortal;
-      
       private var nameText_:SimpleText;
-      
       private var enterButton_:TextButton;
-      
       private var noGuildText_:SimpleText;
       
       public function GuildHallPortalPanel(gs:GameSprite, owner:GuildHallPortal)
@@ -51,6 +46,7 @@ package com.company.assembleegameclient.ui.panels
             this.enterButton_.y = HEIGHT - this.enterButton_.height - 4;
             addChild(this.enterButton_);
             addEventListener(Event.ADDED_TO_STAGE,this.onAdded);
+            addEventListener(Event.REMOVED_FROM_STAGE,this.onRemovedFromStage);
          }
          else
          {
@@ -67,6 +63,11 @@ package com.company.assembleegameclient.ui.panels
       private function onAdded(event:Event) : void
       {
          stage.addEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
+      }
+
+      private function onRemovedFromStage(event:Event) : void
+      {
+         stage.removeEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
       }
       
       private function onEnterSpriteClick(event:MouseEvent) : void

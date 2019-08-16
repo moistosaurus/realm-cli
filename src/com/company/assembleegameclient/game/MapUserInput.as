@@ -30,7 +30,9 @@ package com.company.assembleegameclient.game
    import kabam.rotmg.messaging.impl.GameServerConnection;
    import kabam.rotmg.minimap.control.MiniMapZoomSignal;
    import kabam.rotmg.ui.model.TabStripModel;
-   import net.hires.debug.Stats;
+import kabam.rotmg.ui.signals.StatsTabHotKeyInputSignal;
+
+import net.hires.debug.Stats;
    import org.swiftsuspenders.Injector;
    
    public class MapUserInput
@@ -54,6 +56,7 @@ package com.company.assembleegameclient.game
       private var mouseDownCount:uint;
       private var addTextLine:AddTextLineSignal;
       private var setTextBoxVisibility:SetTextBoxVisibilitySignal;
+      private var statsTabHotKeyInputSignal:StatsTabHotKeyInputSignal;
       private var miniMapZoom:MiniMapZoomSignal;
       private var useBuyPotionSignal:UseBuyPotionSignal;
       private var potionInventoryModel:PotionInventoryModel;
@@ -71,6 +74,7 @@ package com.company.assembleegameclient.game
          var injector:Injector = StaticInjectorContext.getInjector();
          this.addTextLine = injector.getInstance(AddTextLineSignal);
          this.setTextBoxVisibility = injector.getInstance(SetTextBoxVisibilitySignal);
+         this.statsTabHotKeyInputSignal = injector.getInstance(StatsTabHotKeyInputSignal);
          this.miniMapZoom = injector.getInstance(MiniMapZoomSignal);
          this.useBuyPotionSignal = injector.getInstance(UseBuyPotionSignal);
          this.potionInventoryModel = injector.getInstance(PotionInventoryModel);
@@ -361,13 +365,8 @@ package com.company.assembleegameclient.game
                Parameters.data_.centerOnPlayer = !Parameters.data_.centerOnPlayer;
                Parameters.save();
                break;
-            case Parameters.data_.toggleFullscreen:
-               if(Capabilities.playerType == "Desktop")
-               {
-                  Parameters.data_.fullscreenMode = !Parameters.data_.fullscreenMode;
-                  Parameters.save();
-                  stage.displayState = Boolean(Parameters.data_.fullscreenMode)?"fullScreenInteractive":StageDisplayState.NORMAL;
-               }
+            case Parameters.data_.switchTabs:
+               this.statsTabHotKeyInputSignal.dispatch();
                break;
          }
          this.setPlayerMovement();

@@ -8,7 +8,8 @@ package kabam.rotmg.game.view.components
    import kabam.rotmg.constants.GeneralConstants;
    import kabam.rotmg.ui.model.HUDModel;
    import kabam.rotmg.ui.model.TabStripModel;
-   import kabam.rotmg.ui.signals.UpdateBackpackTabSignal;
+import kabam.rotmg.ui.signals.StatsTabHotKeyInputSignal;
+import kabam.rotmg.ui.signals.UpdateBackpackTabSignal;
    import kabam.rotmg.ui.signals.UpdateHUDSignal;
    import kabam.rotmg.ui.view.PotionInventoryView;
    import robotlegs.bender.bundles.mvcs.Mediator;
@@ -34,6 +35,9 @@ package kabam.rotmg.game.view.components
       
       [Inject]
       public var iconFactory:IconFactory;
+
+      [Inject]
+      public var statsTabHotKeyInput:StatsTabHotKeyInputSignal;
       
       public function TabStripMediator()
       {
@@ -44,6 +48,7 @@ package kabam.rotmg.game.view.components
       {
          this.view.tabSelected.add(this.onTabSelected);
          this.updateHUD.addOnce(this.addTabs);
+         this.statsTabHotKeyInput.add(this.onTabHotkey);
       }
       
       override public function destroy() : void
@@ -78,6 +83,13 @@ package kabam.rotmg.game.view.components
             this.addBackPackTab(this.hudModel.gameSprite.map.player_);
             this.updateBackpack.remove(this.onUpdateBackPack);
          }
+      }
+
+      private function onTabHotkey():void
+      {
+         var index:int = (this.view.currentTabIndex + 1);
+         index = (index % this.view.tabs.length);
+         this.view.setSelectedTab(index);
       }
       
       private function addInventoryTab(player:Player) : void

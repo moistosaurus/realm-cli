@@ -13,20 +13,12 @@ package com.company.assembleegameclient.screens
    
    public class NewCharacterScreen extends Sprite
    {
-       
-      
       private var backButton_:TitleMenuOption;
-      
       private var creditDisplay_:CreditDisplay;
-      
       private var boxes_:Object;
-      
       public var tooltip:Signal;
-      
       public var close:Signal;
-      
       public var selected:Signal;
-      
       public var buy:Signal;
       
       private var isInitialized:Boolean = false;

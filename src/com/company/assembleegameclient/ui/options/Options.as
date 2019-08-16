@@ -173,11 +173,6 @@ package com.company.assembleegameclient.ui.options
          this.resetToDefaultsButton_.y = 532;
          this.homeButton_.x = 620;
          this.homeButton_.y = 532;
-         if(Capabilities.playerType == "Desktop")
-         {
-            Parameters.data_.fullscreenMode = stage.displayState == "fullScreenInteractive";
-            Parameters.save();
-         }
          this.setSelected(this.tabs_[0]);
          stage.addEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown,false,1);
          stage.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp,false,1);
@@ -191,12 +186,6 @@ package com.company.assembleegameclient.ui.options
       
       private function onKeyDown(event:KeyboardEvent) : void
       {
-         if(Capabilities.playerType == "Desktop" && event.keyCode == KeyCodes.ESCAPE)
-         {
-            Parameters.data_.fullscreenMode = false;
-            Parameters.save();
-            this.refresh();
-         }
          if(event.keyCode == Parameters.data_.options)
          {
             this.close();
@@ -277,12 +266,9 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new KeyMapper("miniMapZoomOut","Mini-Map Zoom Out","This key will zoom out the minimap"));
          this.addOption(new KeyMapper("escapeToNexus","Escape To Nexus","This key will instantly escape you to the Nexus"));
          this.addOption(new KeyMapper("options","Show Options","This key will bring up the options screen"));
+         this.addOption(new KeyMapper("switchTabs", "Switch Tabs", "This key will switch from available tabs"));
          var key:String = Capabilities.os.split(" ")[0] == "Mac"?"Command":"Ctrl";
          this.addOption(new ChoiceOption("inventorySwap",new <String>["On","Off"],[true,false],"Switch item to/from backpack.","Hold the " + key + " key and click on an item to swap it between your inventory and your backpack.",null));
-         if(Capabilities.playerType == "Desktop")
-         {
-            this.addOption(new KeyMapper("toggleFullscreen","Toggle Fullscreen Mode","Toggle whether the game is " + "run in a window or fullscreen"));
-         }
       }
       
       private function addChatOptions() : void
@@ -304,10 +290,6 @@ package com.company.assembleegameclient.ui.options
          this.addOption(new ChoiceOption("textBubbles",new <String>["On","Off"],[true,false],"Draw Text Bubbles","This toggles whether to draw text bubbles",null));
          this.addOption(new ChoiceOption("showTradePopup",new <String>["On","Off"],[true,false],"Show Trade Request Panel","This toggles whether to show trade requests in the " + "lower-right panel or just in chat.",null));
          this.addOption(new ChoiceOption("showGuildInvitePopup",new <String>["On","Off"],[true,false],"Show Guild Invite Panel","This toggles whether to show guild invites in the " + "lower-right panel or just in chat.",null));
-         if(Capabilities.playerType == "Desktop")
-         {
-            this.addOption(new ChoiceOption("fullscreenMode",new <String>["On","Off"],[true,false],"Fullscreen Mode","This toggles whether the game is run in fullscreen mode.",this.onFullscreenChange));
-         }
       }
       
       private function onDefaultCameraAngleChange() : void
@@ -323,12 +305,7 @@ package com.company.assembleegameclient.ui.options
             this.gs_.map.partyOverlay_.questArrow_.refreshToolTip();
          }
       }
-      
-      private function onFullscreenChange() : void
-      {
-         stage.displayState = Boolean(Parameters.data_.fullscreenMode)?"fullScreenInteractive":StageDisplayState.NORMAL;
-      }
-      
+
       private function addSoundOptions() : void
       {
          this.addOption(new ChoiceOption("playMusic",new <String>["On","Off"],[true,false],"Play Music","This toggles whether music is played",this.onPlayMusicChange));
