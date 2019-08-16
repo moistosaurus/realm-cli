@@ -90,10 +90,10 @@ package com.company.assembleegameclient.ui.panels
       
       private function enterPortal() : void
       {
-         var displayId:String = ObjectLibrary.typeToDisplayId_[this.owner_.objectType_];
-         doneAction(gs_,Tutorial.ENTER_PORTAL_ACTION);
+         //var displayId:String = ObjectLibrary.typeToDisplayId_[this.owner_.objectType_];
+         //doneAction(gs_,Tutorial.ENTER_PORTAL_ACTION);
          gs_.gsc_.usePortal(this.owner_.objectId_);
-         this.exitGameSignal.dispatch();
+         //this.exitGameSignal.dispatch();
       }
       
       override public function draw() : void

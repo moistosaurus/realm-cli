@@ -800,9 +800,9 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       public function usePortal(objectId:int) : void
       {
-         var usePortalMess:UsePortal = this.messages.require(USEPORTAL) as UsePortal;
-         usePortalMess.objectId_ = objectId;
-         this.serverConnection.sendMessage(usePortalMess);
+         var usePortal:UsePortal = this.messages.require(USEPORTAL) as UsePortal;
+         usePortal.objectId_ = objectId;
+         this.serverConnection.sendMessage(usePortal);
       }
       
       public function buy(sellableObjectId:int, currencyType:int) : void
