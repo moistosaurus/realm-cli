@@ -74,7 +74,7 @@ package com.company.assembleegameclient.ui
       {
          var statXML:XML = null;
          var stat:Stat = null;
-         this.stats_ = new Vector.<Stats>();
+         this.stats_ = new Vector.<Stat>();
          this.toolTip_ = new TextToolTip(3552822,10197915,"","",200);
          super();
          this.w_ = w;

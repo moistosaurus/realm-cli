@@ -46,7 +46,14 @@ package kabam.rotmg.account.core.services
       private function updatePlayerData() : void
       {
          this.model.setMaxCharacters(this.model.getMaxCharacters() + 1);
-         this.model.changeCredits(-this.price);
+         if (model.isNextCharSlotCurrencyFame())
+         {
+            this.model.changeFame(-this.price);
+         }
+         else
+         {
+            this.model.changeCredits(-this.price);
+         }
       }
    }
 }

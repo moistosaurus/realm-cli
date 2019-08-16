@@ -12,20 +12,13 @@ package com.company.assembleegameclient.ui
    
    public class TextBoxLine
    {
-      
       private static var ELEMENT_FORMATS:ElementFormats = new ElementFormats();
-       
-      
+
       public var time_:int;
-      
       public var name_:String;
-      
       public var rankIcon_:Sprite = null;
-      
       public var recipient_:String;
-      
       public var toMe_:Boolean;
-      
       public var text_:String;
       
       public function TextBoxLine(time:int, name:String, objectId:int, numStars:int, recipient:String, toMe:Boolean, text:String)

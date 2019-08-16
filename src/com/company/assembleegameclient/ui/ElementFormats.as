@@ -10,30 +10,18 @@ package com.company.assembleegameclient.ui
    
    public class ElementFormats
    {
-      
       private static var FONT_DESCRIPTION:String = "MyriadProBoldCFF,_sans";
-       
       
       public var normalFormat_:ElementFormat = null;
-      
       public var serverFormat_:ElementFormat = null;
-      
       public var clientFormat_:ElementFormat = null;
-      
       public var helpFormat_:ElementFormat = null;
-      
       public var errorFormat_:ElementFormat = null;
-      
       public var adminFormat_:ElementFormat = null;
-      
       public var enemyFormat_:ElementFormat = null;
-      
       public var playerFormat_:ElementFormat = null;
-      
       public var sepFormat_:ElementFormat = null;
-      
       public var tellFormat_:ElementFormat = null;
-      
       public var guildFormat_:ElementFormat = null;
       
       public function ElementFormats()

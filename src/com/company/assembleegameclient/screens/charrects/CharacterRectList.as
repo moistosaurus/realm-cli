@@ -19,16 +19,10 @@ package com.company.assembleegameclient.screens.charrects
    
    public class CharacterRectList extends Sprite
    {
-       
-      
       private var classes:ClassesModel;
-      
       private var model:PlayerModel;
-      
       private var assetFactory:CharacterFactory;
-      
       public var newCharacter:Signal;
-      
       public var buyCharacterSlot:Signal;
       
       public function CharacterRectList()

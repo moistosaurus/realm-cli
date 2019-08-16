@@ -8,61 +8,40 @@ package com.company.assembleegameclient.parameters
    
    public class Parameters
    {
-      
       public static const BUILD_VERSION:String = "7.0";
-      
       public static const MINOR_VERSION:String = "0";
-      
       public static const ENABLE_ENCRYPTION:Boolean = true;
-      
       public static const PORT:int = 2050;
-      
       public static const FELLOW_GUILD_COLOR:uint = 10944349;
-      
       public static const NAME_CHOSEN_COLOR:uint = 16572160;
-      
       public static var root:DisplayObject;
-      
       public static const PLAYER_ROTATE_SPEED:Number = 0.003;
-      
       public static const BREATH_THRESH:int = 20;
-      
       public static const SERVER_CHAT_NAME:String = "";
-      
-      public static const CLIENT_CHAT_NAME:String = "*Client*";
-      
+      public static const CLIENT_CHAT_NAME:String = "*Client*"
       public static const ERROR_CHAT_NAME:String = "*Error*";
-      
       public static const HELP_CHAT_NAME:String = "*Help*";
-      
       public static const GUILD_CHAT_NAME:String = "*Guild*";
-      
       public static const NAME_CHANGE_PRICE:int = 1000;
-      
       public static const GUILD_CREATION_PRICE:int = 1000;
       
       public static var data_:Object = null;
-      
+
       public static const TUTORIAL_GAMEID:int = -1;
-      
       public static const NEXUS_GAMEID:int = -2;
-      
-      public static const RANDOM_REALM_GAMEID:int = -3;
-      
+      public static const NEXUSEXPLANATION_GAMEID:int = -3;
+      public static const VAULT_GAMEID:int = -4;
+      public static const REALM_GAMEID:int = -5;
       public static const MAPTEST_GAMEID:int = -6;
-      
+      public static const GUILDHALL_GAMEID:int = -7;
+
       public static const MAX_SINK_LEVEL:Number = 18;
       
       public static const TERMS_OF_USE_URL:String = "https://www.kabam.com/corporate/terms-of-service";
-      
       public static const PRIVACY_POLICY_URL:String = "https://www.kabam.com/corporate/privacy-policy";
-      
-      public static const HELP_MESSAGE:String = "Help:\n" + "[/pause]: pause the game (until you [/pause] again)\n" + "[/who]: list players online\n" + "[/tutorial]: enter the tutorial\n" + "[/yell <message>]: send message to all players in Nexus\n" + "[/tell <player name> <message>]: send a private message to a player\n" + "[/guild <message>]: send a message to your guild\n" + "[/ignore <player name>]: don\'t show chat messages from player\n" + "[/unignore <player name>]: stop ignoring a player\n" + "[/teleport <player name>]: teleport to a player\n" + "[/trade <player name>]: request a trade with a player\n" + "[/invite <player name>]: invite a player to your guild\n" + "[/join <guild name>]: join a guild (invite necessary)\n" + "[/help]: this message";
-      
+
       public static const RANDOM1:String = "B1A5ED";
-      
       public static const RANDOM2:String = "612a806cac78114ba5013cb531";
-      
       public static const RSA_PUBLIC_KEY:String =
               "-----BEGIN PUBLIC KEY-----\n" +
               "MFswDQYJKoZIhvcNAQEBBQADSgAwRwJAeyjMOLhcK4o2AnFRhn8vPteUy5Fux/cX" +
@@ -70,10 +49,8 @@ package com.company.assembleegameclient.parameters
               "-----END PUBLIC KEY-----";
 
       private static var savedOptions_:SharedObject = null;
-      
       private static var keyNames_:Dictionary = new Dictionary();
-       
-      
+
       public function Parameters()
       {
          super();

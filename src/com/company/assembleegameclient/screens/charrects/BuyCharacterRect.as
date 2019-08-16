@@ -6,20 +6,16 @@ package com.company.assembleegameclient.screens.charrects
    import flash.display.Graphics;
    import flash.display.Shape;
    import flash.filters.DropShadowFilter;
-   import kabam.rotmg.assets.services.IconFactory;
+
+import kabam.rotmg.assets.services.IconFactory;
+import kabam.rotmg.assets.services.IconFactory;
    import kabam.rotmg.core.model.PlayerModel;
    
    public class BuyCharacterRect extends CharacterRect
    {
-       
-      
       private var classNameText_:SimpleText;
-      
-      private var taglineText_:SimpleText;
-      
       private var priceText_:SimpleText;
-      
-      private var coin_:Bitmap;
+      private var currency_:Bitmap;
       
       public function BuyCharacterRect(model:PlayerModel)
       {
@@ -37,17 +33,6 @@ package com.company.assembleegameclient.screens.charrects
          this.classNameText_.x = 58;
          this.classNameText_.y = 2;
          selectContainer.addChild(this.classNameText_);
-         var amountOff:int = 100 - model.getNextCharSlotPrice() / 10;
-         if(amountOff != 0)
-         {
-            this.taglineText_ = new SimpleText(14,11776947,false,0,0);
-            this.taglineText_.text = "Normally 1000 gold.  Save " + amountOff.toString() + "%!";
-            this.taglineText_.updateMetrics();
-            this.taglineText_.filters = [new DropShadowFilter(0,0,0,1,8,8)];
-            this.taglineText_.x = 58;
-            this.taglineText_.y = 24;
-            selectContainer.addChild(this.taglineText_);
-         }
          this.priceText_ = new SimpleText(18,16777215,false,0,0);
          this.priceText_.text = model.getNextCharSlotPrice().toString();
          this.priceText_.updateMetrics();
@@ -55,11 +40,14 @@ package com.company.assembleegameclient.screens.charrects
          this.priceText_.x = WIDTH - 43 - this.priceText_.width;
          this.priceText_.y = 15;
          selectContainer.addChild(this.priceText_);
-         var bd:BitmapData = IconFactory.makeCoin();
-         this.coin_ = new Bitmap(bd);
-         this.coin_.x = WIDTH - 43;
-         this.coin_.y = 14;
-         selectContainer.addChild(this.coin_);
+         var bd:BitmapData =
+                 model.isNextCharSlotCurrencyFame() ?
+                         IconFactory.makeFame() :
+                         IconFactory.makeCoin();
+         this.currency_ = new Bitmap(bd);
+         this.currency_.x = WIDTH - 43;
+         this.currency_.y = 18;
+         selectContainer.addChild(this.currency_);
       }
       
       private function buildIcon() : Shape

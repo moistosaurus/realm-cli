@@ -126,7 +126,7 @@ package com.company.assembleegameclient.game
          this.gs_.map.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
          this.gs_.map.removeEventListener(Event.ENTER_FRAME,this.onEnterFrame);
       }
-      
+
       private function onActivate(event:Event) : void
       {
       }

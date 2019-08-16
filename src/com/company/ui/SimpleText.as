@@ -1,6 +1,11 @@
 package com.company.ui
 {
 
+import com.company.ui.fonts.MyriadPro;
+import com.company.ui.fonts.MyriadProBold;
+import com.company.ui.fonts.MyriadProBoldCFF;
+import com.company.ui.fonts.MyriadProCFF;
+
 import flash.events.Event;
 import flash.text.Font;
 import flash.text.TextField;

@@ -8,7 +8,7 @@ package kabam.rotmg.account.core.control
    public class IsAccountRegisteredGuard implements IGuard
    {
       
-      private static const REGISTER_TO_USE_GOLD:String = "In order to use Gold you must be a registered user.";
+      private static const REGISTER_TO_PURCHASE:String = "In order to make purchase requests you must be a registered user.";
        
       
       [Inject]
@@ -31,7 +31,7 @@ package kabam.rotmg.account.core.control
       
       private function enterRegisterFlow() : void
       {
-         this.openDialog.dispatch(new RegisterPromptDialog(REGISTER_TO_USE_GOLD));
+         this.openDialog.dispatch(new RegisterPromptDialog(REGISTER_TO_PURCHASE));
       }
    }
 }

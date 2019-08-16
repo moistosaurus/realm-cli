@@ -14,8 +14,9 @@ package kabam.rotmg.account.core
    import kabam.rotmg.dialogs.control.CloseDialogsSignal;
    import kabam.rotmg.dialogs.control.OpenDialogSignal;
    import kabam.rotmg.ui.view.CharacterSlotNeedGoldDialog;
-   
-   public class BuyCharacterSlotCommand
+import kabam.rotmg.ui.view.FlexibleDialog;
+
+public class BuyCharacterSlotCommand
    {
        
       
@@ -52,7 +53,7 @@ package kabam.rotmg.account.core
       {
          if(this.isSlotUnaffordable())
          {
-            this.promptToGetMoreGold();
+            this.nonSufficientFunds();
          }
          else
          {
@@ -62,12 +63,16 @@ package kabam.rotmg.account.core
       
       private function isSlotUnaffordable() : Boolean
       {
-         return this.model.getCredits() < this.model.getNextCharSlotPrice();
+         return (this.model.isNextCharSlotCurrencyFame()
+                 ? this.model.getFame() : this.model.getCredits())
+                 < this.model.getNextCharSlotPrice();
       }
       
-      private function promptToGetMoreGold() : void
+      private function nonSufficientFunds() : void
       {
-         this.openDialog.dispatch(new CharacterSlotNeedGoldDialog());
+         this.openDialog.dispatch(
+                 new FlexibleDialog("Not Enough " + (this.model.isNextCharSlotCurrencyFame() ? "Fame" : "Gold"),
+                         "Insufficient funds when trying to buy a slot.", "Close"));
       }
       
       private function purchaseSlot() : void

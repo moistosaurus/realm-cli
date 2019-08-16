@@ -28,6 +28,7 @@ package com.company.assembleegameclient.appengine
       public var credits_:int = 0;
       public var numStars_:int = 0;
       public var nextCharSlotPrice_:int;
+      public var nextCharSlotCurrency_:int;
       public var guildName_:String;
       public var guildRank_:int;
       public var name_:String = null;
@@ -95,6 +96,7 @@ package com.company.assembleegameclient.appengine
          this.fame_ = int(accountXML.Stats.Fame);
          this.credits_ = int(accountXML.Credits);
          this.nextCharSlotPrice_ = int(accountXML.NextCharSlotPrice);
+         this.nextCharSlotCurrency_ = int(accountXML.NextCharSlotCurrency);
          this.hasPlayerDied = !accountXML.hasOwnProperty("isFirstDeath");
       }
 

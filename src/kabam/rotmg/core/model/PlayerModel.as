@@ -74,6 +74,12 @@ package kabam.rotmg.core.model
       {
          return this.charList.fame_;
       }
+
+      public function changeFame(fame:int) : void
+      {
+         this.charList.fame_ = this.charList.fame_ + fame;
+         this.fameChanged.dispatch(this.charList.fame_);
+      }
       
       public function setFame(fame:int) : void
       {
@@ -134,7 +140,17 @@ package kabam.rotmg.core.model
       {
          return this.charList.nextCharSlotPrice_;
       }
-      
+
+      public function getNextCharSlotCurrency() : int
+      {
+         return this.charList.nextCharSlotCurrency_;
+      }
+
+      public function isNextCharSlotCurrencyFame() : Boolean
+      {
+         return getNextCharSlotCurrency() == 1;
+      }
+
       public function getTotalFame() : int
       {
          return this.charList.totalFame_;

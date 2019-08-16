@@ -279,16 +279,6 @@ package com.company.assembleegameclient.ui
          this.timer_.removeEventListener(TimerEvent.TIMER,this.onTimer);
       }
       
-      private function handleCommands(command:String) : Boolean
-      {
-         if(command == "/help")
-         {
-            this.addText(Parameters.HELP_CHAT_NAME,Parameters.HELP_MESSAGE);
-            return true;
-         }
-         return false;
-      }
-      
       private function onKeyUp(event:KeyboardEvent) : void
       {
          switch(event.keyCode)
@@ -379,7 +369,7 @@ package com.company.assembleegameclient.ui
             case Keyboard.ENTER:
                if(this.inputField_.text.length != 0)
                {
-                  if(!this.handleCommands(this.inputField_.text) && this.gs_.map.player_ != null)
+                  if(this.gs_.map.player_ != null)
                   {
                      this.gs_.gsc_.playerText(this.inputField_.text);
                      doneAction(this.gs_,Tutorial.TEXT_ACTION);
