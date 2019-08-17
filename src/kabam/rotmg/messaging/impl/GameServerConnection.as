@@ -725,14 +725,14 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       private function applyUseItem(owner:GameObject, slotId:int, objectType:int, itemData:XML) : void
       {
-         var useItemMess:UseItem = this.messages.require(USEITEM) as UseItem;
-         useItemMess.time_ = getTimer();
-         useItemMess.slotObject_.objectId_ = owner.objectId_;
-         useItemMess.slotObject_.slotId_ = slotId;
-         useItemMess.slotObject_.objectType_ = objectType;
-         useItemMess.itemUsePos_.x_ = 0;
-         useItemMess.itemUsePos_.y_ = 0;
-         this.serverConnection.sendMessage(useItemMess);
+         var useItem:UseItem = this.messages.require(USEITEM) as UseItem;
+         useItem.time_ = getTimer();
+         useItem.slotObject_.objectId_ = owner.objectId_;
+         useItem.slotObject_.slotId_ = slotId;
+         useItem.slotObject_.objectType_ = objectType;
+         useItem.itemUsePos_.x_ = 0;
+         useItem.itemUsePos_.y_ = 0;
+         this.serverConnection.sendMessage(useItem);
          if(itemData.hasOwnProperty("Consumable"))
          {
             owner.equipment_[slotId] = -1;
