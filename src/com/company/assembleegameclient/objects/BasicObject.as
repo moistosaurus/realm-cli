@@ -4,8 +4,10 @@ package com.company.assembleegameclient.objects
    import com.company.assembleegameclient.map.Map;
    import com.company.assembleegameclient.map.Square;
    import flash.display.IGraphicsData;
-   
-   public class BasicObject
+
+import kabam.rotmg.stage3D.Object3D.Object3DStage3D;
+
+public class BasicObject
    {
       private static var nextFakeObjectId_:int = 0;
 
@@ -65,7 +67,11 @@ package com.company.assembleegameclient.objects
       public function draw(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
       }
-      
+
+      public function draw3d(graphicsData3d:Vector.<Object3DStage3D>) : void
+      {
+      }
+
       public function drawShadow(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
       }

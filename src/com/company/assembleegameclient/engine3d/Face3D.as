@@ -15,30 +15,18 @@ package com.company.assembleegameclient.engine3d
    
    public class Face3D
    {
-      
       private static const blackOutFill_:GraphicsSolidFill = new GraphicsSolidFill(0,1);
-       
-      
+
       public var origTexture_:BitmapData;
-      
       public var vin_:Vector.<Number>;
-      
       public var uvt_:Vector.<Number>;
-      
       public var vout_:Vector.<Number>;
-      
       public var backfaceCull_:Boolean;
-      
       public var shade_:Number = 1.0;
-      
       public var blackOut_:Boolean = false;
-      
       private var needGen_:Boolean = true;
-      
       private var textureMatrix_:TextureMatrix = null;
-      
       public var bitmapFill_:GraphicsBitmapFill= new GraphicsBitmapFill(null,null,false,false);
-      
       private var path_:GraphicsPath = new GraphicsPath(new Vector.<int>(),null);
       
       public function Face3D(texture:BitmapData, vin:Vector.<Number>, uvt:Vector.<Number>, backfaceCull:Boolean = false, shading:Boolean = false)

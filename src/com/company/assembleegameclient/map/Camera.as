@@ -11,58 +11,32 @@ package com.company.assembleegameclient.map
    
    public class Camera
    {
-      
       public static const lN_:Vector3D = new Vector3D(0,0,1);
-      
-      private static const CENTER_SCREEN_RECT:Rectangle = new Rectangle(-300,-325,600,600);
-      
-      private static const OFFSET_SCREEN_RECT:Rectangle = new Rectangle(-300,-450,600,600);
-       
-      
+      public static const CENTER_SCREEN_RECT:Rectangle = new Rectangle(-300,-325,600,600);
+      public static const OFFSET_SCREEN_RECT:Rectangle = new Rectangle(-300,-450,600,600);
+
       public var x_:Number;
-      
       public var y_:Number;
-      
       public var z_:Number;
-      
       public var angleRad_:Number;
-      
       public var clipRect_:Rectangle;
-      
       public var pp_:PerspectiveProjection;
-      
       public var maxDist_:Number;
-      
       public var maxDistSq_:Number;
-      
       public var isHallucinating_:Boolean = false;
-      
       public var wToS_:Matrix3D;
-      
       public var wToV_:Matrix3D;
-      
       public var vToS_:Matrix3D;
-      
       public var ppMatrix_:Matrix3D;
-      
       private var nonPPMatrix_:Matrix3D;
-      
       private var p_:Vector3D;
-      
       private var f_:Vector3D;
-      
       private var u_:Vector3D;
-      
       private var r_:Vector3D;
-      
       private var isJittering_:Boolean = false;
-      
       private var jitter_:Number = 0;
-      
       private const MAX_JITTER:Number = 0.5;
-      
       private const JITTER_BUILDUP_MS:int = 10000;
-      
       private var rd_:Vector.<Number>;
       
       public function Camera()

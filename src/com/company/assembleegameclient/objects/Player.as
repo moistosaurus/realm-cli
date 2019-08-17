@@ -43,7 +43,8 @@ import com.company.ui.SimpleText;
    import kabam.rotmg.game.model.AddTextLineVO;
    import kabam.rotmg.game.model.PotionInventoryModel;
    import kabam.rotmg.game.signals.AddTextLineSignal;
-   import kabam.rotmg.ui.model.TabStripModel;
+import kabam.rotmg.stage3D.GraphicsFillExtra;
+import kabam.rotmg.ui.model.TabStripModel;
    import org.swiftsuspenders.Injector;
    
    public class Player extends Character
@@ -520,7 +521,7 @@ import com.company.ui.SimpleText;
          var moveVecAngle:Number = NaN;
          var d:int = 0;
 
-         if(isHealing() && !isPaused())
+         if(isHealing() && !isPaused() && Parameters.data_.eyeCandyParticles)
          {
             if(this.healingEffect_ == null)
             {
@@ -648,6 +649,8 @@ import com.company.ui.SimpleText;
             graphicsData.push(this.breathPath_);
             graphicsData.push(GraphicsUtil.END_FILL);
          }
+         GraphicsFillExtra.setSoftwareDrawSolid(this.breathFill_, true);
+         GraphicsFillExtra.setSoftwareDrawSolid(this.breathBackFill_, true);
       }
       
       override public function draw(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void

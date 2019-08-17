@@ -3,7 +3,8 @@ package com.company.assembleegameclient.parameters
    import com.company.util.KeyCodes;
    import com.company.util.MoreDateUtil;
    import flash.display.DisplayObject;
-   import flash.net.SharedObject;
+import flash.events.Event;
+import flash.net.SharedObject;
    import flash.utils.Dictionary;
    
    public class Parameters
@@ -26,6 +27,7 @@ package com.company.assembleegameclient.parameters
       public static const GUILD_CREATION_PRICE:int = 1000;
       
       public static var data_:Object = null;
+      public static var GPURenderError:Boolean = false;
 
       public static const TUTORIAL_GAMEID:int = -1;
       public static const NEXUS_GAMEID:int = -2;
@@ -115,6 +117,18 @@ package com.company.assembleegameclient.parameters
             data_[keyName] = value;
          }
       }
+
+      public static function isGpuRender():Boolean {
+         return !GPURenderError && data_.GPURender;
+      }
+
+      public static function clearGpuRenderEvent(event:Event):void {
+         clearGpuRender();
+      }
+
+      public static function clearGpuRender():void {
+         GPURenderError = true;
+      }
       
       public static function setDefaults() : void
       {
@@ -172,6 +186,8 @@ package com.company.assembleegameclient.parameters
          setDefault("showGuildInvitePopup",true);
          setDefault("contextualClick",true);
          setDefault("inventorySwap",true);
+         setDefault("GPURender", false);
+         setDefault("eyeCandyParticles", true);
       }
    }
 }

@@ -2,7 +2,8 @@ package kabam.rotmg.ui.view.components
 {
    import com.company.assembleegameclient.map.Map;
    import com.company.assembleegameclient.objects.Player;
-   import com.company.assembleegameclient.ui.panels.itemgrids.itemtiles.InteractiveItemTile;
+import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.ui.panels.itemgrids.itemtiles.InteractiveItemTile;
    import com.company.assembleegameclient.util.DisplayHierarchy;
    import flash.display.DisplayObject;
    import kabam.rotmg.constants.ItemConstants;
@@ -78,7 +79,7 @@ package kabam.rotmg.ui.view.components
          var tile:InteractiveItemTile = null;
          var player:Player = this.hudModel.gameSprite.map.player_;
          var target:* = DisplayHierarchy.getParentWithTypeArray(targetDO,InteractiveItemTile,Map);
-         if(target is Map)
+         if(target is Map || Parameters.isGpuRender() && target == null)
          {
             GameServerConnection.instance.invDrop(player,PotionInventoryModel.getPotionSlot(this.view.objectType),this.view.objectType);
          }

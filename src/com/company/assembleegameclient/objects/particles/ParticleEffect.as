@@ -2,7 +2,9 @@ package com.company.assembleegameclient.objects.particles
 {
    import com.company.assembleegameclient.map.Camera;
    import com.company.assembleegameclient.objects.GameObject;
-   import flash.display.IGraphicsData;
+import com.company.assembleegameclient.parameters.Parameters;
+
+import flash.display.IGraphicsData;
    
    public class ParticleEffect extends GameObject
    {
@@ -17,6 +19,9 @@ package com.company.assembleegameclient.objects.particles
       
       public static function fromProps(effectProps:EffectProperties, go:GameObject) : ParticleEffect
       {
+         if (!Parameters.data_.eyeCandyParticles){
+            return null;
+         }
          switch(effectProps.id)
          {
             case "Healing":

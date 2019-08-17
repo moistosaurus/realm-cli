@@ -1184,7 +1184,9 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
                map.addObj(new HealEffect(go,showEffect.color_),go.x_,go.y_);
                break;
             case ShowEffect.TELEPORT_EFFECT_TYPE:
-               map.addObj(new TeleportEffect(),showEffect.pos1_.x_,showEffect.pos1_.y_);
+               if (Parameters.data_.eyeCandyParticles) {
+                  map.addObj(new TeleportEffect(), showEffect.pos1_.x_, showEffect.pos1_.y_);
+               }
                break;
             case ShowEffect.STREAM_EFFECT_TYPE:
                e = new StreamEffect(showEffect.pos1_,showEffect.pos2_,showEffect.color_);
@@ -1206,22 +1208,24 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
                map.addObj(e,go.x_,go.y_);
                break;
             case ShowEffect.POISON_EFFECT_TYPE:
-               go = map.goDict_[showEffect.targetObjectId_];
-               if(go == null)
-               {
-                  break;
+               if (Parameters.data_.eyeCandyParticles) {
+                  go = map.goDict_[showEffect.targetObjectId_];
+                  if (go == null) {
+                     break;
+                  }
+                  e = new PoisonEffect(go, showEffect.color_);
+                  map.addObj(e, go.x_, go.y_);
                }
-               e = new PoisonEffect(go,showEffect.color_);
-               map.addObj(e,go.x_,go.y_);
                break;
             case ShowEffect.LINE_EFFECT_TYPE:
-               go = map.goDict_[showEffect.targetObjectId_];
-               if(go == null)
-               {
-                  break;
+               if (Parameters.data_.eyeCandyParticles) {
+                  go = map.goDict_[showEffect.targetObjectId_];
+                  if (go == null) {
+                     break;
+                  }
+                  e = new LineEffect(go, showEffect.pos1_, showEffect.color_);
+                  map.addObj(e, showEffect.pos1_.x_, showEffect.pos1_.y_);
                }
-               e = new LineEffect(go,showEffect.pos1_,showEffect.color_);
-               map.addObj(e,showEffect.pos1_.x_,showEffect.pos1_.y_);
                break;
             case ShowEffect.BURST_EFFECT_TYPE:
                go = map.goDict_[showEffect.targetObjectId_];
@@ -1233,13 +1237,14 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
                map.addObj(e,showEffect.pos1_.x_,showEffect.pos1_.y_);
                break;
             case ShowEffect.FLOW_EFFECT_TYPE:
-               go = map.goDict_[showEffect.targetObjectId_];
-               if(go == null)
-               {
-                  break;
+               if (Parameters.data_.eyeCandyParticles) {
+                  go = map.goDict_[showEffect.targetObjectId_];
+                  if (go == null) {
+                     break;
+                  }
+                  e = new FlowEffect(showEffect.pos1_, go, showEffect.color_);
+                  map.addObj(e, showEffect.pos1_.x_, showEffect.pos1_.y_);
                }
-               e = new FlowEffect(showEffect.pos1_,go,showEffect.color_);
-               map.addObj(e,showEffect.pos1_.x_,showEffect.pos1_.y_);
                break;
             case ShowEffect.RING_EFFECT_TYPE:
                go = map.goDict_[showEffect.targetObjectId_];

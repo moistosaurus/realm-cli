@@ -11,9 +11,12 @@ package com.company.assembleegameclient.map
    import com.company.assembleegameclient.parameters.Parameters;
    import com.company.assembleegameclient.util.ConditionEffect;
    import flash.display.Graphics;
-   import flash.display.IGraphicsData;
+import flash.display.GraphicsBitmapFill;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
    import flash.display.Sprite;
-   import flash.filters.BlurFilter;
+import flash.display3D.Context3D;
+import flash.filters.BlurFilter;
    import flash.filters.ColorMatrixFilter;
    import flash.geom.ColorTransform;
    import flash.geom.Point;
@@ -21,80 +24,58 @@ package com.company.assembleegameclient.map
    import flash.utils.Dictionary;
    import kabam.rotmg.core.StaticInjectorContext;
    import kabam.rotmg.game.logging.RollingMeanLoopMonitor;
-   
-   public class Map extends Sprite
+import kabam.rotmg.stage3D.GraphicsFillExtra;
+import kabam.rotmg.stage3D.Object3D.Object3DStage3D;
+import kabam.rotmg.stage3D.Render3D;
+import kabam.rotmg.stage3D.Renderer;
+import kabam.rotmg.stage3D.graphic3D.Program3DFactory;
+import kabam.rotmg.stage3D.graphic3D.TextureFactory;
+
+import org.osflash.signals.Signal;
+
+public class Map extends Sprite
    {
-      
       public static const NEXUS:String = "Nexus";
-      
       private static const VISIBLE_SORT_FIELDS:Array = ["sortVal_","objectId_"];
-      
       private static const VISIBLE_SORT_PARAMS:Array = [Array.NUMERIC,Array.NUMERIC];
-      
       protected static const BLIND_FILTER:ColorMatrixFilter = new ColorMatrixFilter([0.05,0.05,0.05,0,0,0.05,0.05,0.05,0,0,0.05,0.05,0.05,0,0,0.05,0.05,0.05,1,0]);
-      
       protected static var BREATH_CT:ColorTransform = new ColorTransform(255 / 255,55 / 255,0 / 255,0);
-       
-      
+
       private var loopMonitor:RollingMeanLoopMonitor;
-      
       public var gs_:GameSprite;
-      
       public var width_:int;
-      
       public var height_:int;
-      
       public var name_:String;
-      
       public var back_:int;
-      
       public var allowPlayerTeleport_:Boolean;
-      
       public var showDisplays_:Boolean;
-      
       public var background_:Background = null;
-      
       public var map_:Sprite;
-      
       public var hurtOverlay_:HurtOverlay = null;
-      
       public var gradientOverlay_:GradientOverlay = null;
-      
       public var mapOverlay_:MapOverlay = null;
-      
       public var partyOverlay_:PartyOverlay = null;
-      
       public var squareList_:Vector.<Square>;
-      
       public var squares_:Vector.<Square>;
-      
       public var goDict_:Dictionary;
-      
       public var boDict_:Dictionary;
-      
       public var merchLookup_:Object;
-      
       public var player_:Player = null;
-      
       public var party_:Party = null;
-      
       public var quest_:Quest = null;
-      
       private var inUpdate_:Boolean = false;
-      
       private var objsToAdd_:Vector.<BasicObject>;
-      
       private var idsToRemove_:Vector.<int>;
-      
       private var graphicsData_:Vector.<IGraphicsData>;
-      
+      private var graphicsDataStageSoftware_:Vector.<IGraphicsData>;
+      private var graphicsData3d_:Vector.<Object3DStage3D>;
       public var visible_:Array;
-      
       public var visibleUnder_:Array;
-      
       public var visibleSquares_:Vector.<Square>;
-      
       public var topSquares_:Vector.<Square>;
+      public var signalRenderSwitch:Signal;
+      public var wasLastFrameGpu:Boolean = false;
+      private var lastSoftwareClear:Boolean = false;
       
       public function Map(gs:GameSprite)
       {
@@ -107,6 +88,8 @@ package com.company.assembleegameclient.map
          this.objsToAdd_ = new Vector.<BasicObject>();
          this.idsToRemove_ = new Vector.<int>();
          this.graphicsData_ = new Vector.<IGraphicsData>();
+         this.graphicsDataStageSoftware_ = new Vector.<IGraphicsData>();
+         this.graphicsData3d_ = new Vector.<Object3DStage3D>();
          this.visible_ = new Array();
          this.visibleUnder_ = new Array();
          this.visibleSquares_ = new Vector.<Square>();
@@ -120,6 +103,8 @@ package com.company.assembleegameclient.map
          this.party_ = new Party(this);
          this.quest_ = new Quest(this);
          this.loopMonitor = StaticInjectorContext.getInjector().getInstance(RollingMeanLoopMonitor);
+         this.signalRenderSwitch = new Signal();
+         wasLastFrameGpu = Parameters.isGpuRender();
       }
       
       public function setProps(width:int, height:int, name:String, back:int, allowPlayerTeleport:Boolean, showDisplays:Boolean) : void
@@ -183,6 +168,9 @@ package com.company.assembleegameclient.map
          this.quest_ = null;
          this.objsToAdd_ = null;
          this.idsToRemove_ = null;
+         TextureFactory.disposeTextures();
+         GraphicsFillExtra.dispose();
+         Program3DFactory.getInstance().dispose();
       }
       
       public function update(time:int, dt:int) : void
@@ -342,6 +330,23 @@ package com.company.assembleegameclient.map
       
       public function draw(camera:Camera, time:int) : void
       {
+         if (wasLastFrameGpu != Parameters.isGpuRender()) {
+            var context:Context3D = WebMain.STAGE.stage3Ds[0].context3D;
+            if (wasLastFrameGpu == true && context != null &&
+                    context.driverInfo.toLowerCase().indexOf("disposed") == -1) {
+               context.clear();
+               context.present();
+            }
+            else {
+               map_.graphics.clear();
+            }
+            signalRenderSwitch.dispatch(wasLastFrameGpu);
+            wasLastFrameGpu = Parameters.isGpuRender();
+         }
+
+         var filter:uint = 0;
+         var render3D:Render3D = null;
+         var i:int = 0;
          var square:Square = null;
          var go:GameObject = null;
          var bo:BasicObject = null;
@@ -361,16 +366,23 @@ package com.company.assembleegameclient.map
          {
             this.background_.draw(camera,time);
          }
+
          this.visible_.length = 0;
          this.visibleUnder_.length = 0;
          this.visibleSquares_.length = 0;
          this.topSquares_.length = 0;
+
          var delta:int = camera.maxDist_;
          var xStart:int = Math.max(0,screenCenterW.x - delta);
          var xEnd:int = Math.min(this.width_ - 1,screenCenterW.x + delta);
          var yStart:int = Math.max(0,screenCenterW.y - delta);
          var yEnd:int = Math.min(this.height_ - 1,screenCenterW.y + delta);
+
          this.graphicsData_.length = 0;
+         this.graphicsDataStageSoftware_.length = 0;
+         this.graphicsData3d_.length = 0;
+
+         // visible tiles
          for(var xi:int = xStart; xi <= xEnd; xi++)
          {
             for(yi = yStart; yi <= yEnd; yi++)
@@ -394,6 +406,8 @@ package com.company.assembleegameclient.map
                }
             }
          }
+
+         // visible game objects
          for each(go in this.goDict_)
          {
             go.drawn_ = false;
@@ -422,6 +436,8 @@ package com.company.assembleegameclient.map
                }
             }
          }
+
+         // visible basic objects (projectiles, particles and such)
          for each(bo in this.boDict_)
          {
             bo.drawn_ = false;
@@ -433,6 +449,8 @@ package com.company.assembleegameclient.map
                this.visible_.push(bo);
             }
          }
+
+         // draw visible under
          if(this.visibleUnder_.length > 0)
          {
             this.visibleUnder_.sortOn(VISIBLE_SORT_FIELDS,VISIBLE_SORT_PARAMS);
@@ -441,6 +459,8 @@ package com.company.assembleegameclient.map
                bo.draw(this.graphicsData_,camera,time);
             }
          }
+
+         // draw shadows
          this.visible_.sortOn(VISIBLE_SORT_FIELDS,VISIBLE_SORT_PARAMS);
          if(Parameters.data_.drawShadows)
          {
@@ -452,10 +472,17 @@ package com.company.assembleegameclient.map
                }
             }
          }
+
+         // draw visible
          for each(bo in this.visible_)
          {
             bo.draw(this.graphicsData_,camera,time);
+            if (Parameters.isGpuRender()) {
+               bo.draw3d(this.graphicsData3d_);
+            }
          }
+
+         // draw top squares
          if(this.topSquares_.length > 0)
          {
             for each(square in this.topSquares_)
@@ -463,6 +490,8 @@ package com.company.assembleegameclient.map
                square.drawTop(this.graphicsData_,camera,time);
             }
          }
+
+         // draw breath overlay
          if(this.player_ != null && this.player_.breath_ >= 0 && this.player_.breath_ < Parameters.BREATH_THRESH)
          {
             b = (Parameters.BREATH_THRESH - this.player_.breath_) / Parameters.BREATH_THRESH;
@@ -477,6 +506,8 @@ package com.company.assembleegameclient.map
          {
             this.hurtOverlay_.visible = false;
          }
+
+         // draw side bar gradient
          if(this.player_ != null)
          {
             this.gradientOverlay_.visible = true;
@@ -487,9 +518,54 @@ package com.company.assembleegameclient.map
          {
             this.gradientOverlay_.visible = false;
          }
-         var g:Graphics = this.map_.graphics;
-         g.clear();
-         g.drawGraphicsData(this.graphicsData_);
+
+         // draw hw capable screen filters
+         if(Parameters.isGpuRender() && Renderer.inGame)
+         {
+            filter = this.getFilterIndex();
+            render3D = StaticInjectorContext.getInjector().getInstance(Render3D);
+            render3D.dispatch(this.graphicsData_,this.graphicsData3d_,width_,height_,camera,filter);
+            for(i = 0; i < this.graphicsData_.length; i++)
+            {
+               if(this.graphicsData_[i] is GraphicsBitmapFill && GraphicsFillExtra.isSoftwareDraw(GraphicsBitmapFill(this.graphicsData_[i])))
+               {
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i]);
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i + 1]);
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i + 2]);
+               }
+               else if(this.graphicsData_[i] is GraphicsSolidFill && GraphicsFillExtra.isSoftwareDrawSolid(GraphicsSolidFill(this.graphicsData_[i])))
+               {
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i]);
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i + 1]);
+                  this.graphicsDataStageSoftware_.push(this.graphicsData_[i + 2]);
+               }
+            }
+            if(this.graphicsDataStageSoftware_.length > 0)
+            {
+               map_.graphics.clear();
+               map_.graphics.drawGraphicsData(this.graphicsDataStageSoftware_);
+               if(this.lastSoftwareClear)
+               {
+                  this.lastSoftwareClear = false;
+               }
+            }
+            else if(!this.lastSoftwareClear)
+            {
+               map_.graphics.clear();
+               this.lastSoftwareClear = true;
+            }
+            if(time % 149 == 0)
+            {
+               GraphicsFillExtra.manageSize();
+            }
+         }
+         else
+         {
+            map_.graphics.clear();
+            map_.graphics.drawGraphicsData(this.graphicsData_);
+         }
+
+         // draw filters
          this.map_.filters.length = 0;
          if(this.player_ != null && (this.player_.condition_ & ConditionEffect.MAP_FILTER_BITMASK) != 0)
          {
@@ -509,8 +585,29 @@ package com.company.assembleegameclient.map
          {
             this.map_.filters = [];
          }
+
          this.mapOverlay_.draw(camera,time);
          this.partyOverlay_.draw(camera,time);
+      }
+      private function getFilterIndex() : uint
+      {
+         var filterIndex:uint = 0;
+         if(player_ != null && (player_.condition_ & ConditionEffect.MAP_FILTER_BITMASK) != 0)
+         {
+            if(player_.isPaused())
+            {
+               filterIndex = Renderer.STAGE3D_FILTER_PAUSE;
+            }
+            else if(player_.isBlind())
+            {
+               filterIndex = Renderer.STAGE3D_FILTER_BLIND;
+            }
+            else if(player_.isDrunk())
+            {
+               filterIndex = Renderer.STAGE3D_FILTER_DRUNK;
+            }
+         }
+         return filterIndex;
       }
    }
 }

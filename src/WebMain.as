@@ -2,9 +2,12 @@ package
 {
    import com.company.assembleegameclient.parameters.Parameters;
    import com.company.assembleegameclient.util.AssetLoader;
-   import flash.display.LoaderInfo;
+import com.company.assembleegameclient.util.StageProxy;
+
+import flash.display.LoaderInfo;
    import flash.display.Sprite;
-   import flash.display.StageScaleMode;
+import flash.display.Stage;
+import flash.display.StageScaleMode;
    import flash.events.Event;
    import flash.system.Capabilities;
    import kabam.lib.net.NetConfig;
@@ -27,7 +30,8 @@ package
    import kabam.rotmg.minimap.MiniMapConfig;
    import kabam.rotmg.news.NewsConfig;
    import kabam.rotmg.servers.ServersConfig;
-   import kabam.rotmg.startup.StartupConfig;
+import kabam.rotmg.stage3D.Stage3DConfig;
+import kabam.rotmg.startup.StartupConfig;
    import kabam.rotmg.startup.control.StartupSignal;
    import kabam.rotmg.tooltips.TooltipsConfig;
    import kabam.rotmg.ui.UIConfig;
@@ -39,8 +43,8 @@ package
    [SWF(frameRate="60",backgroundColor="#000000",width="800",height="600")]
    public class WebMain extends Sprite
    {
-       
-      
+      public static var STAGE:Stage;
+
       protected var context:IContext;
       
       public function WebMain()
@@ -70,6 +74,7 @@ package
          stage.scaleMode = StageScaleMode.EXACT_FIT;
          var startup:StartupSignal = this.context.injector.getInstance(StartupSignal);
          startup.dispatch();
+         STAGE = stage;
       }
       
       private function hackParameters() : void
@@ -79,8 +84,10 @@ package
       
       private function createContext() : void
       {
+         var stageProxy:StageProxy = new StageProxy(this);
          this.context = new StaticInjectorContext();
          this.context.injector.map(LoaderInfo).toValue(root.stage.root.loaderInfo);
+         this.context.injector.map(StageProxy).toValue(stageProxy);
          this.context
                  .extend(MVCSBundle)
                  .extend(SignalCommandMapExtension)
@@ -105,6 +112,7 @@ package
                  .configure(TooltipsConfig)
                  .configure(MapLoadingConfig)
                  .configure(ClassesConfig)
+                 .configure(Stage3DConfig)
                  .configure(HUDConfig)
                  .configure(this);
          this.context.logLevel = LogLevel.DEBUG;

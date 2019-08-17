@@ -80,7 +80,7 @@ import net.hires.debug.Stats;
          this.potionInventoryModel = injector.getInstance(PotionInventoryModel);
          this.tabStripModel = injector.getInstance(TabStripModel);
          this.layers = injector.getInstance(Layers);
-         var setup:ApplicationSetup = injector.getInstance(ApplicationSetup);
+         this.gs_.map.signalRenderSwitch.add(this.onRenderSwitch);
       }
       
       public function clearInput() : void
@@ -94,6 +94,24 @@ import net.hires.debug.Stats;
          this.mouseDown_ = false;
          this.autofire_ = false;
          this.setPlayerMovement();
+      }
+
+      public function onRenderSwitch(wasLastGpu:Boolean) : void
+      {
+         if(wasLastGpu)
+         {
+            this.gs_.stage.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.stage.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+            this.gs_.map.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.map.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
+         else
+         {
+            this.gs_.map.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.map.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+            this.gs_.stage.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.stage.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
       }
       
       public function setEnablePlayerInput(enable:Boolean) : void
@@ -113,9 +131,18 @@ import net.hires.debug.Stats;
          stage.addEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
          stage.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
          stage.addEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
-         this.gs_.map.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
-         this.gs_.map.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
-         this.gs_.map.addEventListener(Event.ENTER_FRAME,this.onEnterFrame);
+         if(Parameters.isGpuRender())
+         {
+            stage.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            stage.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
+         else
+         {
+            this.gs_.map.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.map.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
+         stage.addEventListener(Event.ENTER_FRAME,this.onEnterFrame);
+         //stage.addEventListener(MouseEvent.RIGHT_CLICK,this.disableRightClick);
       }
       
       private function onRemovedFromStage(event:Event) : void
@@ -126,9 +153,18 @@ import net.hires.debug.Stats;
          stage.removeEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
          stage.removeEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
          stage.removeEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
-         this.gs_.map.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
-         this.gs_.map.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
-         this.gs_.map.removeEventListener(Event.ENTER_FRAME,this.onEnterFrame);
+         if(Parameters.isGpuRender())
+         {
+            stage.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            stage.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
+         else
+         {
+            this.gs_.map.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
+            this.gs_.map.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
+         }
+         stage.removeEventListener(Event.ENTER_FRAME,this.onEnterFrame);
+         //stage.removeEventListener(MouseEvent.RIGHT_CLICK,this.disableRightClick);
       }
 
       private function onActivate(event:Event) : void
@@ -142,6 +178,9 @@ import net.hires.debug.Stats;
       
       private function onMouseDown(event:MouseEvent) : void
       {
+         var mouseX:Number = NaN;
+         var mouseY:Number = NaN;
+         var angle:Number = NaN;
          var itemType:int = 0;
          var objectXML:XML = null;
          var player:Player = this.gs_.map.player_;
@@ -174,11 +213,37 @@ import net.hires.debug.Stats;
             {
                return;
             }
-            player.useAltWeapon(event.localX,event.localY,UseType.START_USE);
+            mouseX = this.gs_.map.mouseX;
+            mouseY = this.gs_.map.mouseY;
+            if(Parameters.isGpuRender())
+            {
+               if(event.currentTarget == event.target || event.target == this.gs_.map || event.target == this.gs_)
+               {
+                  player.useAltWeapon(mouseX,mouseY,UseType.START_USE);
+               }
+            }
+            else
+            {
+               player.useAltWeapon(mouseX,mouseY,UseType.START_USE);
+            }
             return;
          }
          doneAction(this.gs_,Tutorial.ATTACK_ACTION);
-         var angle:Number = Math.atan2(event.localY,event.localX);
+         if(Parameters.isGpuRender())
+         {
+            if(event.currentTarget == event.target || event.target == this.gs_.map || event.target == this.gs_)
+            {
+               angle = Math.atan2(this.gs_.map.mouseY,this.gs_.map.mouseX);
+            }
+            else
+            {
+               return;
+            }
+         }
+         else
+         {
+            angle = Math.atan2(this.gs_.map.mouseY,this.gs_.map.mouseX);
+         }
          player.attemptAttackAngle(angle);
          this.mouseDown_ = true;
       }

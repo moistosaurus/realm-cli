@@ -42,125 +42,71 @@ import com.company.ui.SimpleText;
    import flash.utils.getQualifiedClassName;
    import flash.utils.getTimer;
    import kabam.rotmg.messaging.impl.data.WorldPosData;
-   
-   public class GameObject extends BasicObject
+import kabam.rotmg.stage3D.GraphicsFillExtra;
+import kabam.rotmg.stage3D.Object3D.Object3DStage3D;
+
+public class GameObject extends BasicObject
    {
-      
       private static const ZERO_LIMIT:Number = 0.00001;
-      
       private static const NEGATIVE_ZERO_LIMIT:Number = -ZERO_LIMIT;
-      
       protected static const PAUSED_FILTER:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
-      
       public static const ATTACK_PERIOD:int = 300;
-       
-      
+
       public var props_:ObjectProperties;
-      
       public var name_:String;
-      
       public var radius_:Number = 0.5;
-      
       public var facing_:Number = 0;
-      
       public var flying_:Boolean = false;
-      
       public var attackAngle_:Number = 0;
-      
       public var attackStart_:int = 0;
-      
       public var animatedChar_:AnimatedChar = null;
-      
       public var texture_:BitmapData = null;
-      
       public var mask_:BitmapData = null;
-      
       public var randomTextureData_:Vector.<TextureData> = null;
       
       public var obj3D_:Object3D = null;
-      
+      public var object3d_:Object3DStage3D = null;
       public var effect_:ParticleEffect = null;
-      
       public var animations_:Animations = null;
-      
       public var dead_:Boolean = false;
-      
       protected var portrait_:BitmapData = null;
-      
       protected var texturingCache_:Dictionary = null;
-      
       public var maxHP_:int = 200;
-      
       public var hp_:int = 200;
-      
       public var size_:int = 100;
-      
       public var level_:int = -1;
-      
       public var defense_:int = 0;
-      
       public var slotTypes_:Vector.<int> = null;
-      
       public var equipment_:Vector.<int> = null;
-      
       public var condition_:uint = 0;
-      
       protected var tex1Id_:int = 0;
-      
       protected var tex2Id_:int = 0;
-      
       public var isInteractive_:Boolean = false;
-      
       public var objectType_:int;
-      
       private var nextBulletId_:uint = 1;
-      
       private var sizeMult_:Number = 1;
-      
       public var sinkLevel_:int = 0;
-      
       public var hallucinatingTexture_:BitmapData = null;
-      
       public var flash_:FlashDescription = null;
-      
       public var connectType_:int = -1;
-      
       protected var lastTickUpdateTime_:int = 0;
-      
       protected var myLastTickId_:int = -1;
-      
       protected var posAtTick_:Point;
-      
       protected var tickPosition_:Point;
-      
       protected var moveVec_:Vector3D;
-      
       public var nameText_:SimpleText = null;
-      
       public var nameBitmapData_:BitmapData = null;
-      
       private var nameFill_:GraphicsBitmapFill = null;
-      
       private var namePath_:GraphicsPath = null;
-      
       protected var bitmapFill_:GraphicsBitmapFill;
-      
       protected var path_:GraphicsPath;
-      
       protected var vS_:Vector.<Number>;
-      
       protected var uvt_:Vector.<Number>;
-      
       protected var fillMatrix_:Matrix;
-      
       private var icons_:Vector.<BitmapData> = null;
-      
       private var iconFills_:Vector.<GraphicsBitmapFill> = null;
-      
       private var iconPaths_:Vector.<GraphicsPath> = null;
-      
       protected var shadowGradientFill_:GraphicsGradientFill = null;
-      
       protected var shadowPath_:GraphicsPath = null;
       
       public function GameObject(objectXML:XML)
@@ -199,6 +145,10 @@ import com.company.ui.SimpleText;
          if(objectXML.hasOwnProperty("Model"))
          {
             this.obj3D_ = Model3D.getObject3D(String(objectXML.Model));
+            this.object3d_ = Model3D.getStage3dObject3D(String(objectXML.Model));
+            if (this.texture_ != null) {
+               this.object3d_.setBitMapData(this.texture_);
+            }
          }
          var animationsData:AnimationsData = ObjectLibrary.typeToAnimationsData_[this.objectType_];
          if(animationsData != null)
@@ -371,6 +321,10 @@ import com.company.ui.SimpleText;
          {
             this.obj3D_.dispose();
             this.obj3D_ = null;
+         }
+         if (this.object3d_ != null) {
+            this.object3d_.dispose();
+            this.object3d_ = null;
          }
          this.slotTypes_ = null;
          this.equipment_ = null;
@@ -754,22 +708,19 @@ import com.company.ui.SimpleText;
             }
          }
          var colors:Vector.<uint> = BloodComposition.getBloodComposition(this.objectType_,this.texture_,this.props_.bloodProb_,this.props_.bloodColor_);
-         if(this.dead_)
-         {
-            map_.addObj(new ExplosionEffect(colors,this.size_,30),x_,y_);
-         }
-         else if(proj != null)
-         {
-            map_.addObj(new HitEffect(colors,this.size_,10,proj.angle_,proj.projProps_.speed_),x_,y_);
-         }
-         else
-         {
-            map_.addObj(new ExplosionEffect(colors,this.size_,10),x_,y_);
+         if (Parameters.data_.eyeCandyParticles) {
+            if (this.dead_) {
+               map_.addObj(new ExplosionEffect(colors, this.size_, 30), x_, y_);
+            } else if (proj != null) {
+               map_.addObj(new HitEffect(colors, this.size_, 10, proj.angle_, proj.projProps_.speed_), x_, y_);
+            } else {
+               map_.addObj(new ExplosionEffect(colors, this.size_, 10), x_, y_);
+            }
          }
          if(damageAmount > 0)
          {
             pierced = this.isArmorBroken() || proj != null && proj.projProps_.armorPiercing_;
-            map_.mapOverlay_.addStatusText(new CharacterStatusText(this,"-" + damageAmount,!!pierced?uint(9437439):uint(16711680),1000));
+            map_.mapOverlay_.addStatusText(new CharacterStatusText(this,"-" + damageAmount,pierced?9437439:16711680,1000));
          }
       }
       
@@ -889,17 +840,6 @@ import com.company.ui.SimpleText;
          {
             texture = CachingColorTransformer.filterBitmapData(texture,PAUSED_FILTER);
          }
-         if(this.flash_ != null)
-         {
-            if(!this.flash_.doneAt(time))
-            {
-               texture = this.flash_.apply(texture,time);
-            }
-            else
-            {
-               this.flash_ = null;
-            }
-         }
          if(this.tex1Id_ == 0 && this.tex2Id_ == 0)
          {
             texture = TextureRedrawer.redraw(texture,size,false,0);
@@ -951,7 +891,15 @@ import com.company.ui.SimpleText;
          this.attackAngle_ = attackAngle;
          this.attackStart_ = getTimer();
       }
-      
+
+      override public function draw3d(graphicsData3d:Vector.<Object3DStage3D>) : void
+      {
+         if(this.object3d_ != null)
+         {
+            graphicsData3d.push(this.object3d_);
+         }
+      }
+
       override public function draw(graphicsData:Vector.<IGraphicsData>, camera:Camera, time:int) : void
       {
          var texture:BitmapData = this.getTexture(camera,time);
@@ -972,8 +920,16 @@ import com.company.ui.SimpleText;
          }
          if(this.obj3D_ != null)
          {
-            this.obj3D_.draw(graphicsData,camera,this.props_.color_,texture);
-            return;
+            if(!Parameters.isGpuRender())
+            {
+               this.obj3D_.draw(graphicsData,camera,this.props_.color_,texture);
+               return;
+            }
+            if(Parameters.isGpuRender())
+            {
+               graphicsData.push(null);
+               return;
+            }
          }
          var w:int = texture.width;
          var h:int = texture.height;
@@ -982,9 +938,41 @@ import com.company.ui.SimpleText;
          {
             h2 = 0;
          }
+         if(Parameters.isGpuRender())
+         {
+            if(h2 != 0)
+            {
+               GraphicsFillExtra.setSinkLevel(this.bitmapFill_,Math.max(((h2 / h) * 1.65) - 0.02,0));
+               h2 = -h2 + 0.02;
+            }
+            else if(h2 == 0 && GraphicsFillExtra.getSinkLevel(this.bitmapFill_) != 0)
+            {
+               GraphicsFillExtra.clearSink(this.bitmapFill_);
+            }
+         }
          this.vS_.length = 0;
          this.vS_.push(posS_[3] - w / 2,posS_[4] - h + h2,posS_[3] + w / 2,posS_[4] - h + h2,posS_[3] + w / 2,posS_[4],posS_[3] - w / 2,posS_[4]);
          this.path_.data = this.vS_;
+
+         if(this.flash_ != null)
+         {
+            if(!this.flash_.doneAt(time))
+            {
+               if(Parameters.isGpuRender())
+               {
+                  this.flash_.applyGPUTextureColorTransform(texture,time);
+               }
+               else
+               {
+                  texture = this.flash_.apply(texture,time);
+               }
+            }
+            else
+            {
+               this.flash_ = null;
+            }
+         }
+
          this.bitmapFill_.bitmapData = texture;
          this.fillMatrix_.identity();
          this.fillMatrix_.translate(this.vS_[0],this.vS_[1]);

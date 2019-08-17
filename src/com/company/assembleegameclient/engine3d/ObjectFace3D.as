@@ -1,6 +1,7 @@
 package com.company.assembleegameclient.engine3d
 {
-   import com.company.assembleegameclient.util.TextureRedrawer;
+import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.util.TextureRedrawer;
    import com.company.util.GraphicsUtil;
    import com.company.util.MoreColorUtil;
    import flash.display.BitmapData;
@@ -12,33 +13,22 @@ package com.company.assembleegameclient.engine3d
    import flash.geom.ColorTransform;
    import flash.geom.Matrix;
    import flash.geom.Vector3D;
-   
-   public class ObjectFace3D
+
+import kabam.rotmg.stage3D.GraphicsFillExtra;
+
+public class ObjectFace3D
    {
-       
-      
       public var obj_:Object3D;
-      
       public var indices_:Vector.<int>;
-      
       public var useTexture_:Boolean;
-      
       public var texture_:BitmapData = null;
-      
       public var normalL_:Vector3D = null;
-      
       public var normalW_:Vector3D;
-      
       public var shade_:Number = 1.0;
-      
       private var path_:GraphicsPath;
-      
       private var solidFill_:GraphicsSolidFill = new GraphicsSolidFill(16777215,1);
-      
       public const bitmapFill_:GraphicsBitmapFill = new GraphicsBitmapFill();
-      
       private var tToS_:Matrix;
-      
       private var tempMatrix_:Matrix;
       
       public function ObjectFace3D(obj:Object3D, indices:Vector.<int>, useTexture:Boolean = true)
@@ -113,6 +103,9 @@ package com.company.assembleegameclient.engine3d
          }
          graphicsData.push(this.path_);
          graphicsData.push(GraphicsUtil.END_FILL);
+         //if (Parameters.isGpuRender() && this.bitmapFill_ != null){
+         //   GraphicsFillExtra.setSoftwareDraw(this.bitmapFill_, true);
+         //}
       }
       
       private function tToS(texture:BitmapData) : Matrix

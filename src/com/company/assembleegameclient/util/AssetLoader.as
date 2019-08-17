@@ -128,7 +128,8 @@ package com.company.assembleegameclient.util
          {
             ba = EmbeddedAssets.models_[name];
             model = ba.readUTFBytes(ba.length);
-            Model3D.parseFromOBJ(name,model);
+            Model3D.parse3DOBJ(name, ba);
+            Model3D.parseFromOBJ(name, model);
          }
       }
       

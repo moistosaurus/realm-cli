@@ -276,6 +276,12 @@ import com.company.ui.SimpleText;
          this.addOption(new ChoiceOption("textBubbles",new <String>["On","Off"],[true,false],"Draw Text Bubbles","This toggles whether to draw text bubbles",null));
          this.addOption(new ChoiceOption("showTradePopup",new <String>["On","Off"],[true,false],"Show Trade Request Panel","This toggles whether to show trade requests in the " + "lower-right panel or just in chat.",null));
          this.addOption(new ChoiceOption("showGuildInvitePopup",new <String>["On","Off"],[true,false],"Show Guild Invite Panel","This toggles whether to show guild invites in the " + "lower-right panel or just in chat.",null));
+         this.addOption(new ChoiceOption("eyeCandyParticles", new <String>["On","Off"], [true,false], "Eye Candy Particles", "This toggles whether to show eye candy particles, disabling this will improve performance.", null));
+
+         if (!Parameters.GPURenderError)
+         {
+            this.addOption(new ChoiceOption("GPURender",new <String>["On","Off"],[true,false],"Hardware Acceleration","Enables Hardware Acceleration if your system supports it",null));
+         }
       }
       
       private function onDefaultCameraAngleChange() : void

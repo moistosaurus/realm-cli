@@ -135,14 +135,21 @@ package com.company.assembleegameclient.objects
          }
          if(!this.containerProps_.flying_ && square_.sink_)
          {
-            z_ = 0.1;
+            if (square_.obj_ && square_.obj_.props_.protectFromSink_)
+            {
+               z_ = 0.5;
+            }
+            else
+            {
+               z_ = 0.1;
+            }
          }
          else
          {
             player = map.goDict_[this.ownerId_] as Player;
             if(player != null && player.sinkLevel_ > 0)
             {
-               z_ = 0.5 - 0.4 * (player.sinkLevel_ / Parameters.MAX_SINK_LEVEL);
+               z_ = (0.5 - (0.4 * (player.sinkLevel_ / Parameters.MAX_SINK_LEVEL)));
             }
          }
          return true;
@@ -248,8 +255,10 @@ package com.company.assembleegameclient.objects
             }
             else if(square_.obj_ != null)
             {
-               colors = BloodComposition.getColors(this.texture_);
-               map_.addObj(new HitEffect(colors,100,3,this.angle_,this.projProps_.speed_),p.x,p.y);
+               if (Parameters.data_.eyeCandyParticles) {
+                  colors = BloodComposition.getColors(this.texture_);
+                  map_.addObj(new HitEffect(colors, 100, 3, this.angle_, this.projProps_.speed_), p.x, p.y);
+               }
             }
             return false;
          }
@@ -261,8 +270,10 @@ package com.company.assembleegameclient.objects
             }
             else
             {
-               colors = BloodComposition.getColors(this.texture_);
-               map_.addObj(new HitEffect(colors,100,3,this.angle_,this.projProps_.speed_),p.x,p.y);
+               if (Parameters.data_.eyeCandyParticles) {
+                  colors = BloodComposition.getColors(this.texture_);
+                  map_.addObj(new HitEffect(colors, 100, 3, this.angle_, this.projProps_.speed_), p.x, p.y);
+               }
             }
             return false;
          }

@@ -38,7 +38,8 @@ package com.company.assembleegameclient.game
    import kabam.rotmg.messaging.impl.GameServerConnection;
    import kabam.rotmg.messaging.impl.incoming.MapInfo;
    import kabam.rotmg.servers.api.Server;
-   import kabam.rotmg.ui.UIUtils;
+import kabam.rotmg.stage3D.Renderer;
+import kabam.rotmg.ui.UIUtils;
    import kabam.rotmg.ui.view.HUDView;
    import org.osflash.signals.Signal;
    
@@ -229,6 +230,7 @@ package com.company.assembleegameclient.game
          if(!this.isGameStarted)
          {
             this.isGameStarted = true;
+            Renderer.inGame = true;
             this.gsc_.connect();
             this.idleWatcher_.start(this);
             this.lastUpdate_ = getTimer();
@@ -243,6 +245,7 @@ package com.company.assembleegameclient.game
          if(this.isGameStarted)
          {
             this.isGameStarted = false;
+            Renderer.inGame = false;
             this.idleWatcher_.stop();
             this.gsc_.serverConnection.disconnect();
             stage.removeEventListener(MoneyChangedEvent.MONEY_CHANGED,this.onMoneyChanged);
