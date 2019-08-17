@@ -84,7 +84,7 @@ package com.company.assembleegameclient.ui.panels.mediators
                this.swapItemTiles(sourceTile,targetTile);
             }
          }
-         else if(target is Map)
+         else if(target is Map || this.hudModel.gameSprite.map.mouseX < 300)
          {
             this.dropItem(sourceTile);
          }
