@@ -5,6 +5,7 @@ import com.company.assembleegameclient.util.TextureRedrawer;
 import com.company.util.GraphicsUtil;
 import com.company.util.MoreColorUtil;
 import flash.display.BitmapData;
+import flash.display.GraphicsBitmapFill;
 import flash.display.GraphicsPath;
 import flash.display.GraphicsPathCommand;
 import flash.display.GraphicsSolidFill;
