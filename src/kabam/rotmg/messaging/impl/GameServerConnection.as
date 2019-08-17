@@ -6,7 +6,8 @@ package kabam.rotmg.messaging.impl
    import com.company.assembleegameclient.game.events.ReconnectEvent;
    import com.company.assembleegameclient.map.GroundLibrary;
    import com.company.assembleegameclient.map.Map;
-   import com.company.assembleegameclient.objects.Container;
+import com.company.assembleegameclient.map.mapoverlay.CharacterStatusText;
+import com.company.assembleegameclient.objects.Container;
    import com.company.assembleegameclient.objects.FlashDescription;
    import com.company.assembleegameclient.objects.GameObject;
    import com.company.assembleegameclient.objects.Merchant;
@@ -1117,12 +1118,13 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       private function onNotification(notification:Notification) : void
       {
-         var text:QueuedStatusText = null;
+         // used to be queued
+         var text:CharacterStatusText = null;
          var go:GameObject = this.gs_.map.goDict_[notification.objectId_];
          if(go != null)
          {
-            text = new QueuedStatusText(go,notification.text_,notification.color_,2000);
-            this.gs_.map.mapOverlay_.addQueuedText(text);
+            text = new CharacterStatusText(go,notification.text_,notification.color_,2000);
+            this.gs_.map.mapOverlay_.addStatusText(text);
             if(go == this.player && notification.text_ == "Quest Complete!")
             {
                this.gs_.map.quest_.completed();
@@ -1689,6 +1691,9 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       private function onDeath(death:Death) : void
       {
+         // keep for now, seems to fix the death issue
+         disconnect();
+
          this.death = death;
          var data:BitmapData = new BitmapData(this.gs_.stage.stageWidth,this.gs_.stage.stageHeight);
          data.draw(this.gs_);

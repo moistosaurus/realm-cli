@@ -76,6 +76,10 @@ public class Map extends Sprite
       public var signalRenderSwitch:Signal;
       public var wasLastFrameGpu:Boolean = false;
       private var lastSoftwareClear:Boolean = false;
+
+      // good projectile optimization
+      public var hitTEnemies_:Vector.<GameObject>;
+      public var hitTPlayers_:Vector.<GameObject>;
       
       public function Map(gs:GameSprite)
       {
@@ -104,7 +108,10 @@ public class Map extends Sprite
          this.quest_ = new Quest(this);
          this.loopMonitor = StaticInjectorContext.getInjector().getInstance(RollingMeanLoopMonitor);
          this.signalRenderSwitch = new Signal();
+         this.hitTEnemies_ = new Vector.<GameObject>();
+         this.hitTPlayers_ = new Vector.<GameObject>();
          wasLastFrameGpu = Parameters.isGpuRender();
+         Parameters.GPURenderFrame = wasLastFrameGpu
       }
       
       public function setProps(width:int, height:int, name:String, back:int, allowPlayerTeleport:Boolean, showDisplays:Boolean) : void
@@ -168,21 +175,46 @@ public class Map extends Sprite
          this.quest_ = null;
          this.objsToAdd_ = null;
          this.idsToRemove_ = null;
+         this.hitTPlayers_.length = 0;
+         this.hitTEnemies_.length = 0;
+         this.hitTPlayers_ = null;
+         this.hitTEnemies_ = null;
          TextureFactory.disposeTextures();
          GraphicsFillExtra.dispose();
          Program3DFactory.getInstance().dispose();
       }
-      
+
       public function update(time:int, dt:int) : void
       {
          var bo:BasicObject = null;
+         var go:GameObject = null;
          var objId:int = 0;
          this.inUpdate_ = true;
-         for each(bo in this.goDict_)
+
+         this.hitTPlayers_.length = 0;
+         this.hitTEnemies_.length = 0;
+         for each(go in this.goDict_)
          {
-            if(!bo.update(time,dt))
+            if(!go.update(time,dt))
             {
-               this.idsToRemove_.push(bo.objectId_);
+               this.idsToRemove_.push(go.objectId_);
+            }
+            else
+            {
+               if (go.props_.isEnemy_)
+               {
+                  if (!go.isUntargetable())
+                  {
+                     this.hitTEnemies_.push(go);
+                  }
+               }
+               else if (go.props_.isPlayer_)
+               {
+                  if (!go.isUntargetable())
+                  {
+                     this.hitTPlayers_.push(go);
+                  }
+               }
             }
          }
          for each(bo in this.boDict_)
@@ -330,7 +362,9 @@ public class Map extends Sprite
       
       public function draw(camera:Camera, time:int) : void
       {
-         if (wasLastFrameGpu != Parameters.isGpuRender()) {
+         var isGpuRender:Boolean = Parameters.isGpuRender(); // cache result for faster access
+         Parameters.GPURenderFrame = isGpuRender;
+         if (wasLastFrameGpu != isGpuRender) {
             var context:Context3D = WebMain.STAGE.stage3Ds[0].context3D;
             if (wasLastFrameGpu == true && context != null &&
                     context.driverInfo.toLowerCase().indexOf("disposed") == -1) {
@@ -341,7 +375,7 @@ public class Map extends Sprite
                map_.graphics.clear();
             }
             signalRenderSwitch.dispatch(wasLastFrameGpu);
-            wasLastFrameGpu = Parameters.isGpuRender();
+            wasLastFrameGpu = isGpuRender;
          }
 
          var filter:uint = 0;
@@ -477,7 +511,7 @@ public class Map extends Sprite
          for each(bo in this.visible_)
          {
             bo.draw(this.graphicsData_,camera,time);
-            if (Parameters.isGpuRender()) {
+            if (isGpuRender) {
                bo.draw3d(this.graphicsData3d_);
             }
          }
@@ -520,7 +554,7 @@ public class Map extends Sprite
          }
 
          // draw hw capable screen filters
-         if(Parameters.isGpuRender() && Renderer.inGame)
+         if(isGpuRender && Renderer.inGame)
          {
             filter = this.getFilterIndex();
             render3D = StaticInjectorContext.getInjector().getInstance(Render3D);

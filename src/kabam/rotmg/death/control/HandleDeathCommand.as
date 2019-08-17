@@ -25,9 +25,6 @@ package kabam.rotmg.death.control
       [Inject]
       public var normal:HandleNormalDeathSignal;
       
-      [Inject]
-      public var logger:ILogger;
-      
       public function HandleDeathCommand()
       {
          super();
@@ -35,9 +32,8 @@ package kabam.rotmg.death.control
       
       public function execute() : void
       {
-         this.logger.info("Handle Death");
          this.closeDialogs.dispatch();
-         if(this.isZombieDeathPending())
+         if(this.isDeathPending())
          {
             this.passPreviousDeathToFameView();
          }
@@ -47,7 +43,7 @@ package kabam.rotmg.death.control
          }
       }
       
-      private function isZombieDeathPending() : Boolean
+      private function isDeathPending() : Boolean
       {
          return this.model.getIsDeathViewPending();
       }

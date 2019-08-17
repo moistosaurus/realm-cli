@@ -215,6 +215,9 @@ public class GameObject extends BasicObject
             this.texture_ = textureData.texture_;
             this.mask_ = textureData.mask_;
             this.animatedChar_ = textureData.animatedChar_;
+            if (this.object3d_ != null) {
+               this.object3d_.setBitMapData(this.texture_);
+            }
          }
       }
       
@@ -473,6 +476,11 @@ public class GameObject extends BasicObject
       {
          return (this.condition_ & ConditionEffect.ARMORBROKEN_BIT) != 0;
       }
+
+      public function isUntargetable() :Boolean
+      {
+         return isInvincible() || isPaused() || isStasis() || dead_;
+      }
       
       public function isSafe(size:int = 20) : Boolean
       {
@@ -575,6 +583,10 @@ public class GameObject extends BasicObject
          if(this.obj3D_ != null)
          {
             this.obj3D_.setPosition(x_,y_,0,this.props_.rotation_);
+         }
+         if (this.object3d_ != null)
+         {
+            this.object3d_.setPosition(x_, y_, 0, this.props_.rotation_);
          }
          return true;
       }
@@ -920,12 +932,12 @@ public class GameObject extends BasicObject
          }
          if(this.obj3D_ != null)
          {
-            if(!Parameters.isGpuRender())
+            if(!Parameters.GPURenderFrame)
             {
                this.obj3D_.draw(graphicsData,camera,this.props_.color_,texture);
                return;
             }
-            if(Parameters.isGpuRender())
+            else
             {
                graphicsData.push(null);
                return;
@@ -938,7 +950,7 @@ public class GameObject extends BasicObject
          {
             h2 = 0;
          }
-         if(Parameters.isGpuRender())
+         if(Parameters.GPURenderFrame)
          {
             if(h2 != 0)
             {
@@ -958,7 +970,7 @@ public class GameObject extends BasicObject
          {
             if(!this.flash_.doneAt(time))
             {
-               if(Parameters.isGpuRender())
+               if(Parameters.GPURenderFrame)
                {
                   this.flash_.applyGPUTextureColorTransform(texture,time);
                }

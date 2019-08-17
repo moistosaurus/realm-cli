@@ -79,7 +79,7 @@ import com.company.assembleegameclient.ui.panels.itemgrids.itemtiles.Interactive
          var tile:InteractiveItemTile = null;
          var player:Player = this.hudModel.gameSprite.map.player_;
          var target:* = DisplayHierarchy.getParentWithTypeArray(targetDO,InteractiveItemTile,Map);
-         if(target is Map || Parameters.isGpuRender() && target == null)
+         if(target is Map || Parameters.GPURenderFrame && target == null)
          {
             GameServerConnection.instance.invDrop(player,PotionInventoryModel.getPotionSlot(this.view.objectType),this.view.objectType);
          }

@@ -53,7 +53,7 @@ public class GlowRedrawer
         newTexture.applyFilter(newTexture,newTexture.rect,PointUtil.ORIGIN,TextureRedrawer.OUTLINE_FILTER);
         if(glowColor != 4294967295)
         {
-            if(Parameters.isGpuRender() && glowColor != 0)
+            if(Parameters.GPURenderFrame && glowColor != 0)
             {
                 GLOW_FILTER_ALT.color = glowColor;
                 newTexture.applyFilter(newTexture,newTexture.rect,PointUtil.ORIGIN,GLOW_FILTER_ALT);

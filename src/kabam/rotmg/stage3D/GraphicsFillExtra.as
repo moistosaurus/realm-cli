@@ -13,35 +13,20 @@ package kabam.rotmg.stage3D
    
    public class GraphicsFillExtra
    {
-      
       private static var textureOffsets:Dictionary = new Dictionary();
-      
       private static var textureOffsetsSize:uint = 0;
-      
       private static var waterSinks:Dictionary = new Dictionary();
-      
       private static var waterSinksSize:uint = 0;
-      
       private static var colorTransforms:Dictionary = new Dictionary();
-      
       private static var colorTransformsSize:uint = 0;
-      
       private static var vertexBuffers:Dictionary = new Dictionary();
-      
       private static var vertexBuffersSize:uint = 0;
-      
       private static var softwareDraw:Dictionary = new Dictionary();
-      
       private static var softwareDrawSize:uint = 0;
-      
       private static var softwareDrawSolid:Dictionary = new Dictionary();
-      
       private static var softwareDrawSolidSize:uint = 0;
-      
       private static var lastChecked:uint = 0;
-      
       private static const DEFAULT_OFFSET:Vector.<Number> = Vector.<Number>([0,0,0,0]);
-       
       
       public function GraphicsFillExtra()
       {
@@ -50,7 +35,7 @@ package kabam.rotmg.stage3D
       
       public static function setColorTransform(bitmap:BitmapData, value:ColorTransform) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -80,7 +65,7 @@ package kabam.rotmg.stage3D
       
       public static function setOffsetUV(bitmapFill:GraphicsBitmapFill, u:Number, v:Number) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -100,7 +85,7 @@ package kabam.rotmg.stage3D
       
       private static function testOffsetUV(bitmapFill:GraphicsBitmapFill) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -113,7 +98,7 @@ package kabam.rotmg.stage3D
       
       public static function setSinkLevel(bitmapFill:GraphicsBitmapFill, value:Number) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -135,7 +120,7 @@ package kabam.rotmg.stage3D
       
       public static function setVertexBuffer(bitmapFill:GraphicsBitmapFill, verts:Vector.<Number>) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -162,7 +147,7 @@ package kabam.rotmg.stage3D
       
       public static function clearSink(bitmapFill:GraphicsBitmapFill) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -175,7 +160,7 @@ package kabam.rotmg.stage3D
       
       public static function setSoftwareDraw(bitmapFill:GraphicsBitmapFill, value:Boolean) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }
@@ -197,7 +182,7 @@ package kabam.rotmg.stage3D
       
       public static function setSoftwareDrawSolid(solidFill:GraphicsSolidFill, value:Boolean) : void
       {
-         if(!Parameters.isGpuRender())
+         if(!Parameters.GPURenderFrame)
          {
             return;
          }

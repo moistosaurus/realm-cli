@@ -131,7 +131,7 @@ import net.hires.debug.Stats;
          stage.addEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
          stage.addEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
          stage.addEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
-         if(Parameters.isGpuRender())
+         if(Parameters.GPURenderFrame)
          {
             stage.addEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
             stage.addEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
@@ -153,7 +153,7 @@ import net.hires.debug.Stats;
          stage.removeEventListener(KeyboardEvent.KEY_DOWN,this.onKeyDown);
          stage.removeEventListener(KeyboardEvent.KEY_UP,this.onKeyUp);
          stage.removeEventListener(MouseEvent.MOUSE_WHEEL,this.onMouseWheel);
-         if(Parameters.isGpuRender())
+         if(Parameters.GPURenderFrame)
          {
             stage.removeEventListener(MouseEvent.MOUSE_DOWN,this.onMouseDown);
             stage.removeEventListener(MouseEvent.MOUSE_UP,this.onMouseUp);
@@ -215,7 +215,7 @@ import net.hires.debug.Stats;
             }
             mouseX = this.gs_.map.mouseX;
             mouseY = this.gs_.map.mouseY;
-            if(Parameters.isGpuRender())
+            if(Parameters.GPURenderFrame)
             {
                if(event.currentTarget == event.target || event.target == this.gs_.map || event.target == this.gs_)
                {
@@ -229,7 +229,7 @@ import net.hires.debug.Stats;
             return;
          }
          doneAction(this.gs_,Tutorial.ATTACK_ACTION);
-         if(Parameters.isGpuRender())
+         if(Parameters.GPURenderFrame)
          {
             if(event.currentTarget == event.target || event.target == this.gs_.map || event.target == this.gs_)
             {

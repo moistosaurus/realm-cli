@@ -27,7 +27,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(null,texture_,v4,v1,v2);
       this.faceHelper(null,texture_,v4,v2,v3);
       this.faceHelper(null,texture_,v4,v3,v0);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {
@@ -51,7 +51,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(null,texture_,v7,v6,v2,v3);
       this.faceHelper(null,texture_,v6,v5,v1,v2);
       this.faceHelper(null,texture_,v4,v5,v6,v7);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {
@@ -77,7 +77,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(null,texture_,v9,v8,v3,v4);
       this.faceHelper(N2,texture_,v7,v6,v1,v2);
       this.faceHelper(null,texture_,v5,v6,v7,v8,v9);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {
@@ -100,7 +100,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(N7,texture_,v4,v7,v3,v0);
       this.faceHelper(N3,texture_,v6,v5,v1,v2);
       this.faceHelper(null,texture_,v4,v5,v6,v7);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {
@@ -128,7 +128,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(null,texture_,va,v9,v3,v4);
       this.faceHelper(N0,texture_,v6,vb,v5,v0);
       this.faceHelper(null,texture_,v6,v7,v8,v9,va,vb);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {
@@ -161,7 +161,7 @@ public class CaveWall extends ConnectedObject
       this.faceHelper(N6,texture_,ve,vd,v5,v6);
       this.faceHelper(N0,texture_,v8,vf,v7,v0);
       this.faceHelper(null,texture_,v8,v9,va,vb,vc,vd,ve,vf);
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          for each(face in obj3D_.faces_)
          {

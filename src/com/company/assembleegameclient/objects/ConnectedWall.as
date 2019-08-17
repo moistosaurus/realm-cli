@@ -218,7 +218,7 @@ public class ConnectedWall extends ConnectedObject
       face.texture_ = texture;
       face.bitmapFill_.repeat = this.wallRepeat_;
       obj3D_.faces_.push(face);
-      if(GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.isGpuRender())
+      if(GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.GPURenderFrame)
       {
          n1 = 0;
          n2 = 0;
@@ -256,7 +256,7 @@ public class ConnectedWall extends ConnectedObject
       face.texture_ = texture;
       face.bitmapFill_.repeat = this.wallRepeat_;
       face.normalL_ = normalL;
-      if(!Parameters.isGpuRender() && !forceStage3D)
+      if(!Parameters.GPURenderFrame && !forceStage3D)
       {
          obj3D_.faces_.push(face);
       }
@@ -313,7 +313,7 @@ public class ConnectedWall extends ConnectedObject
       face.texture_ = texture;
       face.bitmapFill_.repeat = this.topRepeat_;
       obj3D_.faces_.push(face);
-      if(indices.length == 6 && Parameters.isGpuRender())
+      if(indices.length == 6 && Parameters.GPURenderFrame)
       {
          face2 = new ObjectFace3D(obj3D_,indices);
          face2.texture_ = texture;
@@ -321,7 +321,7 @@ public class ConnectedWall extends ConnectedObject
          obj3D_.faces_.push(face2);
       }
       var idx:int = 0;
-      if(indices.length == 4 && GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.isGpuRender())
+      if(indices.length == 4 && GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.GPURenderFrame)
       {
          vertexBuffer3D = new Vector.<Number>();
          for(idx = 0; idx < indices.length; idx++)
@@ -342,7 +342,7 @@ public class ConnectedWall extends ConnectedObject
          }
          GraphicsFillExtra.setVertexBuffer(face.bitmapFill_,vertexBuffer3D);
       }
-      else if(indices.length == 6 && GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.isGpuRender())
+      else if(indices.length == 6 && GraphicsFillExtra.getVertexBuffer(face.bitmapFill_) == null && Parameters.GPURenderFrame)
       {
          processing = [0,1,5,2];
          next = [2,3,5,4];

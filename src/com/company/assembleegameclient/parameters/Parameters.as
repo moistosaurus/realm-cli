@@ -19,7 +19,7 @@ import flash.net.SharedObject;
       public static const PLAYER_ROTATE_SPEED:Number = 0.003;
       public static const BREATH_THRESH:int = 20;
       public static const SERVER_CHAT_NAME:String = "";
-      public static const CLIENT_CHAT_NAME:String = "*Client*"
+      public static const CLIENT_CHAT_NAME:String = "*Client*";
       public static const ERROR_CHAT_NAME:String = "*Error*";
       public static const HELP_CHAT_NAME:String = "*Help*";
       public static const GUILD_CHAT_NAME:String = "*Guild*";
@@ -28,6 +28,7 @@ import flash.net.SharedObject;
       
       public static var data_:Object = null;
       public static var GPURenderError:Boolean = false;
+      public static var GPURenderFrame:Boolean = false;
 
       public static const TUTORIAL_GAMEID:int = -1;
       public static const NEXUS_GAMEID:int = -2;

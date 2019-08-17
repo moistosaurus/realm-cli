@@ -331,7 +331,53 @@ package com.company.assembleegameclient.objects
          var dist:Number = NaN;
          var minDist:Number = Number.MAX_VALUE;
          var minGO:GameObject = null;
-         for each(go in map_.goDict_)
+
+         if (damagesEnemies_)
+         {
+            for each(go in map_.hitTEnemies_)
+            {
+               xDiff = go.x_ > pX?Number(go.x_ - pX):Number(pX - go.x_);
+               yDiff = go.y_ > pY?Number(go.y_ - pY):Number(pY - go.y_);
+               if(!(xDiff > go.radius_ || yDiff > go.radius_))
+               {
+                  if(!(this.projProps_.multiHit_ && this.multiHitDict_[go] != null))
+                  {
+                     dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+                     if(dist < minDist)
+                     {
+                        minDist = dist;
+                        minGO = go;
+                     }
+                  }
+               }
+            }
+         }
+         else if (damagesPlayers_)
+         {
+            for each(go in map_.hitTPlayers_)
+            {
+               xDiff = go.x_ > pX?Number(go.x_ - pX):Number(pX - go.x_);
+               yDiff = go.y_ > pY?Number(go.y_ - pY):Number(pY - go.y_);
+               if(!(xDiff > go.radius_ || yDiff > go.radius_))
+               {
+                  if(!(this.projProps_.multiHit_ && this.multiHitDict_[go] != null))
+                  {
+                     if(go == map_.player_)
+                     {
+                        return go;
+                     }
+                     dist = Math.sqrt(xDiff * xDiff + yDiff * yDiff);
+                     if(dist < minDist)
+                     {
+                        minDist = dist;
+                        minGO = go;
+                     }
+                  }
+               }
+            }
+         }
+
+         /*for each(go in map_.goDict_)
          {
             if(!go.isInvincible())
             {
@@ -363,7 +409,7 @@ package com.company.assembleegameclient.objects
                   }
                }
             }
-         }
+         }*/
          return minGO;
       }
       
@@ -378,9 +424,12 @@ package com.company.assembleegameclient.objects
          this.p_.draw(graphicsData,this.staticVector3D_,this.angle_ - camera.angleRad_ + this.props_.angleCorrection_ + r,camera.wToS_,camera,texture);
          if(this.projProps_.particleTrail_)
          {
-            map_.addObj(new SparkParticle(100,16711935,600,0.5,RandomUtil.plusMinus(3),RandomUtil.plusMinus(3)),x_,y_);
-            map_.addObj(new SparkParticle(100,16711935,600,0.5,RandomUtil.plusMinus(3),RandomUtil.plusMinus(3)),x_,y_);
-            map_.addObj(new SparkParticle(100,16711935,600,0.5,RandomUtil.plusMinus(3),RandomUtil.plusMinus(3)),x_,y_);
+            if (Parameters.data_.eyeCandyParticles)
+            {
+               map_.addObj(new SparkParticle(100, 16711935, 600, 0.5, RandomUtil.plusMinus(3), RandomUtil.plusMinus(3)), x_, y_);
+               map_.addObj(new SparkParticle(100, 16711935, 600, 0.5, RandomUtil.plusMinus(3), RandomUtil.plusMinus(3)), x_, y_);
+               map_.addObj(new SparkParticle(100, 16711935, 600, 0.5, RandomUtil.plusMinus(3), RandomUtil.plusMinus(3)), x_, y_);
+            }
          }
       }
       

@@ -69,7 +69,7 @@ public class SquareFace
          xOffset = this.xOffset_;
          yOffset = this.yOffset_;
       }
-      if(Parameters.isGpuRender())
+      if(Parameters.GPURenderFrame)
       {
          GraphicsFillExtra.setOffsetUV(this.face_.bitmapFill_,xOffset,yOffset);
          xOffset = yOffset = 0;
