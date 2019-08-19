@@ -4,12 +4,8 @@ package kabam.rotmg.messaging.impl.incoming
    
    public class Notification extends IncomingMessage
    {
-       
-      
       public var objectId_:int;
-      
       public var text_:String;
-      
       public var color_:int;
       
       public function Notification(id:uint, callback:Function)

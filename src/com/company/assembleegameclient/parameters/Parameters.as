@@ -189,6 +189,10 @@ import flash.net.SharedObject;
          setDefault("inventorySwap",true);
          setDefault("GPURender", false);
          setDefault("eyeCandyParticles", true);
+         setDefault("hpBars", true);
+         setDefault("allyShots", true);
+         setDefault("allyDamage", true);
+         setDefault("allyNotifs", true);
       }
    }
 }

@@ -25,7 +25,8 @@ import com.company.ui.SimpleText;
       private static const CHAT_TAB:String = "Chat";
       private static const GRAPHICS_TAB:String = "Graphics";
       private static const SOUND_TAB:String = "Sound";
-      private static const TABS:Vector.<String> = new <String>[CONTROLS_TAB,HOTKEYS_TAB,CHAT_TAB,GRAPHICS_TAB,SOUND_TAB];
+      private static const MISC_TAB:String = "Misc";
+      private static const TABS:Vector.<String> = new <String>[CONTROLS_TAB,HOTKEYS_TAB,CHAT_TAB,GRAPHICS_TAB,SOUND_TAB,MISC_TAB];
 
       private var gs_:GameSprite;
       private var title_:SimpleText;
@@ -148,6 +149,9 @@ import com.company.ui.SimpleText;
                break;
             case SOUND_TAB:
                this.addSoundOptions();
+               break;
+            case MISC_TAB:
+              this.addMiscOptions();
          }
       }
       
@@ -276,12 +280,19 @@ import com.company.ui.SimpleText;
          this.addOption(new ChoiceOption("textBubbles",new <String>["On","Off"],[true,false],"Draw Text Bubbles","This toggles whether to draw text bubbles",null));
          this.addOption(new ChoiceOption("showTradePopup",new <String>["On","Off"],[true,false],"Show Trade Request Panel","This toggles whether to show trade requests in the " + "lower-right panel or just in chat.",null));
          this.addOption(new ChoiceOption("showGuildInvitePopup",new <String>["On","Off"],[true,false],"Show Guild Invite Panel","This toggles whether to show guild invites in the " + "lower-right panel or just in chat.",null));
-         this.addOption(new ChoiceOption("eyeCandyParticles", new <String>["On","Off"], [true,false], "Eye Candy Particles", "This toggles whether to show eye candy particles, disabling this will improve performance.", null));
-
-         if (!Parameters.GPURenderError)
+          if (!Parameters.GPURenderError)
          {
             this.addOption(new ChoiceOption("GPURender",new <String>["On","Off"],[true,false],"Hardware Acceleration","Enables Hardware Acceleration if your system supports it",null));
          }
+      }
+
+      private function addMiscOptions() : void
+      {
+         this.addOption(new ChoiceOption("eyeCandyParticles", new <String>["On","Off"], [true,false], "Eye Candy Particles", "This toggles whether to show eye candy particles, disabling this will improve performance.", null));
+         this.addOption(new ChoiceOption("hpBars", new <String>["On","Off"], [true,false], "Health Bars", "This toggles whether to health bars under entities (players & enemies).", null));
+         this.addOption(new ChoiceOption("allyShots", new <String>["On","Off"], [true,false], "Ally Shots", "This toggles whether to show and render ally shots. Disable this to improve performance.", null));
+         this.addOption(new ChoiceOption("allyDamage", new <String>["On","Off"], [true,false], "Ally Damage", "This toggles whether to show damage dealt to and by allies. Disable this to improve performance.", null));
+         this.addOption(new ChoiceOption("allyNotifs", new <String>["On","Off"], [true,false], "Ally Notifications", "This toggles whether to show notifications targeted at other players. Disable this to improve performance.", null));
       }
       
       private function onDefaultCameraAngleChange() : void

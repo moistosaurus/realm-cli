@@ -24,34 +24,20 @@ package kabam.rotmg.fame.view
    
    public class FameView extends Sprite
    {
-      
       private static const CHARACTER_INFO:String = "${NAME}, Level ${LEVEL} ${TYPE}";
-      
       private static const DEATH_INFO_LONG:String = "killed on ${DATE} by ${KILLER}";
-      
       private static const DEATH_INFO_SHORT:String = "died ${DATE}";
-       
-      
+
       public var closed:Signal;
-      
       private var infoContainer:DisplayObjectContainer;
-      
       private var overlayContainer:Bitmap;
-      
       private var title:SimpleText;
-      
       private var date:SimpleText;
-      
       private var scoringBox:ScoringBox;
-      
       private var finalLine:ScoreTextLine;
-      
       private var continueBtn:TitleMenuOption;
-      
       private var isAnimation:Boolean;
-      
       private var isFadeComplete:Boolean;
-      
       private var isDataPopulated:Boolean;
       
       public function FameView()

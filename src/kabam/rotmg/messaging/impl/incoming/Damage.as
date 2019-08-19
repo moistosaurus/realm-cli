@@ -4,18 +4,11 @@ package kabam.rotmg.messaging.impl.incoming
    
    public class Damage extends IncomingMessage
    {
-       
-      
       public var targetId_:int;
-      
       public var effects_:Vector.<uint>;
-      
       public var damageAmount_:int;
-      
       public var kill_:Boolean;
-      
       public var bulletId_:uint;
-      
       public var objectId_:int;
       
       public function Damage(id:uint, callback:Function)

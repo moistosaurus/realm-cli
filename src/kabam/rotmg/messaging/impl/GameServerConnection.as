@@ -952,6 +952,15 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       private function onDamage(damage:Damage) : void
       {
+         if (!Parameters.data_.allyDamage)
+         {
+            if (damage.objectId_ != playerId_ && damage.targetId_ != playerId_) // aka nothing to do wit parent player
+            {
+               return;
+            }
+         }
+
+
          var projId:int = 0;
          var map:Map = this.gs_.map;
          var proj:Projectile = null;
@@ -974,6 +983,11 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       private function onServerPlayerShoot(serverPlayerShoot:ServerPlayerShoot) : void
       {
          var needsAck:Boolean = serverPlayerShoot.ownerId_ == this.playerId_;
+         if (!Parameters.data_.allyShots && !needsAck)
+         {
+            return;
+         }
+
          var owner:GameObject = this.gs_.map.goDict_[serverPlayerShoot.ownerId_];
          if(owner == null || owner.dead_)
          {
@@ -995,6 +1009,11 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       
       private function onAllyShoot(allyShoot:AllyShoot) : void
       {
+         if (!Parameters.data_.allyShots)
+         {
+            return;
+         }
+
          var owner:GameObject = this.gs_.map.goDict_[allyShoot.ownerId_];
          if(owner == null || owner.dead_)
          {
@@ -1121,8 +1140,14 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
          // used to be queued
          var text:CharacterStatusText = null;
          var go:GameObject = this.gs_.map.goDict_[notification.objectId_];
+
          if(go != null)
          {
+            if (!Parameters.data_.allyNotifs && go.props_.isPlayer_ && notification.objectId_ != playerId_)
+            {
+               return;
+            }
+
             text = new CharacterStatusText(go,notification.text_,notification.color_,2000);
             this.gs_.map.mapOverlay_.addStatusText(text);
             if(go == this.player && notification.text_ == "Quest Complete!")
@@ -1549,6 +1574,7 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
       {
          var oldLevel:int = 0;
          var oldExp:int = 0;
+         var oldFame:int = 0;
          var newUnlocks:Array = null;
          var type:CharacterClass = null;
          var map:Map = this.gs_.map;
@@ -1559,6 +1585,7 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
             return;
          }
          var isMyObject:Boolean = objectStatus.objectId_ == this.playerId_;
+         var allyNotifs:Boolean = Parameters.data_.allyNotifs;
          if(tickTime != 0 && !isMyObject)
          {
             go.onTickPos(objectStatus.pos_.x_,objectStatus.pos_.y_,tickTime,tickId);
@@ -1568,6 +1595,7 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
          {
             oldLevel = player.level_;
             oldExp = player.exp_;
+            oldFame = player.fame_;
          }
          this.updateGameObject(go,objectStatus.stats_,isMyObject);
          if(player != null && oldLevel != -1)
@@ -1586,12 +1614,20 @@ import kabam.rotmg.ui.view.NotEnoughGoldDialog;
                }
                else
                {
-                  player.levelUpEffect("Level Up!");
+                  if (allyNotifs)
+                  {
+                     player.levelUpEffect("Level Up!");
+                  }
                }
             }
             else if(player.exp_ > oldExp)
             {
+               if (!allyNotifs && !isMyObject)
+               {
+                  return;
+               }
                player.handleExpUp(player.exp_ - oldExp);
+               player.handleFameUp(player.fame_ - oldFame)
             }
          }
       }

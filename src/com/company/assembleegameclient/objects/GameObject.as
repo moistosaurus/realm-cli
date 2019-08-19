@@ -32,7 +32,8 @@ import com.company.ui.SimpleText;
    import flash.display.GraphicsBitmapFill;
    import flash.display.GraphicsGradientFill;
    import flash.display.GraphicsPath;
-   import flash.display.IGraphicsData;
+import flash.display.GraphicsSolidFill;
+import flash.display.IGraphicsData;
    import flash.filters.ColorMatrixFilter;
    import flash.filters.GlowFilter;
    import flash.geom.Matrix;
@@ -51,6 +52,9 @@ public class GameObject extends BasicObject
       private static const NEGATIVE_ZERO_LIMIT:Number = -ZERO_LIMIT;
       protected static const PAUSED_FILTER:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
       public static const ATTACK_PERIOD:int = 300;
+      public static const DEFAULT_HP_BAR_Y_OFFSET:int = 5;
+      public static const DEFAULT_HP_BAR_HEIGHT:int = 4;
+      public static const DEFAULT_HP_BAR_WIDTH:int = 20;
 
       public var props_:ObjectProperties;
       public var name_:String;
@@ -108,6 +112,11 @@ public class GameObject extends BasicObject
       private var iconPaths_:Vector.<GraphicsPath> = null;
       protected var shadowGradientFill_:GraphicsGradientFill = null;
       protected var shadowPath_:GraphicsPath = null;
+
+      private var hpbarBackFill_:GraphicsSolidFill = null;
+      private var hpbarBackPath_:GraphicsPath = null;
+      private var hpbarFill_:GraphicsSolidFill = null;
+      private var hpbarPath_:GraphicsPath = null;
       
       public function GameObject(objectXML:XML)
       {
@@ -334,14 +343,17 @@ public class GameObject extends BasicObject
          this.nameText_ = null;
          if(this.nameBitmapData_ != null)
          {
+            this.namePath_.data.length = 0;
             this.nameBitmapData_.dispose();
             this.nameBitmapData_ = null;
+            this.nameFill_ = null;
+            this.namePath_ = null;
          }
-         this.nameFill_ = null;
-         this.namePath_ = null;
          this.bitmapFill_ = null;
          this.path_.commands = null;
          this.path_.data = null;
+         this.vS_.length = 0;
+         this.uvt_.length = 0;
          this.vS_ = null;
          this.uvt_ = null;
          this.fillMatrix_ = null;
@@ -351,9 +363,20 @@ public class GameObject extends BasicObject
          this.shadowGradientFill_ = null;
          if(this.shadowPath_ != null)
          {
+            this.shadowPath_.data.length = 0;
             this.shadowPath_.commands = null;
             this.shadowPath_.data = null;
             this.shadowPath_ = null;
+         }
+
+         if (this.hpbarPath_ != null)
+         {
+            this.hpbarPath_.data.length = 0;
+            this.hpbarBackPath_.data.length=  0;
+            this.hpbarBackFill_ = null;
+            this.hpbarBackPath_ = null;
+            this.hpbarFill_ = null;
+            this.hpbarPath_ = null;
          }
       }
       
@@ -904,6 +927,46 @@ public class GameObject extends BasicObject
          this.attackStart_ = getTimer();
       }
 
+      protected function drawHpBar(graphicsData:Vector.<IGraphicsData>, yOffset:int = 6) : void
+      {
+         var fPerc:Number = NaN;
+         var bw:Number = NaN;
+         var isPlayer:Boolean = props_.isPlayer_;
+         if(this.hpbarPath_ == null)
+         {
+            this.hpbarBackFill_ = new GraphicsSolidFill();
+            this.hpbarBackPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
+            this.hpbarFill_ = new GraphicsSolidFill();
+            this.hpbarPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS,new Vector.<Number>());
+            this.hpbarBackFill_.color = 5526612;
+            this.hpbarFill_.color = 1113856;
+         }
+
+         var sw:int = size_ / 4;
+         var w:int = isPlayer ? DEFAULT_HP_BAR_WIDTH : (sw < 25) ? 25 : sw;
+         var h:int = isPlayer ? DEFAULT_HP_BAR_HEIGHT : 3;
+         this.hpbarBackPath_.data.length = 0;
+         this.hpbarBackPath_.data.push(posS_[0] - w,posS_[1] + yOffset,posS_[0] + w,posS_[1] + yOffset,posS_[0] + w,posS_[1] + yOffset + h,posS_[0] - w,posS_[1] + yOffset + h);
+
+         graphicsData.push(this.hpbarBackFill_);
+         graphicsData.push(this.hpbarBackPath_);
+         graphicsData.push(GraphicsUtil.END_FILL);
+
+         if(this.hp_ > 0)
+         {
+            fPerc = this.hp_ / this.maxHP_;
+            bw = fPerc * 2 * w;
+            this.hpbarPath_.data.length = 0;
+            this.hpbarPath_.data.push(posS_[0] - w,posS_[1] + yOffset,posS_[0] - w + bw,posS_[1] + yOffset,posS_[0] - w + bw,posS_[1] + yOffset + h,posS_[0] - w,posS_[1] + yOffset + h);
+
+            graphicsData.push(this.hpbarFill_);
+            graphicsData.push(this.hpbarPath_);
+            graphicsData.push(GraphicsUtil.END_FILL);
+         }
+         GraphicsFillExtra.setSoftwareDrawSolid(this.hpbarFill_,true);
+         GraphicsFillExtra.setSoftwareDrawSolid(this.hpbarBackFill_,true);
+      }
+
       override public function draw3d(graphicsData3d:Vector.<Object3DStage3D>) : void
       {
          if(this.object3d_ != null)
@@ -999,6 +1062,17 @@ public class GameObject extends BasicObject
          if(this.props_.showName_ && this.name_ != null && this.name_.length != 0)
          {
             this.drawName(graphicsData,camera);
+         }
+
+         if(Parameters.data_.hpBars)
+         {
+            var bDrawHpBar:Boolean = this.props_ && (this.props_.isEnemy_ || this.props_.isPlayer_) && !this.isInvincible() && (this.props_.isPlayer_ || !this.isInvulnerable()) && !this.props_.noMiniMap_;
+
+            if (bDrawHpBar)
+            {
+               this.drawHpBar(graphicsData,
+           (this.props_.isPlayer_ && this != map_.player_ ? 16 : 0) + DEFAULT_HP_BAR_Y_OFFSET);
+            }
          }
       }
       

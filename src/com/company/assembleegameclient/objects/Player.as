@@ -294,7 +294,16 @@ import kabam.rotmg.ui.model.TabStripModel;
          {
             return;
          }
-         map_.mapOverlay_.addStatusText(new CharacterStatusText(this,"+" + exp + "XP",65280,1000));
+         map_.mapOverlay_.addStatusText(new CharacterStatusText(this,"+" + exp + " EXP",65280,1000));
+      }
+
+      public function handleFameUp(fame:int) : void
+      {
+         if(level_ != 20)
+         {
+            return;
+         }
+         map_.mapOverlay_.addStatusText(new CharacterStatusText(this,"+" + fame + " Fame",0xE25F00,1000));
       }
       
       private function getNearbyMerchant() : Merchant
@@ -632,9 +641,9 @@ import kabam.rotmg.ui.model.TabStripModel;
          {
             this.breathBackFill_.color = 5526612;
          }
-         var w:int = 20;
-         var yOffset:int = 4;
-         var h:int = 6;
+         var w:int = DEFAULT_HP_BAR_WIDTH;
+         var yOffset:int = DEFAULT_HP_BAR_Y_OFFSET + DEFAULT_HP_BAR_HEIGHT;
+         var h:int = DEFAULT_HP_BAR_HEIGHT;
          this.breathBackPath_.data.length = 0;
          this.breathBackPath_.data.push(posS_[0] - w,posS_[1] + yOffset,posS_[0] + w,posS_[1] + yOffset,posS_[0] + w,posS_[1] + yOffset + h,posS_[0] - w,posS_[1] + yOffset + h);
          graphicsData.push(this.breathBackFill_);
