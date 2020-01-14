@@ -23,9 +23,7 @@ package kabam.rotmg.messaging.impl.incoming
          this.accountIds_.length = 0;
          var num:int = data.readShort();
          for(i = 0; i < num; i++)
-         {
-            this.accountIds_.push(data.readInt());
-         }
+            this.accountIds_.push(data.readUTF());
       }
       
       override public function toString() : String
